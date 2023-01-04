@@ -1,0 +1,4626 @@
+[
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Agudah of Greenspring",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6107 Greenspring Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Agudah of Greenspring",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6107 Greenspring Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Agudah of Greenspring",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6107 Greenspring Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Agudah of Greenspring",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6107 Greenspring Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Agudah of Greenspring",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6107 Greenspring Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Agudah of Greenspring",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6107 Greenspring Ave"
+    },
+    {
+        "Time": "6:10:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:10:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Agudath Israel of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6200 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ahavat Shalom",
+        "Nusach": "Sefarhadi",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3009 Northbrook Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ahavat Shalom",
+        "Nusach": "Sefarhadi",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3009 Northbrook Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Ahavat Shalom",
+        "Nusach": "Sefarhadi",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3009 Northbrook Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Ahavat Shalom",
+        "Nusach": "Sefarhadi",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3009 Northbrook Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Ahavat Shalom",
+        "Nusach": "Sefarhadi",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3009 Northbrook Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ahavat Shalom",
+        "Nusach": "Sefarhadi",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3009 Northbrook Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "6:35:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "6:35:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "6:40:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "6:40:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "6:40:00 AM",
+        "Shul": "Aish Kodesh",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6207 Ivymount Rd"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Arugas HaBosem (Rabbi Taub's)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3509 Clarks Ln"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Arugas HaBosem (Rabbi Taub's)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3509 Clarks Ln"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Arugas HaBosem (Rabbi Taub's)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3509 Clarks Ln"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Arugas HaBosem (Rabbi Taub's)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3509 Clarks Ln"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Arugas HaBosem (Rabbi Taub's)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3509 Clarks Ln"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Arugas HaBosem (Rabbi Taub's)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3509 Clarks Ln"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Arugas HaBosem (Rabbi Taub's)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3509 Clarks Ln"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "B\"H and Mesivta of Baltimore (Dirshu Minyan)",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "B\"H and Mesivta of Baltimore (Dirshu Minyan)",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "6:48:00 AM",
+        "Shul": "B\"H and Mesivta of Baltimore (Dirshu Minyan)",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "6:48:00 AM",
+        "Shul": "B\"H and Mesivta of Baltimore (Dirshu Minyan)",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "6:48:00 AM",
+        "Shul": "B\"H and Mesivta of Baltimore (Dirshu Minyan)",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "B\"H and Mesivta of Baltimore (Dirshu Minyan)",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "8:20:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "8:20:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "8:20:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "8:20:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "8:20:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "8:20:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Bais Haknesses Ohr HaChaim",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3120 Clarks Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Hamedrash and Mesivta of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Hamedrash and Mesivta of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Hamedrash and Mesivta of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Hamedrash and Mesivta of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Hamedrash and Mesivta of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Hamedrash and Mesivta of Baltimore",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6823 Old Pimlico Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Bais Medrash of Ranchleigh",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6618 Deancroft Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Bais Medrash of Ranchleigh",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6618 Deancroft Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Bais Medrash of Ranchleigh",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6618 Deancroft Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Bais Medrash of Ranchleigh",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6618 Deancroft Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Bais Medrash of Ranchleigh",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6618 Deancroft Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bais Medrash of Ranchleigh",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6618 Deancroft Rd"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Beit Yaakov",
+        "Nusach": "Sefarhadi",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3615 Seven Mile Ln"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Beit Yaakov",
+        "Nusach": "Sefarhadi",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3615 Seven Mile Ln"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Beit Yaakov",
+        "Nusach": "Sefarhadi",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3615 Seven Mile Ln"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Beit Yaakov",
+        "Nusach": "Sefarhadi",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3615 Seven Mile Ln"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Beit Yaakov",
+        "Nusach": "Sefarhadi",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3615 Seven Mile Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Beit Yaakov",
+        "Nusach": "Sefarhadi",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3615 Seven Mile Ln"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Beth Abraham",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6208 Wallis Ave"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Beth Abraham",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6208 Wallis Ave"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Beth Abraham",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6208 Wallis Ave"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Beth Abraham",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6208 Wallis Ave"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Beth Abraham",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6208 Wallis Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Beth Abraham",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6208 Wallis Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Beth Tfiloh Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3300 Old Court Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Beth Tfiloh Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3300 Old Court Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Beth Tfiloh Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3300 Old Court Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Beth Tfiloh Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3300 Old Court Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Beth Tfiloh Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3300 Old Court Rd"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Beth Tfiloh Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3300 Old Court Rd"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:40:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:40:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Bnai Jacob Shaarei Zion Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6602 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Park Heights",
+        "Nusach": "Ari",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3402 Clarks Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Park Heights",
+        "Nusach": "Ari",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3402 Clarks Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Park Heights",
+        "Nusach": "Ari",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3402 Clarks Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Park Heights",
+        "Nusach": "Ari",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3402 Clarks Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Park Heights",
+        "Nusach": "Ari",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3402 Clarks Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Chabad of Park Heights",
+        "Nusach": "Ari",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3402 Clarks Ln"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Community Kollel Tiferes Moshe Aryeh",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3800 Labyrinth Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Darchei Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3201 Seven Mile Ln"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Derech Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6229 Greenspring Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Derech Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6229 Greenspring Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Derech Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6229 Greenspring Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Derech Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6229 Greenspring Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Derech Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6229 Greenspring Ave"
+    },
+    {
+        "Time": "7:50:00 AM",
+        "Shul": "Derech Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6229 Greenspring Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Kedushas Yisrael",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6004 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Kedushas Yisrael",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6004 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Kedushas Yisrael",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6004 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Kedushas Yisrael",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6004 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Kedushas Yisrael",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6004 Park Heights Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Kedushas Yisrael",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6004 Park Heights Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Kehilath B'nai Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6301 Green Meadow Pkwy"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Kehilath B'nai Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6301 Green Meadow Pkwy"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Kehilath B'nai Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6301 Green Meadow Pkwy"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Kehilath B'nai Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6301 Green Meadow Pkwy"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Kehilath B'nai Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6301 Green Meadow Pkwy"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Kehilath B'nai Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6301 Green Meadow Pkwy"
+    },
+    {
+        "Time": "Neitz (Winter)",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "Neitz (Winter)",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "Neitz (Winter)",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "Neitz (Winter)",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "Neitz (Winter)",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Khal Ahavas Yisroel/ Tzemach Tzedek",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6811 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Bais Nosson",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2901 Taney Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Bais Nosson",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2901 Taney Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Bais Nosson",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2901 Taney Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Bais Nosson",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2901 Taney Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Khal Bais Nosson",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2901 Taney Rd"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Khal Bais Nosson",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "2901 Taney Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Kol Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "2929 Fallstaff Rd"
+    },
+    {
+        "Time": "7:05:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "7:05:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Machzikei Torah (Sternhill's)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6216 Biltmore Ave"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:15:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "9:45:00 AM",
+        "Shul": "Mercaz Torah U'Tefillah (Eichenstein)",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6500 Baythorne Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Kesser Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "8400 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Kesser Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "8400 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Kesser Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "8400 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Kesser Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "8400 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Kesser Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "8400 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Kesser Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "8400 Park Heights Ave"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Shaarei Chaim (Etz Chaim Building)",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3702 Fords Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Shaarei Chaim (Etz Chaim Building)",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3702 Fords Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Shaarei Chaim (Etz Chaim Building)",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3702 Fords Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Shaarei Chaim (Etz Chaim Building)",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3702 Fords Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Shaarei Chaim (Etz Chaim Building)",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3702 Fords Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Mesivta Shaarei Chaim (Etz Chaim Building)",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3702 Fords Ln"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Moses Montefiore Anshe Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "7000 Rockland Hills Dr"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Moses Montefiore Anshe Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "7000 Rockland Hills Dr"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Moses Montefiore Anshe Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "7000 Rockland Hills Dr"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Moses Montefiore Anshe Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "7000 Rockland Hills Dr"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Ner Israel Rabbinical College",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Ner Israel Rabbinical College",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Ner Israel Rabbinical College",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Ner Israel Rabbinical College",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Ner Israel Rabbinical College",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Ner Israel Rabbinical College",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ner Israel Rabbinical College (Mechina)",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ner Israel Rabbinical College (Mechina)",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ner Israel Rabbinical College (Mechina)",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ner Israel Rabbinical College (Mechina)",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ner Israel Rabbinical College (Mechina)",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ner Israel Rabbinical College (Mechina)",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "400 Mt Wilson Ln"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ner Tamid",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6214 Pimlico Road"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ner Tamid",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6214 Pimlico Road"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ner Tamid",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6214 Pimlico Road"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ner Tamid",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6214 Pimlico Road"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ner Tamid",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6214 Pimlico Road"
+    },
+    {
+        "Time": "7:50:00 AM",
+        "Shul": "Ner Tamid",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6214 Pimlico Road"
+    },
+    {
+        "Time": "6:35:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "7:50:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "6:35:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "7:50:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "7:50:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "7:50:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "7:50:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Ohel Moshe",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "2808 Smith Ave"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Ohel Yakov",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "3200 Glen Ave"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Ohel Yakov",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "3200 Glen Ave"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Ohel Yakov",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "3200 Glen Ave"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Ohel Yakov",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "3200 Glen Ave"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Ohel Yakov",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "3200 Glen Ave"
+    },
+    {
+        "Time": "Neitz",
+        "Shul": "Ohel Yakov",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3200 Glen Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Ohel Yakov",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "3200 Glen Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Ohr Hamizrach",
+        "Nusach": "Sefarhadi",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6813 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Ohr Yisroel",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2429 Lightfoot Dr"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Ohr Yisroel",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2429 Lightfoot Dr"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Ohr Yisroel",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2429 Lightfoot Dr"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Ohr Yisroel",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2429 Lightfoot Dr"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Ohr Yisroel",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2429 Lightfoot Dr"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Ohr Yisroel",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "2429 Lightfoot Dr"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Pikesville Jewish Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "7644 Carla Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Shearith Israel Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "5835 Park Heights Ave"
+    },
+    {
+        "Time": "6:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:20:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Shomrei Emunah Congregation",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6221 Greenspring Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Mishmeres",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "2821 W Strathmore Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Mishmeres",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "2821 W Strathmore Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Mishmeres",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "2821 W Strathmore Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Mishmeres",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "2821 W Strathmore Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Shomrei Mishmeres",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "2821 W Strathmore Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Shomrei Mishmeres",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "2821 W Strathmore Ave"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Suburban Orthodox Congregation Toras Chaim",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "7504 Seven Mile Ln"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Talmudical Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "4445 Old Court Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Talmudical Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "4445 Old Court Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Talmudical Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "4445 Old Court Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Talmudical Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "4445 Old Court Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Talmudical Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "4445 Old Court Rd"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Talmudical Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "4445 Old Court Rd"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "The Adas: Chofetz Chaim Adas Bnei Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "5915 Park Heights Ave"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "The Adas: Chofetz Chaim Adas Bnei Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "5915 Park Heights Ave"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "The Adas: Chofetz Chaim Adas Bnei Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "5915 Park Heights Ave"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "The Adas: Chofetz Chaim Adas Bnei Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "5915 Park Heights Ave"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "The Adas: Chofetz Chaim Adas Bnei Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "5915 Park Heights Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "The Adas: Chofetz Chaim Adas Bnei Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "5915 Park Heights Ave"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "The Shul at the Lubavitch Center",
+        "Nusach": "Ari",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6701 Old Pimlico Rd"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "The Shul at the Lubavitch Center",
+        "Nusach": "Ari",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6701 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "The Shul at the Lubavitch Center",
+        "Nusach": "Ari",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6701 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "The Shul at the Lubavitch Center",
+        "Nusach": "Ari",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6701 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "The Shul at the Lubavitch Center",
+        "Nusach": "Ari",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6701 Old Pimlico Rd"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "The Shul at the Lubavitch Center",
+        "Nusach": "Ari",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6701 Old Pimlico Rd"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Tiferes Yisroel",
+        "Nusach": "Sefard",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6201 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Tiferes Yisroel",
+        "Nusach": "Sefard",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6201 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Tiferes Yisroel",
+        "Nusach": "Sefard",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6201 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Tiferes Yisroel",
+        "Nusach": "Sefard",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6201 Park Heights Ave"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Tiferes Yisroel",
+        "Nusach": "Sefard",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6201 Park Heights Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Tiferes Yisroel",
+        "Nusach": "Sefard",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6201 Park Heights Ave"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Tzeirah Anash",
+        "Nusach": "Ari",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6706 Cross County Blvd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Tzeirah Anash",
+        "Nusach": "Ari",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6706 Cross County Blvd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Tzeirah Anash",
+        "Nusach": "Ari",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6706 Cross County Blvd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Tzeirah Anash",
+        "Nusach": "Ari",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6706 Cross County Blvd"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Tzeirah Anash",
+        "Nusach": "Ari",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6706 Cross County Blvd"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Tzeirah Anash",
+        "Nusach": "Ari",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6706 Cross County Blvd"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Yeshiva Tiferes Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Baltimore",
+        "Address": "6819 Williamson Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Yeshiva Tiferes Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Baltimore",
+        "Address": "6819 Williamson Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Yeshiva Tiferes Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Baltimore",
+        "Address": "6819 Williamson Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Yeshiva Tiferes Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Baltimore",
+        "Address": "6819 Williamson Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Yeshiva Tiferes Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Baltimore",
+        "Address": "6819 Williamson Ave"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Yeshiva Tiferes Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Baltimore",
+        "Address": "6819 Williamson Ave"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Beth Joshua Congregation / Melvin J. Berman Hebrew Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "13300 Arctic Ave, Rockville, MD 20853"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Beth Joshua Congregation / Melvin J. Berman Hebrew Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "13300 Arctic Ave, Rockville, MD 20853"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Beth Joshua Congregation / Melvin J. Berman Hebrew Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "13300 Arctic Ave, Rockville, MD 20853"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Beth Joshua Congregation / Melvin J. Berman Hebrew Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "13300 Arctic Ave, Rockville, MD 20853"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Beth Joshua Congregation / Melvin J. Berman Hebrew Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "13300 Arctic Ave, Rockville, MD 20853"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Beth Joshua Congregation / Melvin J. Berman Hebrew Academy",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "13300 Arctic Ave, Rockville, MD 20853"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Chabad of Potomac",
+        "Nusach": "Ari",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "11621 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Chabad of Potomac",
+        "Nusach": "Ari",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "11621 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Chabad of Potomac",
+        "Nusach": "Ari",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "11621 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Chabad of Potomac",
+        "Nusach": "Ari",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "11621 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Chabad of Potomac",
+        "Nusach": "Ari",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "11621 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Chabad of Potomac",
+        "Nusach": "Ari",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "11621 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Silver Spring",
+        "Nusach": "Ari",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "519 Lamberton Dr, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Silver Spring",
+        "Nusach": "Ari",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "519 Lamberton Dr, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Silver Spring",
+        "Nusach": "Ari",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "519 Lamberton Dr, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Silver Spring",
+        "Nusach": "Ari",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "519 Lamberton Dr, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Chabad of Silver Spring",
+        "Nusach": "Ari",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "519 Lamberton Dr, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "9:00:00 AM",
+        "Shul": "Chabad of Silver Spring",
+        "Nusach": "Ari",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "519 Lamberton Dr, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Chabad of Upper Montgomery County",
+        "Nusach": "Ari",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "11520 Darnestown Rd, Gaithersburg, MD 20878"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Chabad of Upper Montgomery County",
+        "Nusach": "Ari",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "11520 Darnestown Rd, Gaithersburg, MD 20878"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Chabad of Upper Montgomery County",
+        "Nusach": "Ari",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "11520 Darnestown Rd, Gaithersburg, MD 20878"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Chabad of Upper Montgomery County",
+        "Nusach": "Ari",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "11520 Darnestown Rd, Gaithersburg, MD 20878"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Chabad of Upper Montgomery County",
+        "Nusach": "Ari",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "11520 Darnestown Rd, Gaithersburg, MD 20878"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Chabad of Upper Montgomery County",
+        "Nusach": "Ari",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "11520 Darnestown Rd, Gaithersburg, MD 20878"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "JROC",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "11304 Old Georgetown Rd, Rockville, MD 20852"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "JROC",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "11304 Old Georgetown Rd, Rockville, MD 20852"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "JROC",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "11304 Old Georgetown Rd, Rockville, MD 20852"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "JROC",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "11304 Old Georgetown Rd, Rockville, MD 20852"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "JROC",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "11304 Old Georgetown Rd, Rockville, MD 20852"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "JROC",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "11304 Old Georgetown Rd, Rockville, MD 20852"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Kemp Mill Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "11910 Kemp Mill Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Kemp Mill Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "11910 Kemp Mill Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Kemp Mill Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "11910 Kemp Mill Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Kemp Mill Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "11910 Kemp Mill Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Kemp Mill Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "11910 Kemp Mill Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Kemp Mill Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "11910 Kemp Mill Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Kemp Mill Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "11910 Kemp Mill Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Kesher Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "2801 N Street, NW Washington, DC 20007"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Kesher Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "2801 N Street, NW Washington, DC 20007"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Kesher Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "2801 N Street, NW Washington, DC 20007"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Kesher Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "2801 N Street, NW Washington, DC 20007"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Kesher Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "2801 N Street, NW Washington, DC 20007"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Kesher Israel",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "2801 N Street, NW Washington, DC 20007"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Magen David Sephardic Congregation",
+        "Nusach": "Sefarhadi",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "11215 Woodglen Dr, North Bethesda, MD 20852"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Magen David Sephardic Congregation",
+        "Nusach": "Sefarhadi",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "11215 Woodglen Dr, North Bethesda, MD 20852"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Magen David Sephardic Congregation",
+        "Nusach": "Sefarhadi",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "11215 Woodglen Dr, North Bethesda, MD 20852"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Ohev Shalom Talmud Torah OLNEY",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "18320 Georgia Ave, Olney, MD 20832"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Ohev Shalom Talmud Torah OLNEY",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "18320 Georgia Ave, Olney, MD 20832"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Ohev Shalom Talmud Torah OLNEY",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "18320 Georgia Ave, Olney, MD 20832"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Ohev Shalom Talmud Torah OLNEY",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "18320 Georgia Ave, Olney, MD 20832"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Ohev Shalom Talmud Torah OLNEY",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "18320 Georgia Ave, Olney, MD 20832"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Ohev Shalom Talmud Torah OLNEY",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "18320 Georgia Ave, Olney, MD 20832"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Ohev Sholom Talmud Torah/The National Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1600 Jonquil St NW, Washington, DC 20012"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Ohev Sholom Talmud Torah/The National Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1600 Jonquil St NW, Washington, DC 20012"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Ohev Sholom Talmud Torah/The National Synagogue",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1600 Jonquil St NW, Washington, DC 20012"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohr Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1009 Kersey Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohr Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1010 Kersey Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohr Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1011 Kersey Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohr Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1012 Kersey Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Ohr Hatorah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1013 Kersey Rd, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Silver Spring Jewish Center",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1401 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Silver Spring Jewish Center",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1401 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Silver Spring Jewish Center",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1401 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Silver Spring Jewish Center",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1401 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Silver Spring Jewish Center",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1401 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Silver Spring Jewish Center",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1401 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Southeast Hebrew Congregation, Knesset Yehoshua",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "10900 Lockwood Dr, Silver Spring, MD 20901"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Southeast Hebrew Congregation, Knesset Yehoshua",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "10900 Lockwood Dr, Silver Spring, MD 20901"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Southeast Hebrew Congregation, Knesset Yehoshua",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "10900 Lockwood Dr, Silver Spring, MD 20901"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Southeast Hebrew Congregation, Knesset Yehoshua",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "10900 Lockwood Dr, Silver Spring, MD 20901"
+    },
+    {
+        "Time": "6:25:00 AM",
+        "Shul": "Southeast Hebrew Congregation, Knesset Yehoshua",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "10900 Lockwood Dr, Silver Spring, MD 20901"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Southeast Hebrew Congregation, Knesset Yehoshua",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "10900 Lockwood Dr, Silver Spring, MD 20901"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Southeast Hebrew Congregation, Knesset Yehoshua",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "10900 Lockwood Dr, Silver Spring, MD 20901"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Woodside Synagogue/Ahavas Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "9001 Georgia Ave, Silver Spring, MD 20910"
+    },
+    {
+        "Time": "6:50:00 AM",
+        "Shul": "Woodside Synagogue/Ahavas Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "9001 Georgia Ave, Silver Spring, MD 20910"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Woodside Synagogue/Ahavas Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "9001 Georgia Ave, Silver Spring, MD 20910"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Woodside Synagogue/Ahavas Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "9001 Georgia Ave, Silver Spring, MD 20910"
+    },
+    {
+        "Time": "7:00:00 AM",
+        "Shul": "Woodside Synagogue/Ahavas Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "9001 Georgia Ave, Silver Spring, MD 20910"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Woodside Synagogue/Ahavas Torah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "9001 Georgia Ave, Silver Spring, MD 20910"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Yeshiva Gedola of Greater Washington",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1216 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Yeshiva Gedola of Greater Washington",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1216 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Yeshiva Gedola of Greater Washington",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1216 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Yeshiva Gedola of Greater Washington",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1216 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Yeshiva Gedola of Greater Washington",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1216 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:45:00 AM",
+        "Shul": "Yeshiva Gedola of Greater Washington",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1216 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Young Israel Ezras Israel of Potomac",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "11618 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "6:20:00 AM",
+        "Shul": "Young Israel Ezras Israel of Potomac",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "11618 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Young Israel Ezras Israel of Potomac",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "11618 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Young Israel Ezras Israel of Potomac",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "11618 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Young Israel Ezras Israel of Potomac",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "11618 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "8:00:00 AM",
+        "Shul": "Young Israel Ezras Israel of Potomac",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "11618 Seven Locks Rd, Potomac, MD 20854"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:35:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:35:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:45:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:35:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:35:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:35:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "6:55:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:35:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "8:45:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Asheknaz",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Sefarhadi",
+        "Day": "Monday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Sefarhadi",
+        "Day": "Thursday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Sefarhadi",
+        "Day": "Tuesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Sefarhadi",
+        "Day": "Wednesday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:15:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Sefarhadi",
+        "Day": "Friday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    },
+    {
+        "Time": "7:30:00 AM",
+        "Shul": "Young Israel Shomrai Emunah",
+        "Nusach": "Sefarhadi",
+        "Day": "Sunday",
+        "City": "Greater Washington",
+        "Address": "1132 Arcola Ave, Silver Spring, MD 20902"
+    }
+]

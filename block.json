@@ -1,0 +1,12 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "llc/minyan-times",
+    "title": "Minyan Times Block",
+    "description": "A component that organizes prayer times by location or time block...",
+    "editorScript": "file:./build/editor.js",
+    "editorStyle": "file:./build/styles.css",
+    "viewScript": "file:./build/frontend.js",
+    "style": "file:./build/styles.css",
+    "category": "widgets"
+}

@@ -1,0 +1,6 @@
+.minyan-times-wrapper,
+#headlessui-portal-root {
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
+}
