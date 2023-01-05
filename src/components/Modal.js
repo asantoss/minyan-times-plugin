@@ -1,8 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { classNames } from '../utils';
 
-export default function MyModal({ title, children, buttonColor }) {
+export default function Modal({ title, children, button }) {
 	let [isOpen, setIsOpen] = useState(false);
 
 	function closeModal() {
@@ -15,14 +14,8 @@ export default function MyModal({ title, children, buttonColor }) {
 
 	return (
 		<>
-			<button
-				type="button"
-				onClick={openModal}
-				className={classNames(
-					'rounded-md  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75',
-					buttonColor ?? 'bg-black'
-				)}>
-				{title}
+			<button type="button" onClick={openModal}>
+				{button}
 			</button>
 
 			<Transition appear show={isOpen} as={Fragment}>
@@ -54,7 +47,11 @@ export default function MyModal({ title, children, buttonColor }) {
 										className="text-lg font-medium leading-6 text-gray-900">
 										{title}
 									</Dialog.Title>
-									<div className="mt-2">{children}</div>
+									<div className="mt-2">
+										{typeof children == 'function'
+											? children({ isOpen, setIsOpen })
+											: children}
+									</div>
 								</Dialog.Panel>
 							</Transition.Child>
 						</div>

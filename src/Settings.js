@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-	useQuery,
-	useMutation,
-	useQueryClient,
 	QueryClient,
-	QueryClientProvider
+	QueryClientProvider,
+	useMutation
 } from '@tanstack/react-query';
-import LocationCard from './components/LocationCard';
-import TimesTable from './components/TimesTable';
+import { Tab } from '@headlessui/react';
 import Modal from './components/Modal';
-
-import AddTimeForm from './components/AddTimeForm';
-import { useLocationQuery, useTimesQuery } from './utils';
+import Button from './components/Button';
+import LocationsSettings from './components/LocationsSettings';
+import TimeSettings from './components/TimeSettings';
+import TimeForm from './components/TimeForm';
+import {
+	classNames,
+	queryClient,
+	useLocationQuery,
+	useTimesQuery
+} from './utils';
+import LocationForm from './components/LocationForm';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const locationRoot = document.getElementById('minyan-location-settings');
@@ -25,78 +30,98 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-const queryClient = new QueryClient();
-
 function SettingsPage() {
-	const handleCreateLocation = async (e) => {
-		e.preventDefault();
-		const response = await fetch('/wp-json/minyan-times/v1/locations', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				hello: 'world'
-			})
-		});
-		const data = await response.json();
-
-		console.log(data);
-	};
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<div className="px-4 sm:px-6 lg:px-8">
 				<div className="sm:flex sm:items-center">
 					<div className="sm:flex-auto">
 						<h1 className="text-2xl font-semibold text-gray-900">
-							Minyan Times
+							Minyan Times Plugin Settings
 						</h1>
 						<p className="mt-2 text-sm text-gray-700">
 							A list of all the times in your account including their location,
-							time, and nusach .
+							time, and nusach.
 						</p>
 					</div>
-					<div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-						<Modal title="Add Time" buttonColor="bg-darkBlue">
-							<AddTimeForm />
-						</Modal>
-					</div>
 				</div>
-
-				<div className="flex items-start justify-center">
-					<TimeSettings />
-					<LocationsSettings />
+				<div className="w-full px-2 py-16 sm:px-0 mx-auto">
+					<Tab.Group>
+						<Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+							<Tab
+								className={({ selected }) =>
+									classNames(
+										'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
+										'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+										selected
+											? 'bg-white shadow'
+											: 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+									)
+								}>
+								Locations
+							</Tab>
+							<Tab
+								className={({ selected }) =>
+									classNames(
+										'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
+										'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+										selected
+											? 'bg-white shadow'
+											: 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+									)
+								}>
+								Times
+							</Tab>
+						</Tab.List>
+						<Tab.Panels>
+							<Tab.Panel
+								className={classNames(
+									'rounded-xl bg-white p-3',
+									'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+								)}>
+								<div className="flex flex-col">
+									<span className="ml-auto mt-2 text-right pr-4">
+										<Modal
+											title="Add Location"
+											button={
+												<Button className="rounded-md bg-blue-700 ml-auto my-2 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													Add Location
+												</Button>
+											}>
+											{({ setIsOpen }) => (
+												<LocationForm onSuccess={() => setIsOpen(false)} />
+											)}
+										</Modal>
+									</span>
+									<LocationsSettings />
+								</div>
+							</Tab.Panel>
+							<Tab.Panel
+								className={classNames(
+									'rounded-xl bg-white p-3',
+									'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+								)}>
+								<div className="flex flex-col">
+									<span className="ml-auto mt-2 text-right pr-4">
+										<Modal
+											title="Add Time"
+											button={
+												<Button className="rounded-md bg-blue-700 ml-auto my-2 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													Add Time
+												</Button>
+											}>
+											{({ setIsOpen }) => (
+												<TimeForm onSuccess={() => setIsOpen(false)} />
+											)}
+										</Modal>
+									</span>
+									<TimeSettings />
+								</div>
+							</Tab.Panel>
+						</Tab.Panels>
+					</Tab.Group>
 				</div>
 			</div>
 		</QueryClientProvider>
-	);
-}
-function TimeSettings() {
-	const { isLoading, isError, data, error } = useTimesQuery();
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
-	if (isError) {
-		return <div>{JSON.stringify(error, null, 2)}</div>;
-	}
-	return <TimesTable times={data} />;
-}
-function LocationsSettings() {
-	const { isLoading, isError, data, error } = useLocationQuery();
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
-	if (isError) {
-		return <div>{JSON.stringify(error, null, 2)}</div>;
-	}
-	return (
-		<ul
-			role="list"
-			className=" grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-			{data.map((e) => (
-				<LocationCard location={e} />
-			))}
-		</ul>
 	);
 }

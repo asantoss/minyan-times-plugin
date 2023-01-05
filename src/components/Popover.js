@@ -1,7 +1,7 @@
 import { Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-export default function MyPopover({ title, options = [] }) {
+export default function Menu({ title, options = [] }) {
 	return (
 		<Popover className="relative text-lg font-bold bg-white px-2 py-4 text-left my-2 rounded-lg">
 			<Popover.Button className="flex justify-between w-full">
@@ -19,6 +19,7 @@ export default function MyPopover({ title, options = [] }) {
 						return (
 							<button
 								key={i}
+								onClick={e.onClick}
 								className="my-4 hover:bg-darkBlue hover:text-white">
 								{e.label}
 							</button>

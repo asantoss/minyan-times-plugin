@@ -5,11 +5,7 @@ import settings from '../block.json';
 
 registerBlockType('llc/minyan-times', {
 	...settings,
-	attributes: {
-		ShacharisSponsor: { type: 'string' },
-		MinchaSponsor: { type: 'string' },
-		MaaricSponsor: { type: 'string' }
-	},
+
 	edit: EditComponent,
 	save: function () {
 		return null;
@@ -31,35 +27,35 @@ function EditComponent(props) {
 				<TextControl
 					className="mr-3 p-2"
 					type="text"
-					value={props.attributes.ShacharisSponsor}
+					value={props.attributes.Shacharis}
 					onChange={(value) =>
-						updateAttribute({ target: { name: 'ShacharisSponsor', value } })
+						updateAttribute({ target: { name: 'Shacharis', value } })
 					}
-					name="ShacharisSponsor"
+					name="Shacharis"
 					label="Shacharis Sponsor"
-					placeholder="Shacharis Sponsor..."
+					placeholder="Shacharis ..."
 				/>
 				<TextControl
 					className="p-2"
 					type="text"
-					value={props.attributes.MinchaSponsor}
+					value={props.attributes.Mincha}
 					onChange={(value) =>
-						updateAttribute({ target: { name: 'MinchaSponsor', value } })
+						updateAttribute({ target: { name: 'Mincha', value } })
 					}
-					name="MinchaSponsor"
+					name="Mincha"
 					label="Mincha Sponsor"
-					placeholder="Mincha Sponsor..."
+					placeholder="Mincha ..."
 				/>
 				<TextControl
 					className="p-2"
 					type="text"
-					value={props.attributes.MaaricSponsor}
+					value={props.attributes.Maariv}
 					onChange={(value) =>
-						updateAttribute({ target: { name: 'MaaricSponsor', value } })
+						updateAttribute({ target: { name: 'Maariv', value } })
 					}
-					name="MaaricSponsor"
-					label="Maaric Sponsor"
-					placeholder="Maaric Sponsor..."
+					name="Maariv"
+					label="Maariv Sponsor"
+					placeholder="Maariv ..."
 				/>
 			</div>
 		</div>

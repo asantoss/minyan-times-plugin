@@ -8,5 +8,16 @@
     "editorStyle": "file:./build/styles.css",
     "viewScript": "file:./build/frontend.js",
     "style": "file:./build/styles.css",
-    "category": "widgets"
+    "category": "widgets",
+    "attributes": {
+        "Shacharis": {
+            "type": "string"
+        },
+        "Mincha": {
+            "type": "string"
+        },
+        "Maariv": {
+            "type": "string"
+        }
+    }
 }
