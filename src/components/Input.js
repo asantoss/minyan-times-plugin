@@ -23,7 +23,7 @@ export default function Input({ label, ...props }) {
 			<div className="mt-1">
 				<input
 					{...props}
-					className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+					className="block w-full border-2 p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 				/>
 			</div>
 		</div>

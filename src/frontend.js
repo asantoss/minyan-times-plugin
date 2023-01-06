@@ -143,7 +143,6 @@ function MinyanTimes(props) {
 					value={FilterTypes}
 					onChange={setFilterType}
 					onText="Times"
-					className="bg-orange"
 				/>
 			</div>
 

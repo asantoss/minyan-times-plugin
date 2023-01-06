@@ -32,8 +32,14 @@ export default function TimeSettings() {
 			fieldName: 'time',
 			label: 'Time',
 			calculateDisplay(data) {
-				return convertTime(data.time);
+				return data.isCustom
+					? `Neitz (${data.minutes} ${data.formula})`
+					: convertTime(data.time);
 			}
+		},
+		{
+			fieldName: 'type',
+			label: 'Type'
 		}
 	];
 	return (

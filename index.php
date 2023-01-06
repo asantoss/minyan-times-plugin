@@ -103,8 +103,12 @@ class MinyanTimesApi
     $timesSql = "CREATE TABLE $this->timesTableName (
       id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
       time varchar(50),
+      formula varchar(50),
+      minutes varchar(50),
+      isCustom boolean,
       day varchar(50),
       nusach varchar(255) NOT NULL DEFAULT '',
+      type varchar(255),
       locationId bigint(20) NOT NULL,
       PRIMARY KEY  (id)
     ) $this->charset;";
@@ -303,7 +307,7 @@ class MinyanTimesApi
     $locationId = $request->get_param("locationId");
     $nusach = $request->get_param("nusach");
     $day = $request->get_param("day");
-    $sql = "SELECT " . $this->timesTableName . ".id as id, name as location, time, city, address, locationId, nusach, day FROM " . $this->timesTableName . " INNER JOIN " . $this->locationsTableName . " l ON locationId = l.id WHERE 1=1 ";
+    $sql = "SELECT " . $this->timesTableName . ".id as id, name as location, time, isCustom, formula, minutes, type, city, address, locationId, nusach, day FROM " . $this->timesTableName . " INNER JOIN " . $this->locationsTableName . " l ON locationId = l.id WHERE 1=1 ";
     if ($locationId) {
       $sql = $sql . " AND locationId = " . $locationId;
     }
@@ -343,14 +347,21 @@ class MinyanTimesApi
     $nusach = $parameters["nusach"];
     $day = $parameters["day"];
     $id = $parameters["id"];
-
+    $type = $parameters["type"];
+    $formula = $parameters["formula"];
+    $minutes = $parameters["minutes"];
+    $isCustom = $parameters["isCustom"];
     $update = $wpdb->update(
       $this->timesTableName,
       array(
         "time" => $time,
         "locationId" => $locationId,
         "nusach" => $nusach,
-        "day" => $day
+        "day" => $day,
+        "type" => $type,
+        "formula" => $formula,
+        "minutes" => $minutes,
+        "isCustom" => $isCustom
       ),
       array("id" => $id),
 
@@ -373,14 +384,23 @@ class MinyanTimesApi
     $locationId = $parameters["locationId"];
     $nusach = $parameters["nusach"];
     $day = $parameters["day"];
+    $type = $parameters["type"];
+    $formula = $parameters["formula"];
+    $minutes = $parameters["minutes"];
+    $isCustom = $parameters["isCustom"];
     if ($time && $locationId && $nusach && $day) {
       $insert = $wpdb->insert(
         $this->timesTableName,
         array(
           "time" => $time,
           "locationId" => $locationId,
+          "isCustom" => $isCustom,
           "nusach" => $nusach,
-          "day" => $day
+          "day" => $day,
+          "type" => $type,
+          "formula" => $formula,
+          "minutes" => $minutes,
+          "isCustom" => $isCustom
         )
       );
       if ($insert) {

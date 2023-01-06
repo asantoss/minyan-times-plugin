@@ -10,12 +10,7 @@ import Button from './components/Button';
 import LocationsSettings from './components/LocationsSettings';
 import TimeSettings from './components/TimeSettings';
 import TimeForm from './components/TimeForm';
-import {
-	classNames,
-	queryClient,
-	useLocationQuery,
-	useTimesQuery
-} from './utils';
+import { classNames, queryClient } from './utils';
 import LocationForm from './components/LocationForm';
 
 document.addEventListener('DOMContentLoaded', () => {
