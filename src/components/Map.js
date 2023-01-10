@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapPinIcon } from '@heroicons/react/20/solid';
 import GoogleMapReact from 'google-map-react';
-export default function Map({ locations = [], zoomLevel = 15, apiKey }) {
+export default function Map({ locations = [], zoomLevel = 16, apiKey }) {
 	const url = new URL(`https://www.google.com/maps/dir/?api=1`);
 	if (locations[0]) {
 		url.searchParams.append(
@@ -31,8 +31,8 @@ export default function Map({ locations = [], zoomLevel = 15, apiKey }) {
 }
 
 const LocationPin = ({ text }) => (
-	<div className="pin h-16 w-16">
+	<div className="pin h-16 ">
 		<MapPinIcon className="text-darkBlue w-8 h-12" />
-		<p className="pin-text  w-full  font-bold text-lg text-darkBlue">{text}</p>
+		<p className="pin-text  w-full  font-bold text-sm text-darkBlue">{text}</p>
 	</div>
 );

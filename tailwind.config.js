@@ -18,7 +18,8 @@ module.exports = {
 				xl: '0.75rem'
 			},
 			translate: {
-				22: '5.5rem'
+				22: '5.5rem',
+				13: '50px'
 			}
 		}
 	}

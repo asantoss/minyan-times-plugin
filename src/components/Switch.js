@@ -16,7 +16,7 @@ export default function SwitchComponent({
 			<Switch.Group>
 				<Switch.Label
 					className={`absolute text-white text-sm text-center z-10  ${
-						enabled ? 'left-6' : 'left-10'
+						enabled ? 'left-1' : 'right-4'
 					}`}>
 					{enabled ? onText : offText}
 				</Switch.Label>
@@ -28,10 +28,10 @@ export default function SwitchComponent({
 					}}
 					className={`${
 						enabled ? 'bg-orange' : 'bg-darkBlue'
-					} relative inline-flex h-10 w-28 items-center rounded-full z-0`}>
+					} relative inline-flex h-10 w-20 items-center rounded-full z-0`}>
 					<span
 						className={`${
-							enabled ? 'translate-x-20' : 'translate-x-1'
+							enabled ? 'translate-x-13' : 'translate-x-1'
 						} inline-block h-6 w-6  rounded-full bg-white transform transition ease-in-out duration-100`}
 					/>
 				</Switch>

@@ -176,8 +176,8 @@ export function useZmanimApi({ day, postalCode }) {
 			} catch (error) {}
 		},
 		{
-			refetchOnMount: false,
-			refetchOnWindowFocus: false
+			staleTime: Infinity,
+			cacheTime: Infinity
 		}
 	);
 }
@@ -470,8 +470,8 @@ export function useGeocodeApi({ googleKey, timeOption, enabled }) {
 			return {};
 		},
 		{
-			refetchOnMount: false,
-			refetchOnWindowFocus: false,
+			staleTime: Infinity,
+			cacheTime: Infinity,
 			enabled
 		}
 	);

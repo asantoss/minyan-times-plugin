@@ -50,6 +50,7 @@ function MinyanTimes(props) {
 	const [city, setCity] = useState('Baltimore');
 	const [nusach, setNusach] = useState(null);
 	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
+	const [showMap, setShowMap] = useState(false);
 	const [day, setDay] = useState(days[currentDay]);
 	const timesQuery = useFilteredTimesQuery({
 		city,
@@ -284,7 +285,7 @@ function MinyanTimes(props) {
 				</label>
 				<Switch
 					offText="Shul"
-					value={FilterTypes}
+					value={sortBy ? true : false}
 					onChange={setSortBy}
 					onText="Times"
 				/>
