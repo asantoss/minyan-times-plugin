@@ -16,18 +16,22 @@ import {
 import LocationForm from './components/LocationForm';
 
 document.addEventListener('DOMContentLoaded', () => {
-	const root = document.getElementById('minyan-location-settings');
+	const root = document.getElementById('minyan-settings');
 	if (root) {
-		ReactDOM.render(
-			<QueryClientProvider client={queryClient}>
-				<SettingsPage />
-			</QueryClientProvider>,
-			root
-		);
+		const dataEl = root.querySelector('pre');
+		if (dataEl) {
+			const data = JSON.parse(root.querySelector('pre').innerText);
+			ReactDOM.render(
+				<QueryClientProvider client={queryClient}>
+					<SettingsPage {...data} />
+				</QueryClientProvider>,
+				root
+			);
+		}
 	}
 });
 
-function SettingsPage() {
+function SettingsPage({ googleKey }) {
 	const timesQuery = useTimesQuery();
 	function handleTimeExport() {
 		const today = new Date();
@@ -110,11 +114,14 @@ function SettingsPage() {
 											</div>
 										)}>
 										{({ setIsOpen }) => (
-											<LocationForm onSuccess={() => setIsOpen(false)} />
+											<LocationForm
+												googleKey={googleKey}
+												onSuccess={() => setIsOpen(false)}
+											/>
 										)}
 									</Modal>
 								</div>
-								<LocationsSettings />
+								<LocationsSettings googleKey={googleKey} />
 							</div>
 						</Tab.Panel>
 						<Tab.Panel

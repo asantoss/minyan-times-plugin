@@ -126,20 +126,13 @@ class Minyantimes
     ));
   }
 
-
   function locationsPageHTML()
   {
 
-  ?>
-<div id="minyan-location-settings" class="minyan-times-wrapper">
-</div>
-<?php
-  }
-  function settings_page_render()
-  {
-  ?>
-<div id="minyan-location-settings" class="minyan-times-wrapper">
-    Hello World
+    $attributes = array();
+    $attributes["googleKey"] = get_option("mtp_google_api_key");
+  ?><div id="minyan-settings" class="minyan-times-wrapper">
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
 </div>
 <?php
   }
@@ -168,26 +161,30 @@ class MinyanTimesApi
   {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     $locationSql = "CREATE TABLE $this->locationsTableName (
-      id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-      name varchar(255) NOT NULL DEFAULT '',
-      address varchar(255) NOT NULL DEFAULT '',
-      city varchar(255) NOT NULL DEFAULT '',
-      zipCode varchar(255) NOT NULL DEFAULT '',
-      state varchar(255) NOT NULL DEFAULT '',
-      PRIMARY KEY  (id)
-    ) $this->charset;";
+id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+name varchar(255) NOT NULL DEFAULT '',
+address varchar(255) NOT NULL DEFAULT '',
+city varchar(255) NOT NULL DEFAULT '',
+zipCode varchar(255) NOT NULL DEFAULT '',
+state varchar(255) NOT NULL DEFAULT '',
+lat varchar(255) NOT NULL DEFAULT '',
+lng varchar(255) NOT NULL DEFAULT '',
+place_id text NOT NULL DEFAULT '',
+PRIMARY KEY (id)
+) $this->charset;";
     $timesSql = "CREATE TABLE $this->timesTableName (
-      id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-      time varchar(50),
-      formula bigint(20),
-      minutes bigint(20),
-      isCustom boolean,
-      day TEXT,
-      nusach varchar(255) NOT NULL DEFAULT '',
-      type varchar(255),
-      locationId bigint(20) NOT NULL,
-      PRIMARY KEY  (id)
-    ) $this->charset;";
+id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+time varchar(50),
+formula bigint(20),
+minutes bigint(20),
+isCustom boolean,
+day TEXT,
+nusach varchar(255) NOT NULL DEFAULT '',
+type varchar(255),
+locationId bigint(20) unsigned NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
+) $this->charset;";
     dbDelta($locationSql);
     dbDelta($timesSql);
   }
@@ -316,9 +313,9 @@ class MinyanTimesApi
   {
     global $wpdb;
     $table = $this->locationsTableName;
-    $sql = "SELECT id, name, city, address, zipCode, state, thirdPartyData FROM " . $table;
+    $sql = "SELECT id, name, city, address, zipCode, state, lat,lng thirdPartyData FROM " . $table;
     $query = $wpdb->prepare($sql);
-    $results =  $wpdb->get_results($query);
+    $results = $wpdb->get_results($query);
     return $results;
   }
 
@@ -331,12 +328,18 @@ class MinyanTimesApi
     $address = $parameters['address'];
     $state = $parameters['state'];
     $city = $parameters['city'];
+    $lat = $parameters['lat'];
+    $lng = $parameters['lng'];
+    $place_id = $parameters['place_id'];
     $locationData = array(
       "name" => $name,
       "address" => $address,
       "city" => $city,
       "zipCode" => $zipCode,
-      "state" => $state
+      "state" => $state,
+      "lat" => $lat,
+      "lng" => $lng,
+      "place_id" => $place_id,
     );
 
     if ($name && $address && $city) {
@@ -362,12 +365,17 @@ class MinyanTimesApi
     $state = $parameters['state'];
     $zipCode = $parameters['zipCode'];
     $id = $parameters['id'];
+    $lat = $parameters['lat'];
+    $lng = $parameters['lng'];
+    $place_id = $parameters['place_id'];
     $locationData = array(
       "name" => $name,
       "address" => $address,
       "city" => $city,
       "zipCode" => $zipCode,
-      "state" => $state
+      "state" => $state, "lat" => $lat,
+      "lng" => $lng,
+      "place_id" => $place_id,
     );
 
     $update = $wpdb->update(
@@ -414,26 +422,28 @@ class MinyanTimesApi
     $nusach = $request->get_param("nusach");
     $day = $request->get_param("day");
     $sortBy = $request->get_param("sortBy");
-    $sql = "SELECT " . $this->timesTableName . ".id as id, name as location, time, isCustom, formula,zipCode, state, minutes, type, city, address, locationId, nusach, day FROM " . $this->timesTableName . " INNER JOIN " . $this->locationsTableName . " l ON locationId = l.id WHERE 1=1 ";
+    $sql = "SELECT " . $this->timesTableName . ".id as id, name as location, time, isCustom, formula,zipCode, state,
+        minutes, type, city, address, locationId, lat, lng, place_id, nusach, day FROM " . $this->timesTableName . " INNER JOIN " .
+      $this->locationsTableName . " l ON locationId = l.id WHERE 1=1 ";
     if ($city) {
       $sql = $wpdb->prepare($sql . " AND city = %s", $city);
     }
     if ($nusach) {
-      $sql = $wpdb->prepare($sql .  " AND nusach = %s", $nusach);
+      $sql = $wpdb->prepare($sql . " AND nusach = %s", $nusach);
     }
     if ($day) {
-      $search_text = "%" . $wpdb->esc_like($day)  . "%";
-      $sql = $wpdb->prepare($sql .  " AND day like %s", $search_text);
+      $search_text = "%" . $wpdb->esc_like($day) . "%";
+      $sql = $wpdb->prepare($sql . " AND day like %s", $search_text);
     }
     if ($sortBy) {
-      $sql = $wpdb->prepare($sql .  "ORDER BY %s ASC", $sortBy);
+      $sql = $wpdb->prepare($sql . "ORDER BY %s ASC", $sortBy);
     }
 
 
 
 
-    $results =  $wpdb->get_results($sql);
-    return  $results;
+    $results = $wpdb->get_results($sql);
+    return $results;
   }
 
   function delete_time($request)

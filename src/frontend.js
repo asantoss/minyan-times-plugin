@@ -50,7 +50,6 @@ function MinyanTimes(props) {
 	const [city, setCity] = useState('Baltimore');
 	const [nusach, setNusach] = useState(null);
 	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
-	const [showMap, setShowMap] = useState(false);
 	const [day, setDay] = useState(days[currentDay]);
 	const timesQuery = useFilteredTimesQuery({
 		city,
@@ -195,35 +194,22 @@ function MinyanTimes(props) {
 		return output;
 	}, [zManimQuery]);
 
-	const geocodeQuery = useGeocodeApi({
-		googleKey,
-		timeOption: selectedTimeOption,
-		enabled: !!selectedTimeOption
-	});
-	function handleChangeDay(e) {
-		if (day === e) {
-			setDay(null);
-		} else {
-			setDay(e);
-		}
-	}
-
 	const pinLocations = useMemo(() => {
-		const { data } = geocodeQuery;
 		const output = [];
-		if (Array.isArray(data?.results) && data?.results?.length) {
-			for (const result of data.results) {
-				const { geometry } = result;
-				const pin = {
-					...geometry.location,
-					text: selectedTimeOption.location
-				};
-				output.push(pin);
-			}
+		if (selectedTimeOption) {
+			const pin = {
+				lat: Number(selectedTimeOption.lat),
+				lng: Number(selectedTimeOption.lng),
+				text: selectedTimeOption.location
+			};
+			output.push(pin);
 		}
 		return output;
-	}, [geocodeQuery, selectedTimeOption]);
+	}, [selectedTimeOption]);
 
+	function handleChangeDay(value) {
+		setDay(value);
+	}
 	return (
 		<div className="flex-col flex w-fit">
 			<div className="my-2 mx-auto">

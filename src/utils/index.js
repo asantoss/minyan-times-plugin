@@ -447,20 +447,20 @@ export function capitalize(str) {
 
 let client = new Client({});
 
-export function useGeocodeApi({ googleKey, timeOption, enabled }) {
-	const address = timeOption
-		? `${timeOption.address || ''} ${timeOption.city || ''} ${
-				timeOption.state || ''
-		  } ${timeOption.zipCode || ''}`
+export function useGeocodeApi({ googleKey, location, enabled }) {
+	const address = location
+		? `${location.address || ''} ${location.city || ''} ${
+				location.state || ''
+		  } ${location.zipCode || ''}`
 		: null;
 	return useQuery(
 		['gMap', address],
 		async ({ queryKey }) => {
 			const [_, address] = queryKey;
-			if (address) {
+			if (address.trim()) {
 				const response = await client.geocode({
 					params: {
-						address: address,
+						address: address.trim(),
 						key: googleKey,
 						components: { country: 'us' }
 					}

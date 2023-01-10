@@ -3,7 +3,7 @@ import { useLocationQuery, useTimeMutation } from '../utils';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
-import SwitchComponent from './Switch';
+import Switch from './Switch';
 import Checkboxes from './Checkboxes';
 import { FormulaTypes } from '../utils/enums';
 export default function TimeForm({ time, onSuccess }) {
@@ -22,14 +22,14 @@ export default function TimeForm({ time, onSuccess }) {
 		});
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const body = new FormData();
 		for (const key in timeData) {
 			body.append(key, timeData[key]);
 		}
 
-		mutate(body);
+		await mutate(body);
 		onSuccess && onSuccess();
 	};
 
@@ -59,15 +59,17 @@ export default function TimeForm({ time, onSuccess }) {
 			<form
 				onSubmit={handleSubmit}
 				className="grid gap-4 grid-cols-3 p-4 bg-wpBg">
-				<SwitchComponent
-					value={isCustom}
-					onChange={(val) => {
-						setTimeData({ ...timeData, isCustom: val ? 1 : 0 });
-					}}
-					name="isCustom"
-					offText="Normal"
-					onText="Custom"
-				/>
+				<div className="self-end">
+					<Switch
+						value={isCustom}
+						onChange={(val) => {
+							setTimeData({ ...timeData, isCustom: val ? 1 : 0 });
+						}}
+						name="isCustom"
+						offText="Normal"
+						onText="Custom"
+					/>
+				</div>
 				{isCustom ? (
 					<>
 						<Input

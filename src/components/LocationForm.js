@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { useLocationMutation } from '../utils';
+import { useGeocodeApi, useLocationMutation } from '../utils';
 import Input from './Input';
 import Button from './Button';
-export default function LocationForm({ location, onSuccess }) {
+export default function LocationForm({ location, onSuccess, googleKey }) {
 	const { mutate } = useLocationMutation(location?.id);
 	const [locationData, setLocationData] = useState({ ...(location || {}) });
-
+	const geocodeQuery = useGeocodeApi({
+		googleKey,
+		location: locationData,
+		enabled: false
+	});
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setLocationData({
@@ -14,13 +18,27 @@ export default function LocationForm({ location, onSuccess }) {
 		});
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const body = new FormData(e.target);
 		if (location?.id) {
 			body.append('id', location.id);
 		}
-		mutate(body);
+		const { data, isSuccess } = await geocodeQuery.refetch();
+		if (isSuccess) {
+			if (Array.isArray(data.results) && data.results?.length === 1) {
+				const targetResult = data.results[0];
+				if (targetResult?.geometry?.location) {
+					const { lat, lng } = targetResult.geometry.location;
+					body.append('lat', lat);
+					body.append('lng', lng);
+				}
+				if (targetResult?.place_id) {
+					body.append('place_id', targetResult.place_id);
+				}
+			}
+		}
+		await mutate(body);
 		onSuccess && onSuccess();
 	};
 

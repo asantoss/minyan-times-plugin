@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPinIcon } from '@heroicons/react/20/solid';
+import { MapPinIcon } from '@heroicons/react/24/solid';
 import GoogleMapReact from 'google-map-react';
 export default function Map({ locations = [], zoomLevel = 16, apiKey }) {
 	const url = new URL(`https://www.google.com/maps/dir/?api=1`);
@@ -11,11 +11,13 @@ export default function Map({ locations = [], zoomLevel = 16, apiKey }) {
 	}
 	return (
 		<div className="map">
-			<div className="flex justify-end">
-				<a href={url.href} target="_blank">
-					Get Directions
-				</a>
-			</div>
+			{locations.length === 1 && (
+				<div className="flex justify-end">
+					<a href={url.href} target="_blank">
+						Get Directions
+					</a>
+				</div>
+			)}
 			<div className="h-80 w-96">
 				<GoogleMapReact
 					bootstrapURLKeys={{ key: apiKey }}
@@ -32,7 +34,9 @@ export default function Map({ locations = [], zoomLevel = 16, apiKey }) {
 
 const LocationPin = ({ text }) => (
 	<div className="pin h-16 ">
-		<MapPinIcon className="text-darkBlue w-8 h-12" />
-		<p className="pin-text  w-full  font-bold text-sm text-darkBlue">{text}</p>
+		<MapPinIcon className="text-red-600 w-8 h-12" />
+		{/* <span className="pin-text  w-full  font-bold text-xs text-darkBlue">
+			{text}
+		</span> */}
 	</div>
 );

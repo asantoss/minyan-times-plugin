@@ -7,7 +7,7 @@ import LocationForm from './LocationForm';
 import ZManimDisplay from './ZManimDisplay';
 import Spinner from './Spinner';
 
-export default function LocationsSettings() {
+export default function LocationsSettings({ googleKey }) {
 	const { isLoading, isError, data, error } = useLocationQuery();
 	const { mutate: deleteItem } = useDeleteLocation();
 
@@ -54,6 +54,7 @@ export default function LocationsSettings() {
 								}>
 								{({ setIsOpen }) => (
 									<LocationForm
+										googleKey={googleKey}
 										location={item}
 										onSuccess={() => setIsOpen(false)}
 									/>
