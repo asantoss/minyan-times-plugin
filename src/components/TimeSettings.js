@@ -3,7 +3,12 @@ import DataTable from './DataTable';
 import Modal from './Modal';
 import Button from './Button';
 import TimeForm from './TimeForm';
-import { convertTime, useDeleteTime, useTimesQuery } from '../utils';
+import {
+	convertTime,
+	formatTime,
+	useDeleteTime,
+	useTimesQuery
+} from '../utils';
 
 export default function TimeSettings() {
 	const { mutate: deleteItem } = useDeleteTime();
@@ -31,11 +36,7 @@ export default function TimeSettings() {
 		{
 			fieldName: 'time',
 			label: 'Time',
-			calculateDisplay(data) {
-				return data.isCustom
-					? `Neitz (${data.minutes} ${data.formula})`
-					: convertTime(data.time);
-			}
+			calculateDisplay: formatTime
 		},
 		{
 			fieldName: 'type',
@@ -49,9 +50,11 @@ export default function TimeSettings() {
 					<Modal
 						title="Edit Time"
 						button={
-							<button className="text-indigo-600 hover:text-indigo-900 ">
+							<button className="text-indigo-600 mr-4 hover:text-indigo-900 ">
 								Edit
-								<span className="sr-only">,{item.location}</span>
+								<span className="sr-only">
+									,{item.location} @ {item.time}
+								</span>
 							</button>
 						}>
 						{({ setIsOpen }) => (

@@ -5,12 +5,13 @@ import Button from './Button';
 import Select from './Select';
 import SwitchComponent from './Switch';
 import Checkboxes from './Checkboxes';
+import { FormulaTypes } from '../utils/enums';
 export default function TimeForm({ time, onSuccess }) {
-	const { data } = useLocationQuery();
+	const locationQuery = useLocationQuery();
 	const { mutate } = useTimeMutation(time?.id);
 	const [timeData, setTimeData] = useState({
 		...(time || {
-			isCustom: 1
+			isCustom: 0
 		})
 	});
 	const handleChange = (e) => {
@@ -24,7 +25,6 @@ export default function TimeForm({ time, onSuccess }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const body = new FormData();
-
 		for (const key in timeData) {
 			body.append(key, timeData[key]);
 		}
@@ -32,6 +32,7 @@ export default function TimeForm({ time, onSuccess }) {
 		mutate(body);
 		onSuccess && onSuccess();
 	};
+
 	const days = [
 		'Monday',
 		'Tuesday',
@@ -40,6 +41,15 @@ export default function TimeForm({ time, onSuccess }) {
 		'Friday',
 		'Sunday'
 	];
+	function handleChangeDay(value) {
+		const selectedDays = days.filter((e) => value.includes(e));
+		setTimeData({
+			...timeData,
+			day: selectedDays.join(', ')
+		});
+	}
+
+	const nusachOptions = ['Sefarhadi', 'Asheknaz', 'Ari', 'Sefard'];
 	const isCustom = useMemo(
 		() => (timeData.isCustom ? Number(timeData.isCustom) : false),
 		[timeData]
@@ -48,7 +58,7 @@ export default function TimeForm({ time, onSuccess }) {
 		<div>
 			<form
 				onSubmit={handleSubmit}
-				className="grid gap-4 grid-cols-3 p-4 bg-white">
+				className="grid gap-4 grid-cols-3 p-4 bg-wpBg">
 				<SwitchComponent
 					value={isCustom}
 					onChange={(val) => {
@@ -56,19 +66,10 @@ export default function TimeForm({ time, onSuccess }) {
 					}}
 					name="isCustom"
 					offText="Normal"
-					onText="Neitz"
+					onText="Custom"
 				/>
 				{isCustom ? (
 					<>
-						<Select
-							onChange={handleChange}
-							value={timeData.formula}
-							required
-							name="formula"
-							label="Formula">
-							<option value="before">Before</option>
-							<option value="after">After</option>
-						</Select>
 						<Input
 							onChange={handleChange}
 							value={timeData.minutes}
@@ -77,6 +78,16 @@ export default function TimeForm({ time, onSuccess }) {
 							type="number"
 							label="Minutes"
 						/>
+						<Select
+							onChange={handleChange}
+							value={timeData.formula}
+							required
+							name="formula"
+							label="Formula">
+							{Object.keys(FormulaTypes).map((e) => (
+								<option value={FormulaTypes[e]}>{e}</option>
+							))}
+						</Select>
 					</>
 				) : (
 					<Input
@@ -88,21 +99,19 @@ export default function TimeForm({ time, onSuccess }) {
 						label="Time"
 					/>
 				)}
+
 				<Select
 					onChange={handleChange}
-					value={timeData.day}
-					className=" "
+					value={timeData.type}
 					required
-					name="day"
-					label="Day">
-					{days.map((e) => (
+					name="type"
+					label="Type">
+					{['Shacharis', 'Mincha', 'Maariv'].map((e) => (
 						<option key={e} value={e}>
 							{e}
 						</option>
 					))}
 				</Select>
-
-				{/* value={timeData.type} */}
 
 				<Select
 					onChange={handleChange}
@@ -110,18 +119,19 @@ export default function TimeForm({ time, onSuccess }) {
 					required
 					name="nusach"
 					label="Nusach">
-					<option value="Ashkenaz">Ashkenaz</option>
-					<option value="Sefard">Sefard</option>
+					{nusachOptions.map((e) => (
+						<option value={e} key={e}>
+							{e}
+						</option>
+					))}
 				</Select>
-
 				<Select
 					onChange={handleChange}
 					value={timeData.locationId}
-					className="col-start-3 row-start-1"
 					required
 					name="locationId"
 					label="Location">
-					{data.map((e) => (
+					{locationQuery.data.map((e) => (
 						<option key={e.id} value={e.id}>
 							{e.name}
 						</option>
@@ -129,17 +139,10 @@ export default function TimeForm({ time, onSuccess }) {
 				</Select>
 				<Checkboxes
 					className="row-span-2 row-start-2 col-start-3"
-					label="Type"
-					onChange={(value) =>
-						handleChange({ target: { name: 'type', value } })
-					}
-					value={timeData.type}
-					options={[
-						{ label: 'Shacharis', value: 'Shacharis' },
-
-						{ label: 'Mincha', value: 'Mincha' },
-						{ label: 'Maariv', value: 'Maariv' }
-					]}
+					label="Day"
+					onChange={handleChangeDay}
+					value={timeData.day}
+					options={days.map((e) => ({ label: e, value: e }))}
 				/>
 
 				<div className="col-span-3 flex items-end">

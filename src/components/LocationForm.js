@@ -28,8 +28,9 @@ export default function LocationForm({ location, onSuccess }) {
 		<div>
 			<form
 				onSubmit={handleSubmit}
-				className="grid gap-4 grid-cols-2 p-4 bg-white">
+				className="grid gap-4 grid-cols-4 p-4 bg-wpBg">
 				<Input
+					className="col-span-4"
 					autoFocus
 					onChange={handleChange}
 					value={locationData.name}
@@ -41,6 +42,7 @@ export default function LocationForm({ location, onSuccess }) {
 					onChange={handleChange}
 					value={locationData.address}
 					required
+					className="col-span-2"
 					name="address"
 					label="Address"
 				/>
@@ -51,12 +53,18 @@ export default function LocationForm({ location, onSuccess }) {
 					name="city"
 					label="City"
 				/>
-
-				<Button
-					type="submit"
-					className="col-start-2 mt-4 justify-self-center bg-blue-600">
-					Submit
-				</Button>
+				<Input
+					onChange={handleChange}
+					value={locationData.zipCode}
+					required
+					name="zipCode"
+					label="Zip Code"
+				/>
+				<div className="col-span-2 flex justify-end mt-4">
+					<Button type="submit" className=" bg-blue-600">
+						Submit
+					</Button>
+				</div>
 			</form>
 		</div>
 	);

@@ -23,14 +23,15 @@ export default function Checkboxes({
 }) {
 	function handleChange(e) {
 		const { name, checked } = e.target;
-		let currentValue = (value || '').trim().split(',');
+		let currentValue = (value || '').split(', ');
+
 		if (checked) {
 			currentValue = [...currentValue, name];
 		} else {
 			currentValue = currentValue.filter((e) => e !== name);
 		}
-		const dataSet = new Set(currentValue.filter((e) => e));
-		onChange(Array.from(dataSet).join(','));
+		const dataSet = new Set(currentValue.filter((e) => e && e !== 'null'));
+		onChange(Array.from(dataSet).join(', '));
 	}
 	const inputVal = (val) => {
 		if (!value) {

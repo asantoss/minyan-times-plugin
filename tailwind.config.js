@@ -10,7 +10,8 @@ module.exports = {
 				lightBlue: '#D5F1FF',
 				normalBlue: '#2D9ACF',
 				darkBlue: '#185989',
-				orange: '#FF7108'
+				orange: '#FF7108',
+				wpBg: '#F0F0F1'
 			},
 			borderRadius: {
 				lg: '0.5rem',

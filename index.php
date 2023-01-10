@@ -22,6 +22,7 @@ class Minyantimes
   {
     add_action('init', array($this, 'loadScripts'));
     add_action('admin_menu', array($this, 'ourMenu'));
+    add_action("admin_init", array($this, 'settings'));
   }
 
 
@@ -39,6 +40,10 @@ class Minyantimes
 
   function renderCallback($attributes)
   {
+
+
+    $attributes["googleKey"] = get_option("mtp_google_api_key");
+
     ob_start(); ?>
 <div id="minyan-times" class="minyan-times-wrapper">
     <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
@@ -51,12 +56,68 @@ class Minyantimes
     $mainPageHook = add_menu_page('Minyan Time Viewer', 'Time Viewer', 'manage_options', 'minyantimes', array($this, 'locationsPageHTML'), 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMCAyMEMxNS41MjI5IDIwIDIwIDE1LjUyMjkgMjAgMTBDMjAgNC40NzcxNCAxNS41MjI5IDAgMTAgMEM0LjQ3NzE0IDAgMCA0LjQ3NzE0IDAgMTBDMCAxNS41MjI5IDQuNDc3MTQgMjAgMTAgMjBaTTExLjk5IDcuNDQ2NjZMMTAuMDc4MSAxLjU2MjVMOC4xNjYyNiA3LjQ0NjY2SDEuOTc5MjhMNi45ODQ2NSAxMS4wODMzTDUuMDcyNzUgMTYuOTY3NEwxMC4wNzgxIDEzLjMzMDhMMTUuMDgzNSAxNi45Njc0TDEzLjE3MTYgMTEuMDgzM0wxOC4xNzcgNy40NDY2NkgxMS45OVoiIGZpbGw9IiNGRkRGOEQiLz4KPC9zdmc+', 100);
     add_action("load-{$mainPageHook}", array($this, 'settingsScripts'));
     add_action('admin_enqueue_scripts', array($this, 'settingsScripts'));
+    add_options_page("Minyan Times Settings", "Minyan Times", "manage_options", "minyan-times-settings", array($this, "settings_page"));
+  }
+
+  function settings()
+  {
+    add_settings_section('mtp_first_section', 'zManim Api Credentials', null, 'minyan-times-settings');
+    add_settings_field('mtp_api_key', 'Api Key', array($this, 'apiKeyHTML'), 'minyan-times-settings', 'mtp_first_section');
+    add_settings_field('mtp_api_user', 'Api User', array($this, 'apiUserHtml'), 'minyan-times-settings', 'mtp_first_section');
+    add_settings_field('mtp_google_api_key', 'Google Api Key', array($this, 'googleApiKey'), 'minyan-times-settings', 'mtp_first_section');
+    register_setting("minyantimesplugin", 'mtp_api_user', array('sanitize_callback' => 'sanitize_text_field', "default" => ""));
+    register_setting("minyantimesplugin", 'mtp_api_key', array('sanitize_callback' => 'sanitize_text_field', 'default' => ""));
+    register_setting("minyantimesplugin", 'mtp_google_api_key', array('sanitize_callback' => 'sanitize_text_field', 'default' => ""));
+  }
+
+  function apiKeyHTML()
+  {
+  ?>
+
+<input type="text" value="<?php echo get_option("mtp_api_key") ?>" name="mtp_api_key" id="mtp_api_key" />
+<?php
+  }
+  function apiUserHtml()
+  {
+  ?>
+
+<input value="<?php echo get_option("mtp_api_user") ?>" type="text" name="mtp_api_user" id="mtp_api_user" />
+<?php
+  }
+  function googleApiKey()
+  {
+  ?>
+
+<input value="<?php echo get_option("mtp_google_api_key") ?>" type="text" name="mtp_google_api_key"
+    id="mtp_google_api_key" />
+<?php
+  }
+
+
+  function settings_page()
+  {
+  ?>
+<div class="wrap">
+    <h1 class="settings_header">Minyan API Credentials</h1>
+    <form action="options.php" method="POST">
+        <?php
+        settings_fields("minyantimesplugin");
+        do_settings_sections("minyan-times-settings");
+        submit_button();
+
+        ?>
+    </form>
+</div>
+
+<?php
   }
 
 
 
   function settingsScripts()
   {
+    wp_next_scheduled('mtp_cron_hook');
+
     wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css');
     wp_enqueue_script('minyan-setting-scripts', plugin_dir_url(__FILE__) . 'build/Settings.js', array('wp-element', 'wp-i18n', 'wp-components'));
     wp_localize_script('minyan-setting-scripts', 'wpApiSettings', array(
@@ -68,8 +129,17 @@ class Minyantimes
 
   function locationsPageHTML()
   {
+
   ?>
 <div id="minyan-location-settings" class="minyan-times-wrapper">
+</div>
+<?php
+  }
+  function settings_page_render()
+  {
+  ?>
+<div id="minyan-location-settings" class="minyan-times-wrapper">
+    Hello World
 </div>
 <?php
   }
@@ -78,15 +148,19 @@ class Minyantimes
 
 class MinyanTimesApi
 {
+  private $zManimService;
+  private $locationsTableName;
+  private $timesTableName;
+  private $charset;
   function __construct()
   {
-
+    require_once(__DIR__ . "/services/zManimService.php");
     global $wpdb;
     $this->charset = $wpdb->get_charset_collate();
     $this->timesTableName = $wpdb->prefix . "times";
     $this->locationsTableName = $wpdb->prefix . "locations";
+    $this->zManimService = new zManimService(get_option("mtp_api_user"), get_option("mtp_api_key"));
     register_activation_hook(__FILE__, array($this, 'onActivate'));
-
     add_action("rest_api_init", array($this, "initRest"));
   }
 
@@ -98,15 +172,17 @@ class MinyanTimesApi
       name varchar(255) NOT NULL DEFAULT '',
       address varchar(255) NOT NULL DEFAULT '',
       city varchar(255) NOT NULL DEFAULT '',
+      zipCode varchar(255) NOT NULL DEFAULT '',
+      thirdPartyData TEXT(60538),
       PRIMARY KEY  (id)
     ) $this->charset;";
     $timesSql = "CREATE TABLE $this->timesTableName (
       id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
       time varchar(50),
-      formula varchar(50),
-      minutes varchar(50),
+      formula bigint(20),
+      minutes bigint(20),
       isCustom boolean,
-      day varchar(50),
+      day TEXT,
       nusach varchar(255) NOT NULL DEFAULT '',
       type varchar(255),
       locationId bigint(20) NOT NULL,
@@ -117,8 +193,6 @@ class MinyanTimesApi
   }
   function perm_callback()
   {
-    global $current_user_can;
-
     return current_user_can('manage_options');
   }
 
@@ -138,6 +212,28 @@ class MinyanTimesApi
           'methods' => WP_REST_Server::CREATABLE,
           'callback' => array($this, 'create_time'),
           'permission_callback' => array($this, "perm_callback")
+        )
+      )
+    );
+    register_rest_route(
+      "minyan-times/v1",
+      "zManimSync",
+      array(
+        array(
+          'methods' => WP_REST_Server::READABLE,
+          'callback' => array($this, 'sync_all_locations'),
+          'permission_callback' => array($this, "perm_callback"),
+
+        )
+      )
+    );
+    register_rest_route(
+      "minyan-times/v1",
+      "zManim",
+      array(
+        array(
+          'methods' => WP_REST_Server::READABLE,
+          'callback' => array($this, 'get_zmanim_data'),
         )
       )
     );
@@ -219,10 +315,10 @@ class MinyanTimesApi
   function get_locations()
   {
     global $wpdb;
-
-    $sql = "SELECT id, name, city, address FROM " . $this->locationsTableName;
-
-    $results =  $wpdb->get_results($sql);
+    $table = $this->locationsTableName;
+    $sql = "SELECT id, name, city, address, zipCode, thirdPartyData FROM " . $table;
+    $query = $wpdb->prepare($sql);
+    $results =  $wpdb->get_results($query);
     return $results;
   }
 
@@ -231,16 +327,20 @@ class MinyanTimesApi
     global $wpdb;
     $parameters = $request->get_body_params();
     $name = $parameters['name'];
+    $zipCode = $parameters['zipCode'];
     $address = $parameters['address'];
     $city = $parameters['city'];
+    $locationData = array(
+      "name" => $name,
+      "address" => $address,
+      "city" => $city,
+      "zipCode" => $zipCode
+    );
+
     if ($name && $address && $city) {
       $insert = $wpdb->insert(
         $this->locationsTableName,
-        array(
-          "name" => $name,
-          "address" => $address,
-          "city" => $city
-        )
+        $locationData
       );
       if ($insert) {
         return rest_ensure_response('Success');
@@ -257,15 +357,18 @@ class MinyanTimesApi
     $name = $parameters['name'];
     $address = $parameters['address'];
     $city = $parameters['city'];
+    $zipCode = $parameters['zipCode'];
     $id = $parameters['id'];
+    $locationData = array(
+      "name" => $name,
+      "address" => $address,
+      "city" => $city,
+      "zipCode" => $zipCode
+    );
 
     $update = $wpdb->update(
       $this->locationsTableName,
-      array(
-        "name" => $name,
-        "address" => $address,
-        "city" => $city
-      ),
+      $locationData,
       array("id" => $id),
 
     );
@@ -300,23 +403,30 @@ class MinyanTimesApi
     return new WP_Error("invalid", "bad input", array("status" => 400));
   }
 
-
   function get_times($request)
   {
     global $wpdb;
-    $locationId = $request->get_param("locationId");
+    $city = $request->get_param("city");
     $nusach = $request->get_param("nusach");
     $day = $request->get_param("day");
+    $sortBy = $request->get_param("sortBy");
     $sql = "SELECT " . $this->timesTableName . ".id as id, name as location, time, isCustom, formula, minutes, type, city, address, locationId, nusach, day FROM " . $this->timesTableName . " INNER JOIN " . $this->locationsTableName . " l ON locationId = l.id WHERE 1=1 ";
-    if ($locationId) {
-      $sql = $sql . " AND locationId = " . $locationId;
+    if ($city) {
+      $sql = $wpdb->prepare($sql . " AND city = %s", $city);
     }
     if ($nusach) {
-      $sql = $sql .  " AND nusach = " . "'" . $nusach . "'";
+      $sql = $wpdb->prepare($sql .  " AND nusach = %s", $nusach);
     }
     if ($day) {
-      $sql = $sql .  " AND day = " . "'" . $day . "'";
+      $search_text = "%" . $wpdb->esc_like($day)  . "%";
+      $sql = $wpdb->prepare($sql .  " AND day like %s", $search_text);
     }
+    if ($sortBy) {
+      $sql = $wpdb->prepare($sql .  "ORDER BY %s ASC", $sortBy);
+    }
+
+
+
 
     $results =  $wpdb->get_results($sql);
     return  $results;
@@ -334,6 +444,38 @@ class MinyanTimesApi
     );
     if ($delete) {
       return rest_ensure_response("Success");
+    }
+    return new WP_Error("invalid", "bad input", array("status" => 400));
+  }
+  function use_zManim_api($locations)
+  {
+    global $wpdb;
+
+    $zManimLocations = array();
+    foreach ($locations as $location) {
+      $zipCode = $location->zipCode;
+      $response = $this->zManimService->getToday($zipCode);
+      $zManimLocations[$zipCode] =
+        json_encode($response);
+    }
+    foreach ($zManimLocations as $key => $value) {
+      $wpdb->update($this->locationsTableName, array("thirdPartyData" => $value), array("zipCode" => $key));
+    }
+
+    return wp_next_scheduled('mtp_cron_hook');
+  }
+  function sync_all_locations()
+  {
+    $locations = $this->get_locations();
+    $this->use_zManim_api($locations);
+  }
+  function get_zmanim_data($request)
+  {
+    $date = $request["date"];
+    $postalCode = $request["postalCode"];
+    if ($date && $postalCode) {
+      $response = $this->zManimService->getDay($date, $postalCode);
+      return $response;
     }
     return new WP_Error("invalid", "bad input", array("status" => 400));
   }
@@ -355,13 +497,13 @@ class MinyanTimesApi
       $this->timesTableName,
       array(
         "time" => $time,
-        "locationId" => $locationId,
+        "locationId" => (int)$locationId,
         "nusach" => $nusach,
         "day" => $day,
         "type" => $type,
-        "formula" => $formula,
-        "minutes" => $minutes,
-        "isCustom" => $isCustom
+        "formula" => (int)$formula,
+        "minutes" => (int)$minutes,
+        "isCustom" => (int)$isCustom
       ),
       array("id" => $id),
 
@@ -388,19 +530,18 @@ class MinyanTimesApi
     $formula = $parameters["formula"];
     $minutes = $parameters["minutes"];
     $isCustom = $parameters["isCustom"];
-    if ($time && $locationId && $nusach && $day) {
+    if (($time || $isCustom == "1") && $locationId && $nusach && $day) {
       $insert = $wpdb->insert(
         $this->timesTableName,
         array(
           "time" => $time,
-          "locationId" => $locationId,
-          "isCustom" => $isCustom,
+          "locationId" => (int)$locationId,
+          "isCustom" => (int)$isCustom,
           "nusach" => $nusach,
           "day" => $day,
           "type" => $type,
-          "formula" => $formula,
-          "minutes" => $minutes,
-          "isCustom" => $isCustom
+          "formula" => (int)$formula,
+          "minutes" => (int)$minutes,
         )
       );
       if ($insert) {
@@ -412,6 +553,8 @@ class MinyanTimesApi
     return $parameters;
   }
 }
+
+
 
 $minyanTimesApi = new MinyanTimesApi();
 $minyantimes = new MinyanTimes();

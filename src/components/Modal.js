@@ -14,9 +14,13 @@ export default function Modal({ title, children, button }) {
 
 	return (
 		<>
-			<button type="button" onClick={openModal}>
-				{button}
-			</button>
+			{typeof button === 'function' ? (
+				button({ setIsOpen })
+			) : (
+				<button type="button" onClick={openModal}>
+					{button}
+				</button>
+			)}
 
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -41,7 +45,7 @@ export default function Modal({ title, children, button }) {
 								leave="ease-in duration-200"
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95">
-								<Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-wpBg p-6 text-left align-middle shadow-xl transition-all">
 									<Dialog.Title
 										as="h3"
 										className="text-lg font-medium leading-6 text-gray-900">
