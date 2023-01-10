@@ -55,12 +55,20 @@ export default function LocationForm({ location, onSuccess }) {
 				/>
 				<Input
 					onChange={handleChange}
+					value={locationData.state}
+					required
+					name="state"
+					label="State"
+				/>
+				<Input
+					onChange={handleChange}
 					value={locationData.zipCode}
 					required
 					name="zipCode"
 					label="Zip Code"
 				/>
-				<div className="col-span-2 flex justify-end mt-4">
+
+				<div className="col-span-4 flex justify-end mt-4">
 					<Button type="submit" className=" bg-blue-600">
 						Submit
 					</Button>

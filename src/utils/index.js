@@ -449,7 +449,9 @@ let client = new Client({});
 
 export function useGeocodeApi({ googleKey, timeOption, enabled }) {
 	const address = timeOption
-		? `${timeOption.address}, ${timeOption.city} ${timeOption.zipCode}`
+		? `${timeOption.address || ''} ${timeOption.city || ''} ${
+				timeOption.state || ''
+		  } ${timeOption.zipCode || ''}`
 		: null;
 	return useQuery(
 		['gMap', address],
@@ -458,8 +460,9 @@ export function useGeocodeApi({ googleKey, timeOption, enabled }) {
 			if (address) {
 				const response = await client.geocode({
 					params: {
-						address,
-						key: googleKey
+						address: address,
+						key: googleKey,
+						components: { country: 'us' }
 					}
 				});
 				return response.data;

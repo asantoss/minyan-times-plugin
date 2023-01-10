@@ -26,6 +26,10 @@ export default function LocationsSettings() {
 		{
 			label: 'City',
 			fieldName: 'city'
+		},
+		{
+			label: 'State',
+			fieldName: 'state'
 		}
 	];
 	return (

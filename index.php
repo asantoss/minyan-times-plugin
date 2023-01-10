@@ -173,7 +173,7 @@ class MinyanTimesApi
       address varchar(255) NOT NULL DEFAULT '',
       city varchar(255) NOT NULL DEFAULT '',
       zipCode varchar(255) NOT NULL DEFAULT '',
-      thirdPartyData TEXT(60538),
+      state varchar(255) NOT NULL DEFAULT '',
       PRIMARY KEY  (id)
     ) $this->charset;";
     $timesSql = "CREATE TABLE $this->timesTableName (
@@ -316,7 +316,7 @@ class MinyanTimesApi
   {
     global $wpdb;
     $table = $this->locationsTableName;
-    $sql = "SELECT id, name, city, address, zipCode, thirdPartyData FROM " . $table;
+    $sql = "SELECT id, name, city, address, zipCode, state, thirdPartyData FROM " . $table;
     $query = $wpdb->prepare($sql);
     $results =  $wpdb->get_results($query);
     return $results;
@@ -329,12 +329,14 @@ class MinyanTimesApi
     $name = $parameters['name'];
     $zipCode = $parameters['zipCode'];
     $address = $parameters['address'];
+    $state = $parameters['state'];
     $city = $parameters['city'];
     $locationData = array(
       "name" => $name,
       "address" => $address,
       "city" => $city,
-      "zipCode" => $zipCode
+      "zipCode" => $zipCode,
+      "state" => $state
     );
 
     if ($name && $address && $city) {
@@ -357,13 +359,15 @@ class MinyanTimesApi
     $name = $parameters['name'];
     $address = $parameters['address'];
     $city = $parameters['city'];
+    $state = $parameters['state'];
     $zipCode = $parameters['zipCode'];
     $id = $parameters['id'];
     $locationData = array(
       "name" => $name,
       "address" => $address,
       "city" => $city,
-      "zipCode" => $zipCode
+      "zipCode" => $zipCode,
+      "state" => $state
     );
 
     $update = $wpdb->update(
@@ -410,7 +414,7 @@ class MinyanTimesApi
     $nusach = $request->get_param("nusach");
     $day = $request->get_param("day");
     $sortBy = $request->get_param("sortBy");
-    $sql = "SELECT " . $this->timesTableName . ".id as id, name as location, time, isCustom, formula, minutes, type, city, address, locationId, nusach, day FROM " . $this->timesTableName . " INNER JOIN " . $this->locationsTableName . " l ON locationId = l.id WHERE 1=1 ";
+    $sql = "SELECT " . $this->timesTableName . ".id as id, name as location, time, isCustom, formula,zipCode, state, minutes, type, city, address, locationId, nusach, day FROM " . $this->timesTableName . " INNER JOIN " . $this->locationsTableName . " l ON locationId = l.id WHERE 1=1 ";
     if ($city) {
       $sql = $wpdb->prepare($sql . " AND city = %s", $city);
     }

@@ -16,7 +16,7 @@ export default function Map({ locations = [], zoomLevel = 15, apiKey }) {
 					Get Directions
 				</a>
 			</div>
-			<div className="h-60 w-96">
+			<div className="h-80 w-96">
 				<GoogleMapReact
 					bootstrapURLKeys={{ key: apiKey }}
 					defaultCenter={locations[0]}

@@ -114,14 +114,10 @@ function MinyanTimes(props) {
 					return e.type && e.type.includes(sect);
 				})
 				.reduce((acc, timeElement) => {
-					let currentTime = convertTime(timeElement.time);
+					let currentTime = '';
 
 					timeElement.onClick = () => {
-						if (selectedTimeOption?.id === timeElement.id) {
-							setSelectedTimeOption(null);
-						} else {
-							setSelectedTimeOption(timeElement);
-						}
+						setSelectedTimeOption(timeElement);
 					};
 					if (timeElement.isCustom === '1') {
 						let { formula, minutes } = timeElement;
@@ -154,6 +150,8 @@ function MinyanTimes(props) {
 						} else {
 							currentTime = `Neitz (${minutes}m ${formulaLabels[formula]})`;
 						}
+					} else {
+						currentTime = convertTime(timeElement.time);
 					}
 					const menuLabel =
 						sortBy === FilterTypes.TIME ? currentTime : timeElement.location;
@@ -298,7 +296,7 @@ function MinyanTimes(props) {
 					return (
 						<div className="relative w-1/3 min-h-full   flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2">
 							<h3 className=" my-2  text-2xl">{type}</h3>
-							<button className="px-4 py-2 mx-2 text-bold  rounded-full text-white text-md bg-normalBlue my-2  text-white text-2xl font-extrabold">
+							<button className="px-4 py-2 mx-2 text-bold  rounded-full text-md bg-normalBlue my-2  text-white text-2xl font-extrabold">
 								{sponsors[type]}
 							</button>
 							<div

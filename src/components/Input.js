@@ -12,9 +12,9 @@
   }
   ```
 */
-export default function Input({ label, ...props }) {
+export default function Input({ label, className, ...props }) {
 	return (
-		<div>
+		<div className={className}>
 			<label
 				htmlFor={props.id || props.name}
 				className="block text-sm font-medium text-gray-700">
