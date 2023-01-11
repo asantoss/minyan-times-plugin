@@ -9,9 +9,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node Environment
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Checkout Repo Environment
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup Node Environment
+        uses: actions/setup-node@v3
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
@@ -21,12 +35,13 @@ jobs:
         with:
           cmd: build
       - name: Bundle server files
-        run: 'mkdir -p wp-minyan-times &&
-          cp -r services block.json index.php build wp-minyan-times/'
+        run: |
+          'cp -r services block.json index.php build/ &&
+          mv build "wp-minyan-times" '
       - name: Zip Assets
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r wp-minyan-times.zip wp-minyan-times
+          args: zip -qq -r wp-minyan-times.zip "wp-minyan-times"
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
