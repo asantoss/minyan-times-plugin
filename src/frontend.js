@@ -123,7 +123,7 @@ function MinyanTimes(props) {
 						let { formula, minutes } = timeElement;
 						formula = Number(formula);
 						minutes = Number(minutes);
-						if ('Zman' in zManimQuery.data) {
+						if (zManimQuery?.data?.Zman) {
 							const { SunriseDefault, SunsetDefault } = zManimQuery.data.Zman;
 							switch (formula) {
 								case FormulaTypes['Before Sunset']:

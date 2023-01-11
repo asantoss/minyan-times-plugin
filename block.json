@@ -8,7 +8,7 @@
     "editorStyle": "file:./build/styles.css",
     "viewScript": "file:./build/frontend.js",
     "style": "file:./build/styles.css",
-    "category": "widgets",
+    "category": "text",
     "attributes": {
         "Shacharis": {
             "type": "string"
