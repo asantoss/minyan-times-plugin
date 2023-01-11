@@ -185,7 +185,7 @@ function MinyanTimes(props) {
 	};
 	const { Zman, Time } = useMemo(() => {
 		const output = { Zman: {}, Time: {} };
-		if (!zManimQuery.isLoading && 'Zman' in zManimQuery.data) {
+		if (!zManimQuery.isLoading && zManimQuery?.data?.Zman) {
 			const { Zman, Time } = formatzManimData(zManimQuery.data);
 			output.Time = Time;
 			output.Zman = Zman;
