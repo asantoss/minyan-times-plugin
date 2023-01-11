@@ -1,6 +1,6 @@
 {
   "name": "minyan-times",
-  "version": "1.0.0",
+  "version": "0.0.01",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,11 @@
     "start": "npm-run-all --parallel wpstart tailwindwatch",
     "tailwindbuild": "tailwindcss -i ./src/styles.css -o ./build/styles.css --postcss --minify",
     "tailwindwatch": "tailwindcss -i ./src/styles.css -o ./build/styles.css --watch --postcss --minify",
+    "packages-update": "wp-scripts packages-update",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "16"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +38,7 @@
     "@tanstack/react-query": "^4.20.4",
     "@tanstack/react-query-devtools": "^4.22.0",
     "axios": "^1.2.2",
-    "google-map-react": "^2.2.0"
+    "google-map-react": "^2.2.0",
+    "react": "17.0.0"
   }
 }
