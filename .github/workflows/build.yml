@@ -24,7 +24,7 @@ jobs:
       - name: Bundle server files
         run: |
           'mkdir minyanTimes &&
-          cp -r services block.json index.php build minyanTimes'
+          cp -r services block.json index.php build minyanTimes/'
       - name: Zip Assets
         uses: montudor/action-zip@v1
         with:
