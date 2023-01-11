@@ -14,7 +14,9 @@
     "tailwindwatch": "tailwindcss -i ./src/styles.css -o ./build/styles.css --watch --postcss --minify",
     "packages-update": "wp-scripts packages-update",
     "test": "echo \"0Error: no test specified\" && exit 1",
-    "package-release": "mkdir -p wp-minyan-times/build/ && cp build/* wp-minyan-times/build/ && cp -r services/ index.php block.json wp-minyan-times/"
+    "package-release": "mkdir -p wp-minyan-times/build/ && cp build/* wp-minyan-times/build/ && cp -r services index.php block.json wp-minyan-times/",
+    "release": "npm-run-all --sequential buildwp tailwindbuild plugin-zip",
+    "plugin-zip": "wp-scripts plugin-zip"
   },
   "engines": {
     "node": "16"

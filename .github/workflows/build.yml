@@ -20,20 +20,12 @@ jobs:
       - name: Run build
         uses: borales/actions-yarn@v4
         with:
-          cmd: build
-      - name: Bundle package release
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: package-release
-      - name: Zip Assets
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r wp-minyan-times.zip wp-minyan-times
+          cmd: release
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: wp-minyan-times.zip
+          file: minyan-times.zip
           asset_name: wp-minyan-times.zip
           tag: ${{ github.ref }}
           overwrite: true

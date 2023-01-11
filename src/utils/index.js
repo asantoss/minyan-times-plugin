@@ -156,30 +156,23 @@ export function useLocationMutation(id) {
 }
 
 export function useZmanimApi({ day, postalCode }) {
-	return useQuery(
-		['zManim', day, postalCode],
-		async ({ queryKey }) => {
-			try {
-				const [_, day, postalCode] = queryKey;
-				const dateObj = getDateFromDay(day);
-				const date = `${dateObj.getFullYear()}-${
-					dateObj.getMonth() + 1
-				}-${dateObj.getDate()}`;
-				if (postalCode) {
-					const response = await axiosClient.get('/zManim', {
-						params: { date, postalCode }
-					});
+	return useQuery(['zManim', day, postalCode], async ({ queryKey }) => {
+		try {
+			const [_, day, postalCode] = queryKey;
+			const dateObj = getDateFromDay(day);
+			const date = `${dateObj.getFullYear()}-${
+				dateObj.getMonth() + 1
+			}-${dateObj.getDate()}`;
+			if (postalCode) {
+				const response = await axiosClient.get('/zManim', {
+					params: { date, postalCode }
+				});
 
-					return response.data;
-				}
-				return {};
-			} catch (error) {}
-		},
-		{
-			staleTime: Infinity,
-			cacheTime: Infinity
-		}
-	);
+				return response.data;
+			}
+			return {};
+		} catch (error) {}
+	});
 }
 function firstDayOfWeek(date) {
 	const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
