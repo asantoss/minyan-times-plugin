@@ -160,9 +160,9 @@ export function useZmanimApi({ day, postalCode }) {
 		try {
 			const [_, day, postalCode] = queryKey;
 			const dateObj = getDateFromDay(day);
-			const date = `${dateObj.getFullYear()}-${
-				dateObj.getMonth() + 1
-			}-${dateObj.getDate()}`;
+			const date = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1)
+				.toString()
+				.padStart(2, '0')}-${dateObj.getDate()}`;
 			if (postalCode) {
 				const response = await axiosClient.get('/zManim', {
 					params: { date, postalCode }
