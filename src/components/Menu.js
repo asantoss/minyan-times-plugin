@@ -27,7 +27,7 @@ export default function Menu({ title, options = [] }) {
 									<button
 										key={i}
 										onClick={e.onClick}
-										className="py-2 text-darkBlue  hover:bg-darkBlue hover:text-white">
+										className="py-2 text-darkBlue ">
 										{e.label}
 									</button>
 								);

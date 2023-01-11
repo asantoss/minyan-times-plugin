@@ -5,7 +5,7 @@ import Button from './Button';
 import Select from './Select';
 import Switch from './Switch';
 import Checkboxes from './Checkboxes';
-import { FormulaTypes } from '../utils/enums';
+import { days, FormulaTypes } from '../utils/enums';
 export default function TimeForm({ time, onSuccess }) {
 	const locationQuery = useLocationQuery();
 	const { mutate } = useTimeMutation(time?.id);
@@ -33,14 +33,6 @@ export default function TimeForm({ time, onSuccess }) {
 		onSuccess && onSuccess();
 	};
 
-	const days = [
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Sunday'
-	];
 	function handleChangeDay(value) {
 		const selectedDays = days.filter((e) => value.includes(e));
 		setTimeData({

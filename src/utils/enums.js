@@ -14,3 +14,12 @@ export const formulaLabels = Object.keys(FormulaTypes).reduce(
 	(acc, e) => ({ ...acc, [[FormulaTypes[e]]]: e }),
 	{}
 );
+
+export const days = [
+	'Sunday',
+	'Monday',
+	'Tuesday',
+	'Wednesday',
+	'Thursday',
+	'Friday'
+];

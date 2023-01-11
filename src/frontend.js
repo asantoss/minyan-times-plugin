@@ -15,7 +15,7 @@ import {
 	useLocationQuery,
 	useZmanimApi
 } from './utils';
-import { FilterTypes, formulaLabels, FormulaTypes } from './utils/enums';
+import { days, FilterTypes, formulaLabels, FormulaTypes } from './utils/enums';
 import Spinner from './components/Spinner';
 import Menu from './components/Menu';
 import Map from './components/Map';
@@ -40,7 +40,6 @@ document.addEventListener(
 );
 const today = new Date();
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const types = ['Shacharis', 'Mincha', 'Maariv'];
 let currentDay = today.getDay() === 6 ? 0 : today.getDay(); // Remove saturday.
 

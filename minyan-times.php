@@ -13,7 +13,6 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-
 require_once(__DIR__ . "/includes/zManimService.php");
 
 
@@ -26,6 +25,8 @@ class Minyantimes
     add_action('admin_menu', array($this, 'ourMenu'));
     add_action("admin_init", array($this, 'settings'));
   }
+
+
 
 
   function loadScripts()
@@ -434,7 +435,7 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
       $sql = $wpdb->prepare($sql . " AND nusach = %s", $nusach);
     }
     if ($day) {
-      $search_text = "%" . $wpdb->esc_like($day) . "%";
+      $search_text = "%" . $day . "%";
       $sql = $wpdb->prepare($sql . " AND day like %s", $search_text);
     }
     if ($sortBy) {
