@@ -14,6 +14,8 @@ if (!defined('ABSPATH')) {
 }
 
 
+require_once(__DIR__ . "/includes/zManimService.php");
+
 
 
 class Minyantimes
@@ -147,7 +149,7 @@ class MinyanTimesApi
   private $charset;
   function __construct()
   {
-    require_once(__DIR__ . "/services/zManimService.php");
+
     global $wpdb;
     $this->charset = $wpdb->get_charset_collate();
     $this->timesTableName = $wpdb->prefix . "times";
