@@ -2,8 +2,8 @@ on:
   push:
     branches:
       - 'main'
-    # tags:
-    #   - '*'
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -20,7 +20,8 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build
-      - run: 'cp -r services block.json index.php build/'
+      - name: Copy WP
+        run: 'cp -r services block.json index.php build/'
       - uses: montudor/action-zip@v1
         with:
           args: zip -qq -r build.zip build
@@ -29,7 +30,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build.zip
-          asset_name: wp-minyan-times
+          asset_name: wp-minyan-times.zip
           tag: ${{ github.ref }}
           overwrite: true
           body: 'Latest version'
