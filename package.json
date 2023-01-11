@@ -13,7 +13,8 @@
     "tailwindbuild": "tailwindcss -i ./src/styles.css -o ./build/styles.css --postcss --minify",
     "tailwindwatch": "tailwindcss -i ./src/styles.css -o ./build/styles.css --watch --postcss --minify",
     "packages-update": "wp-scripts packages-update",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"0Error: no test specified\" && exit 1",
+    "package-release": "mkdir -p wp-minyan-times/build/ && cp build/* wp-minyan-times/build/ && cp -r services/ index.php block.json wp-minyan-times/"
   },
   "engines": {
     "node": "16"
