@@ -1,7 +1,9 @@
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - 'main'
+    # tags:
+    #   - '*'
 
 jobs:
   build:
@@ -10,8 +12,6 @@ jobs:
       - name: Setup Node Environment
         uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-        with:
-          node-version: lts
       - run: 'npm i && npm run build'
       - run: 'cp -r services block.json index.php build/'
       - uses: montudor/action-zip@v1
