@@ -21,10 +21,10 @@ jobs:
         with:
           cmd: build
       - name: Copy WP
-        run: 'cp -r services block.json index.php build/'
+        run: 'mkdir wp-minyan-times | cp -r services block.json index.php build wp-minyan-times/'
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r wp-minyan-times.zip build/*
+          args: zip -qq -r wp-minyan-times.zip wp-minyan-times
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
