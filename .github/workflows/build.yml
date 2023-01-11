@@ -21,9 +21,10 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build
+      - run: |
+          'mkdir minyanTimes
       - name: Bundle server files
         run: |
-          'mkdir minyanTimes &&
           cp -r services block.json index.php build minyanTimes/'
       - name: Zip Assets
         uses: montudor/action-zip@v1
