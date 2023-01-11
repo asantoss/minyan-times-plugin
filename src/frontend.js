@@ -211,7 +211,7 @@ function MinyanTimes(props) {
 		setDay(value);
 	}
 	return (
-		<div className="flex-col flex w-fit">
+		<div className="flex-col flex w-full">
 			<div className="my-2 mx-auto">
 				{googleKey && pinLocations.length > 0 && (
 					<Map apiKey={googleKey} locations={pinLocations} />

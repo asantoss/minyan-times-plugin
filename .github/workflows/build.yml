@@ -33,7 +33,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build.zip
+          file: wp-minyan-times.zip
           asset_name: wp-minyan-times.zip
           tag: ${{ github.ref }}
           overwrite: true
