@@ -22,14 +22,17 @@ jobs:
         with:
           cmd: build
       - run: |
-          mkdir minyanTimes
+          mkdir wp-minyan-times
+      - name: Bundle js buid
+        run: |
+          cp -r build wp-minyan-times/
       - name: Bundle server files
         run: |
-          cp -r services block.json index.php build minyanTimes/
+          cp -r services block.json index.php wp-minyan-times/
       - name: Zip Assets
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r minyanTimes.zip minyanTimes"
+          args: zip -qq -r wp-minyan-times.zip wp-minyan-times
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
