@@ -28,6 +28,26 @@ export default function LocationForm({ location, onSuccess, googleKey }) {
 		if (isSuccess) {
 			if (Array.isArray(data.results) && data.results?.length === 1) {
 				const targetResult = data.results[0];
+				if (targetResult?.address_components?.length) {
+					if (!locationData.zipCode) {
+						const postal = targetResult.address_components.find(
+							(e) =>
+								Array.isArray(e?.types) &&
+								e.types?.includes &&
+								e.types.includes('postal_code')
+						);
+						body.set('zipCode', postal?.long_name);
+					}
+					if (!locationData.state) {
+						const state = targetResult.address_components.find(
+							(e) =>
+								Array.isArray(e?.types) &&
+								e.types?.includes &&
+								e.types.includes('administrative_area_level_1')
+						);
+						body.set('state', state?.long_name);
+					}
+				}
 				if (targetResult?.geometry?.location) {
 					const { lat, lng } = targetResult.geometry.location;
 					body.append('lat', lat);
@@ -74,14 +94,12 @@ export default function LocationForm({ location, onSuccess, googleKey }) {
 				<Input
 					onChange={handleChange}
 					value={locationData.state}
-					required
 					name="state"
 					label="State"
 				/>
 				<Input
 					onChange={handleChange}
 					value={locationData.zipCode}
-					required
 					name="zipCode"
 					label="Zip Code"
 				/>

@@ -30,6 +30,10 @@ export default function LocationsSettings({ googleKey }) {
 		{
 			label: 'State',
 			fieldName: 'state'
+		},
+		{
+			label: 'Zip Code',
+			fieldName: 'zipCode'
 		}
 	];
 	return (

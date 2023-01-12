@@ -1,5 +1,6 @@
 module.exports = {
 	content: ['./**/*.php', './src/**/*.js'],
+	important: true,
 	theme: {
 		fontFamily: {
 			sans: ['Open-Sans', 'sans'],

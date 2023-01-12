@@ -351,19 +351,12 @@ export function formatZman(zman) {
 	if (sec < 10) {
 		sec = '0' + sec;
 	}
-	let ampm = hr < 12 ? ' AM' : ' PM';
+	let ampm = hr < 12 ? ' am' : ' pm';
 	if (hr == 0) hr = 12;
 	if (hr > 12) hr -= 12;
 	let result = hr + ':' + min;
-	// if (sec > 0) result += ':' + sec;
 	result += ampm;
 	return result;
-}
-
-function getClientTimeZone() {
-	let d = new Date();
-	let tz = d.getTimezoneOffset() / 60;
-	return tz;
 }
 
 function round(num) {

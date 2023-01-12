@@ -10,7 +10,7 @@ export default function Menu({ title, options = [] }) {
 			)}>
 			{({ open }) => (
 				<>
-					<Popover.Button className="flex justify-between w-full active:border-0">
+					<Popover.Button className="flex justify-between w-full text-darkBlue font-serif text-lg font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue hover:bg-white active:border-0">
 						<span>{title}</span>
 						<ChevronDownIcon
 							className={classNames(
@@ -27,7 +27,7 @@ export default function Menu({ title, options = [] }) {
 									<button
 										key={i}
 										onClick={e.onClick}
-										className="py-2 text-darkBlue ">
+										className="py-2 text-darkBlue font-serif text-lg font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue bg-white hover:bg-white border-0 ">
 										{e.label}
 									</button>
 								);

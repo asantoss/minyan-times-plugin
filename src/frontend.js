@@ -276,7 +276,7 @@ function MinyanTimes(props) {
 				/>
 			</div>
 
-			<div className="flex justify-between h-96  body_wrapper my-2">
+			<div className="flex justify-between h-96 overflow-y-auto  body_wrapper my-2">
 				{types.map((type, i) => {
 					const targetSection = formalizedData[type] ?? [];
 					return (
@@ -285,13 +285,7 @@ function MinyanTimes(props) {
 							<button className="px-4 py-2 mx-2 text-bold  rounded-full text-md bg-normalBlue my-2  text-white text-2xl font-extrabold">
 								{sponsors[type]}
 							</button>
-							<div
-								className={classNames(
-									'absolute transition-all duration-1000 w-full z-30 h-full bg-black/25 ',
-									timesQuery.isLoading ? '' : 'hidden'
-								)}>
-								<Spinner isLoading={timesQuery.isLoading} />
-							</div>
+							<Spinner isLoading={timesQuery.isLoading} />
 							{!timesQuery.isLoading &&
 								timesQuery.data &&
 								Object.keys(targetSection ?? {}).map((j) => (
