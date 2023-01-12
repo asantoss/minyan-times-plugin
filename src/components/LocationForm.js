@@ -26,7 +26,7 @@ export default function LocationForm({ location, onSuccess, googleKey }) {
 		}
 		const { data, isSuccess } = await geocodeQuery.refetch();
 		if (isSuccess) {
-			if (Array.isArray(data.results) && data.results?.length === 1) {
+			if (Array.isArray(data.results) && data.results?.length > 0) {
 				const targetResult = data.results[0];
 				if (targetResult?.address_components?.length) {
 					if (!locationData.zipCode) {
@@ -59,7 +59,9 @@ export default function LocationForm({ location, onSuccess, googleKey }) {
 			}
 		}
 		await mutate(body);
-		onSuccess && onSuccess();
+		if (onSuccess) {
+			onSuccess();
+		}
 	};
 
 	return (

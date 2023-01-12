@@ -15,15 +15,19 @@ export default function Modal({ title, children, button }) {
 	return (
 		<>
 			{typeof button === 'function' ? (
-				button({ setIsOpen })
+				button({ setIsOpen, closeModal })
 			) : (
 				<button type="button" onClick={openModal}>
 					{button}
 				</button>
 			)}
 
-			<Transition appear show={isOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-10" onClose={closeModal}>
+			<Transition appear show={isOpen} as="div">
+				<Dialog
+					as="div"
+					className="relative z-10"
+					open={isOpen}
+					onClose={closeModal}>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-300"

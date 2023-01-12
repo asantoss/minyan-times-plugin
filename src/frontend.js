@@ -276,11 +276,11 @@ function MinyanTimes(props) {
 				/>
 			</div>
 
-			<div className="flex justify-between h-96 overflow-y-auto  body_wrapper my-2">
+			<div className="flex justify-between h-96   body_wrapper my-2">
 				{types.map((type, i) => {
 					const targetSection = formalizedData[type] ?? [];
 					return (
-						<div className="relative w-1/3 min-h-full   flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2">
+						<div className="relative w-1/3 min-h-full overflow-y-auto overscroll-y-none  flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2">
 							<h3 className=" my-2  text-2xl">{type}</h3>
 							<button className="px-4 py-2 mx-2 text-bold  rounded-full text-md bg-normalBlue my-2  text-white text-2xl font-extrabold">
 								{sponsors[type]}

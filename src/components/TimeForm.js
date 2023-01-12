@@ -30,7 +30,9 @@ export default function TimeForm({ time, onSuccess }) {
 		}
 
 		await mutate(body);
-		onSuccess && onSuccess();
+		if (onSuccess) {
+			onSuccess();
+		}
 	};
 
 	function handleChangeDay(value) {
