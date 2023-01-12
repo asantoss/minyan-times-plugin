@@ -16,15 +16,17 @@ import {
 import LocationForm from './components/LocationForm';
 
 document.addEventListener('DOMContentLoaded', () => {
-	const root = document.getElementById('minyan-settings');
+	const root = document.getElementById('mtp-plugin');
 	if (root) {
 		const dataEl = root.querySelector('pre');
 		if (dataEl) {
 			const data = JSON.parse(root.querySelector('pre').innerText);
 			ReactDOM.render(
-				<QueryClientProvider client={queryClient}>
-					<SettingsPage {...data} />
-				</QueryClientProvider>,
+				<div className="mtp-block">
+					<QueryClientProvider client={queryClient}>
+						<SettingsPage {...data} />
+					</QueryClientProvider>
+				</div>,
 				root
 			);
 		}

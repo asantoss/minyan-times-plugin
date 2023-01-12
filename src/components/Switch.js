@@ -13,12 +13,12 @@ export default function SwitchComponent({
 
 	return (
 		<div className={classNames(className)}>
-			<div className="relative max-w-max min-w-fit flex items-center px-2.5">
+			<div className="relative max-w-max min-w-fit flex items-center ">
 				<Switch.Group>
 					<Switch.Label
-						className={`absolute text-white text-sm text-center z-10  ${
-							enabled ? 'left-4' : 'right-6'
-						}`}>
+						className={classNames(
+							`absolute text-white w-full text-sm text-center z-10`
+						)}>
 						{enabled ? onText : offText}
 					</Switch.Label>
 					<Switch
@@ -29,11 +29,11 @@ export default function SwitchComponent({
 						}}
 						className={`${
 							enabled ? 'bg-orange' : 'bg-darkBlue'
-						} relative inline-flex h-10 w-24 items-center rounded-full z-0`}>
+						} relative inline-flex h-10 w-28 items-center rounded-full z-0`}>
 						<span
 							className={`${
-								enabled ? 'translate-x-16' : 'translate-x-1'
-							} inline-block h-6 w-6  rounded-full bg-white transform transition ease-in-out duration-100`}
+								enabled ? 'translate-x-20' : 'translate-x-1'
+							} inline-block focus-visible:outline-none h-7 w-7  rounded-full bg-white transform transition ease-in-out duration-100`}
 						/>
 					</Switch>
 				</Switch.Group>

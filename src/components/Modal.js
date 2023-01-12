@@ -22,10 +22,10 @@ export default function Modal({ title, children, button }) {
 				</button>
 			)}
 
-			<Transition appear show={isOpen} as="div">
+			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog
 					as="div"
-					className="relative z-10"
+					className="relative z-10 mtp-block"
 					open={isOpen}
 					onClose={closeModal}>
 					<Transition.Child

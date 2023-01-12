@@ -1,9 +1,9 @@
 module.exports = {
 	content: ['./**/*.php', './src/**/*.js'],
-	important: true,
+	important: '.mtp-block',
 	theme: {
 		fontFamily: {
-			sans: ['Open-Sans', 'sans'],
+			sans: ['Open Sans', 'sans'],
 			serif: ['Merriweather', 'serif']
 		},
 		extend: {
@@ -19,6 +19,7 @@ module.exports = {
 				xl: '0.75rem'
 			},
 			translate: {
+				21: '5.25rem',
 				22: '5.5rem',
 				13: '50px'
 			}

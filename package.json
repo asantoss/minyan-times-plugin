@@ -11,7 +11,7 @@
     "wpstart": "wp-scripts start src/*.js",
     "start": "npm-run-all --parallel wpstart tailwindwatch",
     "tailwindbuild": "tailwindcss -i ./src/styles.css -o ./build/styles.css --postcss --minify",
-    "tailwindwatch": "tailwindcss -i ./src/styles.css -o ./build/styles.css --watch --postcss --minify",
+    "tailwindwatch": "tailwindcss -i ./src/styles.css -o ./build/styles.css --watch --postcss ",
     "packages-update": "wp-scripts packages-update",
     "test": "echo \"0Error: no test specified\" && exit 1",
     "package-release": "mkdir -p wp-minyan-times/build/ && cp build/* wp-minyan-times/build/ && cp -r services index.php block.json wp-minyan-times/",
@@ -42,6 +42,7 @@
     "@tanstack/react-query-devtools": "^4.22.0",
     "axios": "^1.2.2",
     "google-map-react": "^2.2.0",
-    "react": "17.0.0"
+    "react": "17.0.0",
+    "react-virtualized": "^9.22.3"
   }
 }

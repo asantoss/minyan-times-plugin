@@ -48,7 +48,7 @@ class Minyantimes
     $attributes["googleKey"] = get_option("mtp_google_api_key");
 
     ob_start(); ?>
-<div id="minyan-times" class="mtp-plugin-wraper">
+<div id="mtp-plugin">
     <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
 </div>
 <?php return ob_get_clean();
@@ -134,7 +134,7 @@ class Minyantimes
 
     $attributes = array();
     $attributes["googleKey"] = get_option("mtp_google_api_key");
-  ?><div id="minyan-settings" class="mtp-plugin-wraper">
+  ?><div id="mtp-plugin" class="mtp-plugin-wrapper">
     <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
 </div>
 <?php
