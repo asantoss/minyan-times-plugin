@@ -23,3 +23,5 @@ export const days = [
 	'Thursday',
 	'Friday'
 ];
+
+export const NusachOptions = ['Ari', 'Asheknaz', 'Sefardi', 'Sefard'];

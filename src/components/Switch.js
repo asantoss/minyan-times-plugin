@@ -22,6 +22,7 @@ export default function SwitchComponent({
 						{enabled ? onText : offText}
 					</Switch.Label>
 					<Switch
+						as="span"
 						checked={enabled}
 						onChange={(value) => {
 							setEnabled(value);

@@ -15,7 +15,13 @@ import {
 	useLocationQuery,
 	useZmanimApi
 } from './utils';
-import { days, FilterTypes, formulaLabels, FormulaTypes } from './utils/enums';
+import {
+	days,
+	FilterTypes,
+	formulaLabels,
+	FormulaTypes,
+	NusachOptions
+} from './utils/enums';
 import Spinner from './components/Spinner';
 import Menu from './components/Menu';
 import Map from './components/Map';
@@ -51,7 +57,7 @@ function MinyanTimes(props) {
 	const { googleKey } = props;
 	const [selectedTimeOption, setSelectedTimeOption] = useState(null);
 	const [city, setCity] = useState('Baltimore');
-	const [nusach, setNusach] = useState('Ashkenaz');
+	const [nusach, setNusach] = useState('Asheknaz');
 	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
 	const [day, setDay] = useState(days[currentDay]);
 	const [openSection, setOpenSection] = useState('');
@@ -261,21 +267,13 @@ function MinyanTimes(props) {
 					id="Nusach"
 					name="Nusach"
 					title={nusach}
-					options={[
-						{
-							label: 'Sefard',
-							onClick() {
-								setNusach('Sefard');
-							}
-						},
-						{
-							label: 'Ashkenaz',
-							onClick() {
-								setNusach('Ashkenaz');
-							}
+					options={NusachOptions.map((e) => ({
+						label: e,
+						onClick() {
+							setNusach(e);
 						}
-					]}
-					className="m-2"></FilterDropdown>
+					}))}
+					className="m-2 w-28"></FilterDropdown>
 				<label
 					htmlFor="sort"
 					className="mx-4

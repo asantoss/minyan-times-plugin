@@ -5,7 +5,7 @@ import Button from './Button';
 import Select from './Select';
 import Switch from './Switch';
 import Checkboxes from './Checkboxes';
-import { days, FormulaTypes } from '../utils/enums';
+import { days, FormulaTypes, NusachOptions } from '../utils/enums';
 export default function TimeForm({ time, onSuccess }) {
 	const locationQuery = useLocationQuery();
 	const { mutate } = useTimeMutation(time?.id);
@@ -102,7 +102,7 @@ export default function TimeForm({ time, onSuccess }) {
 					required
 					name="type"
 					label="Type">
-					{['Shacharis', 'Mincha', 'Maariv'].map((e) => (
+					{NusachOptions.map((e) => (
 						<option key={e} value={e}>
 							{e}
 						</option>

@@ -3,7 +3,6 @@ import { Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Fragment } from 'react';
 import { classNames } from '../utils';
-import { List, AutoSizer } from 'react-virtualized';
 
 export default function Menu({ title, options = [], className }) {
 	const _rowRenderer = ({ index, key, close }) => {
@@ -25,12 +24,15 @@ export default function Menu({ title, options = [], className }) {
 	};
 	return (
 		<Popover
+			as="div"
 			className={classNames(
-				' text-md font-bold p-2 text-left my-2 rounded-lg border-0 bg-white '
+				'md:relative text-md font-bold p-2 text-left my-2 rounded-lg border-0 bg-white '
 			)}>
 			{({ open }) => (
 				<>
-					<Popover.Button className="flex focus-visible:outline-none justify-between w-full text-darkBlue font-sans text-lg font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue hover:bg-white active:border-0 focus:border-0">
+					<Popover.Button
+						as="span"
+						className="flex focus-visible:outline-none justify-between w-full text-darkBlue font-sans text-lg font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue hover:bg-white active:border-0 focus:border-0">
 						<span>{title}</span>
 						<ChevronDownIcon
 							className={classNames(
@@ -48,11 +50,11 @@ export default function Menu({ title, options = [], className }) {
 						leave="transition duration-500 ease-out"
 						leaveFrom="transform  md:border-b-2  opacity-100"
 						leaveTo="transform  h-0 opacity-0">
-						<Popover.Panel className="md:absolute relative z-20 w-full  md:left-0 max-h-64   md:rounded-b-lg m:dborder-gray-300 overflow-y-auto overscroll-y-contain">
+						<Popover.Panel className="md:absolute relative z-20 w-full  md:left-0   md:rounded-b-lg m:dborder-gray-300 overflow-y-auto overscroll-y-contain">
 							<div className="flex flex-col text-left bg-white w-full">
 								{options.map((e, i) => {
 									return (
-										<button
+										<span
 											key={i}
 											onClick={() => {
 												if (e.onClick) {
@@ -62,7 +64,7 @@ export default function Menu({ title, options = [], className }) {
 											}}
 											className="py-2 px-1 focus-visible:border-0 text-left text-darkBlue font-sans text-lg font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue bg-white hover:bg-white border-0 ">
 											{e.label}
-										</button>
+										</span>
 									);
 								})}
 							</div>
