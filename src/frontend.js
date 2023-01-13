@@ -245,7 +245,7 @@ function MinyanTimes(props) {
 				{days.map((e) => (
 					<button
 						className={classNames(
-							'px-4 py-2 mx-2 font-sans text-bold rounded-full text-white text-sm w-28',
+							' py-2 mx-2 font-sans text-bold rounded-full text-white text-sm w-28',
 							day === e ? 'bg-darkBlue text-bold' : 'bg-normalBlue',
 							e === 'Sunday' ? 'order-last' : ''
 						)}

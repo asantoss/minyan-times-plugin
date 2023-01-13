@@ -11,14 +11,14 @@ export default function FilterDropdown({ title, options = [], className }) {
 			{({ open, close }) => (
 				<div
 					className={classNames(
-						' relative  p-2 font-sans  font-normal text-sm text-left rounded-xl border-0',
+						' relative  p-2 font-sans   font-normal text-sm text-left rounded-xl border-0',
 						open ? 'bg-darkBlue' : 'bg-orange',
 						className
 					)}>
 					<Menu.Button
 						as="span"
 						className={classNames(
-							'text-white focus-visible:outline-none  flex items-center justify-between'
+							'text-white cursor-pointer  focus-visible:outline-none  flex items-center justify-between'
 						)}>
 						{title}
 						<ChevronDownIcon
