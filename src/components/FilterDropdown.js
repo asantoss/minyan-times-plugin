@@ -43,31 +43,42 @@ export default function FilterDropdown({ title, options = [], className }) {
 								'absolute z-20 focus-visible:outline-none bg-darkBlue w-full left-0 max-h-64 rounded-b-lg border-gray-300 overflow-y-auto overscroll-y-contain',
 								open ? ' text-white' : ''
 							)}>
-							{availableOptions.length
-								? availableOptions.map(
-										(e, i) =>
-											e.label !== title && (
-												<Menu.Item>
-													{({ active }) => (
-														<button
-															className={classNames(
-																'py-2 px-1 w-full focus-visible:border-0 text-left bg-darkBlue text-white font-sans  focus:bg-darkBlue hover:opacity-60 focus:text-white hover:text-white hover:bg-darkBlue border-0 ',
-																active ? 'opacity-50' : ''
-															)}
-															key={e.label}
-															onClick={() => {
-																if (e.onClick) {
-																	e.onClick();
-																}
-																close();
-															}}>
-															{e.label}
-														</button>
-													)}
-												</Menu.Item>
-											)
-								  )
-								: 'No options'}
+							{availableOptions.length ? (
+								availableOptions.map(
+									(e, i) =>
+										e.label !== title && (
+											<Menu.Item>
+												{({ active }) => (
+													<button
+														className={classNames(
+															'py-2 px-1 w-full focus-visible:border-0 text-left bg-darkBlue text-white font-sans  focus:bg-darkBlue hover:opacity-60 focus:text-white hover:text-white hover:bg-darkBlue border-0 ',
+															active ? 'opacity-50' : ''
+														)}
+														key={e.label}
+														onClick={() => {
+															if (e.onClick) {
+																e.onClick();
+															}
+															close();
+														}}>
+														{e.label}
+													</button>
+												)}
+											</Menu.Item>
+										)
+								)
+							) : (
+								<Menu.Item>
+									{({ active }) => (
+										<button
+											className={classNames(
+												'py-2 px-1 w-full focus-visible:border-0 text-left bg-darkBlue text-white font-sans  focus:bg-darkBlue hover:opacity-60 focus:text-white hover:text-white hover:bg-darkBlue border-0 '
+											)}>
+											No Options
+										</button>
+									)}
+								</Menu.Item>
+							)}
 						</Menu.Items>
 					</Transition>
 				</div>
