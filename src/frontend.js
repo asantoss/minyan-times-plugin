@@ -236,7 +236,7 @@ function MinyanTimes(props) {
 						<span>Sunrise: {Zman.SunriseDefault} </span>
 						<span>Sunset: {Zman.SunsetDefault} </span>
 						<span>Hebrew Date: {Time.DateJewishShort} </span>
-						{Time.Parsha && <h3>Parsha: {Time.Parsha} </h3>}
+						{Time.Parsha && <span>Parsha: {Time.Parsha} </span>}
 						<span>Daf Yomi: {Time.DafYomi}</span>
 					</>
 				)}
