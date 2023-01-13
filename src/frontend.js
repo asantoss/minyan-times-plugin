@@ -205,7 +205,7 @@ function MinyanTimes(props) {
 			const pin = {
 				lat: Number(selectedTimeOption.lat),
 				lng: Number(selectedTimeOption.lng),
-				text: selectedTimeOption.location + `(${selectedTimeOption.address})`
+				text: `${selectedTimeOption.address}, ${selectedTimeOption.state}, ${selectedTimeOption.city}, ${selectedTimeOption.zipCode}`
 			};
 			output.push(pin);
 		}
