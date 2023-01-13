@@ -9,9 +9,9 @@ import {
 	convertTime,
 	formatZman,
 	formatzManimData,
+	getNextSevenDays,
 	queryClient,
 	useFilteredTimesQuery,
-	useGeocodeApi,
 	useLocationQuery,
 	useZmanimApi
 } from './utils';
@@ -51,8 +51,12 @@ document.addEventListener(
 	{ once: true }
 );
 const today = new Date();
-
-let currentDay = today.getDay() === 6 ? 0 : today.getDay(); // Remove saturday.
+let currentDay = today.getDay(); // Remove saturday.
+if (today.getDay() === 6) {
+	today.setDate(today.getDate() + 1);
+	currentDay = 0;
+}
+const weekDates = getNextSevenDays(today, 6);
 
 function MinyanTimes(props) {
 	const { googleKey } = props;
@@ -61,6 +65,7 @@ function MinyanTimes(props) {
 	const [nusach, setNusach] = useState('Asheknaz');
 	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
 	const [day, setDay] = useState(days[currentDay]);
+	const [date, setDate] = useState(today);
 	const [openSection, setOpenSection] = useState('');
 	const timesQuery = useFilteredTimesQuery({
 		city,
@@ -87,7 +92,7 @@ function MinyanTimes(props) {
 		}
 		return '';
 	}, [city, cityOptions]);
-	const zManimQuery = useZmanimApi({ day: days.indexOf(day), postalCode });
+	const zManimQuery = useZmanimApi({ date, postalCode });
 
 	const sponsors = useMemo(() => {
 		return PrayerTypes.reduce((a, e) => {
@@ -212,8 +217,9 @@ function MinyanTimes(props) {
 		return output;
 	}, [selectedTimeOption]);
 
-	function handleChangeDay(value) {
-		setDay(value);
+	function handleChangeDay(date) {
+		setDay(days[date.getDay()]);
+		setDate(date);
 	}
 	return (
 		<div className="flex-col font-sans flex w-full">
@@ -242,17 +248,21 @@ function MinyanTimes(props) {
 				)}
 			</div>
 			<div className=" md:flex  grid gap-2 grid-cols-3 items-start my-3 justify-between">
-				{days.map((e) => (
-					<button
-						className={classNames(
-							' py-2 mx-2 font-sans text-bold rounded-full text-white text-sm w-28',
-							day === e ? 'bg-darkBlue text-bold' : 'bg-normalBlue',
-							e === 'Sunday' ? 'order-last' : ''
-						)}
-						onClick={() => handleChangeDay(e)}>
-						{e}
-					</button>
-				))}
+				{weekDates.map((date) => {
+					const e = days[date.getDay()];
+					return (
+						e && (
+							<button
+								className={classNames(
+									' py-2 mx-2 font-sans text-bold rounded-full text-white text-sm w-28',
+									day === e ? 'bg-darkBlue text-bold' : 'bg-normalBlue'
+								)}
+								onClick={() => handleChangeDay(date)}>
+								{e}
+							</button>
+						)
+					);
+				})}
 			</div>
 			<div className="md:self-center sm:items-center items-start flex flex-col sm:flex-row text-md text-darkBlue mt-4 mb-8 font-bold md:justify-center">
 				<label htmlFor="filter">Filter:</label>

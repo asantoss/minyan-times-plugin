@@ -155,17 +155,14 @@ export function useLocationMutation(id) {
 	});
 }
 
-export function useZmanimApi({ day, postalCode }) {
-	return useQuery(['zManim', day, postalCode], async ({ queryKey }) => {
+export function useZmanimApi({ date, postalCode }) {
+	const dateString = date ? getDateAsString(date) : '';
+	return useQuery(['zManim', dateString, postalCode], async ({ queryKey }) => {
 		try {
-			const [_, day, postalCode] = queryKey;
-			const dateObj = getDateFromDay(day);
-			const date = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1)
-				.toString()
-				.padStart(2, '0')}-${dateObj.getDate()}`;
+			const [_, dateString, postalCode] = queryKey;
 			if (postalCode) {
 				const response = await axiosClient.get('/zManim', {
-					params: { date, postalCode }
+					params: { date: dateString, postalCode }
 				});
 
 				return response.data;
@@ -174,9 +171,24 @@ export function useZmanimApi({ day, postalCode }) {
 		} catch (error) {}
 	});
 }
+function getDateAsString(date) {
+	return `${date.getFullYear()}-${(date.getMonth() + 1)
+		.toString()
+		.padStart(2, '0')}-${date.getDate()}`;
+}
 function firstDayOfWeek(date) {
 	const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
 	return new Date(date.setDate(diff));
+}
+
+export function getNextSevenDays(startDate, daysToAdd) {
+	const outputDates = [startDate];
+	for (let i = 1; i <= daysToAdd; i++) {
+		const target = new Date();
+		target.setDate(startDate.getDate() + i);
+		outputDates.push(target);
+	}
+	return outputDates;
 }
 
 export function getDateFromDay(day) {

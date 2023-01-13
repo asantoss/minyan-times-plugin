@@ -37,7 +37,6 @@ function SettingsPage({ googleKey }) {
 	const timesQuery = useTimesQuery();
 	function handleTimeExport() {
 		const today = new Date();
-
 		const fileName = `${today.getFullYear()}-${
 			today.getMonth() + 1
 		}-${today.getDate()}_times.csv`;
@@ -53,6 +52,7 @@ function SettingsPage({ googleKey }) {
 		});
 		exportToCsv(fileName, data);
 	}
+
 	return (
 		<div className="px-4 sm:px-6 lg:px-8">
 			<div className="sm:flex sm:items-center">
@@ -110,7 +110,7 @@ function SettingsPage({ googleKey }) {
 											<div className="py-2 px-3 ">
 												<Button
 													onClick={() => setIsOpen(true)}
-													className="rounded-lg bg-blue-700   px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													className="rounded-lg bg-blue-700  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
 													Add Location
 												</Button>
 											</div>

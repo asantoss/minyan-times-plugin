@@ -316,7 +316,7 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
   {
     global $wpdb;
     $table = $this->locationsTableName;
-    $sql = "SELECT id, name, city, address, zipCode, state, lat,lng thirdPartyData FROM " . $table;
+    $sql = "SELECT id, name, city, address, zipCode, state, lat,lng FROM " . $table;
     $query = $wpdb->prepare($sql);
     $results = $wpdb->get_results($query);
     return $results;
@@ -376,7 +376,8 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
       "address" => $address,
       "city" => $city,
       "zipCode" => $zipCode,
-      "state" => $state, "lat" => $lat,
+      "state" => $state,
+      "lat" => $lat,
       "lng" => $lng,
       "place_id" => $place_id,
     );

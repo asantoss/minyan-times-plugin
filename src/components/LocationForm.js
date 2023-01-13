@@ -24,40 +24,44 @@ export default function LocationForm({ location, onSuccess, googleKey }) {
 		if (location?.id) {
 			body.append('id', location.id);
 		}
-		const { data, isSuccess } = await geocodeQuery.refetch();
-		if (isSuccess) {
-			if (Array.isArray(data.results) && data.results?.length > 0) {
-				const targetResult = data.results[0];
-				if (targetResult?.address_components?.length) {
-					if (!locationData.zipCode) {
-						const postal = targetResult.address_components.find(
-							(e) =>
-								Array.isArray(e?.types) &&
-								e.types?.includes &&
-								e.types.includes('postal_code')
-						);
-						body.set('zipCode', postal?.long_name);
+		const { zipCode, state, lat, lng } = location;
+		if (!zipCode || !state || !lat || !lng) {
+			const { data, isSuccess } = await geocodeQuery.refetch();
+			if (isSuccess) {
+				if (Array.isArray(data.results) && data.results?.length > 0) {
+					const targetResult = data.results[0];
+					if (targetResult?.address_components?.length) {
+						if (!locationData.zipCode) {
+							const postal = targetResult.address_components.find(
+								(e) =>
+									Array.isArray(e?.types) &&
+									e.types?.includes &&
+									e.types.includes('postal_code')
+							);
+							body.set('zipCode', postal?.long_name);
+						}
+						if (!locationData.state) {
+							const state = targetResult.address_components.find(
+								(e) =>
+									Array.isArray(e?.types) &&
+									e.types?.includes &&
+									e.types.includes('administrative_area_level_1')
+							);
+							body.set('state', state?.long_name);
+						}
 					}
-					if (!locationData.state) {
-						const state = targetResult.address_components.find(
-							(e) =>
-								Array.isArray(e?.types) &&
-								e.types?.includes &&
-								e.types.includes('administrative_area_level_1')
-						);
-						body.set('state', state?.long_name);
+					if (targetResult?.geometry?.location) {
+						const { lat, lng } = targetResult.geometry.location;
+						body.append('lat', lat);
+						body.append('lng', lng);
 					}
-				}
-				if (targetResult?.geometry?.location) {
-					const { lat, lng } = targetResult.geometry.location;
-					body.append('lat', lat);
-					body.append('lng', lng);
-				}
-				if (targetResult?.place_id) {
-					body.append('place_id', targetResult.place_id);
+					if (targetResult?.place_id) {
+						body.append('place_id', targetResult.place_id);
+					}
 				}
 			}
 		}
+
 		await mutate(body);
 		if (onSuccess) {
 			onSuccess();
