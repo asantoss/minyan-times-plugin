@@ -10,7 +10,7 @@ export default function Map({ locations = [], zoomLevel = 16, apiKey }) {
 		);
 	}
 	return (
-		<div className="map">
+		<div className="map z-20 w-fit">
 			{locations.length === 1 && (
 				<div className="flex justify-end">
 					<a href={url.href} target="_blank">

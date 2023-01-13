@@ -1,13 +1,11 @@
 import { Menu } from '@headlessui/react';
 import { Transition } from '@headlessui/react';
-import { Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useState } from 'react';
 import { Fragment } from 'react';
 import { classNames } from '../utils';
 
 export default function FilterDropdown({ title, options = [], className }) {
-	const [isOpen, setIsOpen] = useState(false);
+	const availableOptions = options.filter((e) => e?.label !== title);
 	return (
 		<Menu>
 			{({ open, close }) => (
@@ -42,32 +40,34 @@ export default function FilterDropdown({ title, options = [], className }) {
 						leaveTo="transform  h-0 opacity-50">
 						<Menu.Items
 							className={classNames(
-								'absolute z-10 focus-visible:outline-none bg-darkBlue w-full left-0 max-h-64 rounded-b-lg border-gray-300 overflow-y-auto overscroll-y-contain',
+								'absolute z-20 focus-visible:outline-none bg-darkBlue w-full left-0 max-h-64 rounded-b-lg border-gray-300 overflow-y-auto overscroll-y-contain',
 								open ? ' text-white' : ''
 							)}>
-							{options.map(
-								(e, i) =>
-									e.label !== title && (
-										<Menu.Item>
-											{({ active }) => (
-												<button
-													className={classNames(
-														'py-2 px-1 w-full focus-visible:border-0 text-left bg-darkBlue text-white font-sans  focus:bg-darkBlue hover:opacity-60 focus:text-white hover:text-white hover:bg-darkBlue border-0 ',
-														active ? 'opacity-50' : ''
+							{availableOptions.length
+								? availableOptions.map(
+										(e, i) =>
+											e.label !== title && (
+												<Menu.Item>
+													{({ active }) => (
+														<button
+															className={classNames(
+																'py-2 px-1 w-full focus-visible:border-0 text-left bg-darkBlue text-white font-sans  focus:bg-darkBlue hover:opacity-60 focus:text-white hover:text-white hover:bg-darkBlue border-0 ',
+																active ? 'opacity-50' : ''
+															)}
+															key={e.label}
+															onClick={() => {
+																if (e.onClick) {
+																	e.onClick();
+																}
+																close();
+															}}>
+															{e.label}
+														</button>
 													)}
-													key={e.label}
-													onClick={() => {
-														if (e.onClick) {
-															e.onClick();
-														}
-														close();
-													}}>
-													{e.label}
-												</button>
-											)}
-										</Menu.Item>
-									)
-							)}
+												</Menu.Item>
+											)
+								  )
+								: 'No options'}
 						</Menu.Items>
 					</Transition>
 				</div>

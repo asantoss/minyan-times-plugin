@@ -24,4 +24,6 @@ export const days = [
 	'Friday'
 ];
 
+export const PrayerTypes = ['Shacharis', 'Mincha', 'Mincha/Maariv', 'Maariv'];
+
 export const NusachOptions = ['Ari', 'Asheknaz', 'Sefardi', 'Sefard'];

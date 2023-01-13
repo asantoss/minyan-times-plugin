@@ -1,11 +1,25 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { useEffect } from 'react';
 import { Fragment, useState } from 'react';
 
-export default function Modal({ title, children, button }) {
+export default function Modal({
+	title,
+	children,
+	button,
+	state = false,
+	onClose
+}) {
 	let [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		setIsOpen(state);
+	}, [state]);
 
 	function closeModal() {
 		setIsOpen(false);
+		if (onClose) {
+			onClose();
+		}
 	}
 
 	function openModal() {
@@ -25,7 +39,7 @@ export default function Modal({ title, children, button }) {
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog
 					as="div"
-					className="relative z-10 mtp-block"
+					className="relative z-20 mtp-block"
 					open={isOpen}
 					onClose={closeModal}>
 					<Transition.Child
@@ -49,7 +63,7 @@ export default function Modal({ title, children, button }) {
 								leave="ease-in duration-200"
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95">
-								<Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-wpBg p-6 text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="z-20 max-w-2xl transform overflow-hidden rounded-2xl bg-wpBg p-6 text-left align-middle shadow-xl transition-all">
 									<Dialog.Title
 										as="h3"
 										className="text-lg font-medium leading-6 text-gray-900">

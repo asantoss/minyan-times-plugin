@@ -20,13 +20,15 @@ import {
 	FilterTypes,
 	formulaLabels,
 	FormulaTypes,
-	NusachOptions
+	NusachOptions,
+	PrayerTypes
 } from './utils/enums';
 import Spinner from './components/Spinner';
 import Menu from './components/Menu';
 import Map from './components/Map';
 import FilterDropdown from './components/FilterDropdown';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import Modal from './components/Modal';
 
 document.addEventListener(
 	'DOMContentLoaded',
@@ -50,7 +52,6 @@ document.addEventListener(
 );
 const today = new Date();
 
-const types = ['Shacharis', 'Mincha', 'Maariv'];
 let currentDay = today.getDay() === 6 ? 0 : today.getDay(); // Remove saturday.
 
 function MinyanTimes(props) {
@@ -89,7 +90,7 @@ function MinyanTimes(props) {
 	const zManimQuery = useZmanimApi({ day: days.indexOf(day), postalCode });
 
 	const sponsors = useMemo(() => {
-		return types.reduce((a, e) => {
+		return PrayerTypes.reduce((a, e) => {
 			a[e] = props[e];
 			return a;
 		}, {});
@@ -118,7 +119,7 @@ function MinyanTimes(props) {
 				setSelectedTimeOption(null);
 			}
 		}
-		return types.reduce((acc, sect) => {
+		return PrayerTypes.reduce((acc, sect) => {
 			const options = (data || [])
 				.filter((e) => {
 					return e.type && e.type.includes(sect);
@@ -204,7 +205,7 @@ function MinyanTimes(props) {
 			const pin = {
 				lat: Number(selectedTimeOption.lat),
 				lng: Number(selectedTimeOption.lng),
-				text: selectedTimeOption.location
+				text: selectedTimeOption.location + `(${selectedTimeOption.address})`
 			};
 			output.push(pin);
 		}
@@ -216,11 +217,15 @@ function MinyanTimes(props) {
 	}
 	return (
 		<div className="flex-col font-sans flex w-full">
-			<div className="my-2 mx-auto">
+			<Modal
+				className="my-2 mx-auto"
+				state={pinLocations.length > 0}
+				onClose={() => setSelectedTimeOption(null)}
+				button={() => {}}>
 				{googleKey && pinLocations.length > 0 && (
 					<Map apiKey={googleKey} locations={pinLocations} />
 				)}
-			</div>
+			</Modal>
 			<div
 				className={classNames(
 					'relative grid grid-cols-2 gap-2 my-2 text-sm font-bold text-darkBlue md:flex py-4 justify-evenly font-sans'
@@ -280,28 +285,31 @@ function MinyanTimes(props) {
 				 hidden mdblock">
 					Sort By:
 				</label>
-				<Switch
-					offText="Shul"
-					value={sortBy ? true : false}
-					onChange={setSortBy}
-					onText="Times"
-					className="m-2"
-				/>
+				{pinLocations.length === 0 && (
+					<Switch
+						offText="Shul"
+						value={sortBy ? true : false}
+						onChange={setSortBy}
+						onText="Times"
+						className="m-2"
+					/>
+				)}
 			</div>
 
 			<div className="flex flex-col md:flex-row md:justify-between md:h-96  my-2">
-				{types.map((type, i) => {
+				{PrayerTypes.map((type, i) => {
 					const targetSection = formalizedData[type] ?? [];
 					return (
 						<div
 							className={classNames(
-								'md:relative mb-2 md:w-1/3 md:min-h-full max-h-96 overflow-y-auto overscroll-y-none  flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
+								`w-full`,
+								'md:relative mb-2 md:min-h-full max-h-96 overflow-y-auto overscroll-y-none  flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
 							)}>
 							<span
 								onClick={() =>
 									setOpenSection(openSection === type ? null : type)
 								}
-								className="md:hidden my-2 inline-flex text-2xl">
+								className="md:hidden my-2 inline-flex text-xl">
 								{type}
 								<ChevronDownIcon
 									className={classNames(
@@ -311,7 +319,7 @@ function MinyanTimes(props) {
 									aria-hidden="true"
 								/>
 							</span>
-							<span className="hidden md:inline-block my-2 text-2xl">
+							<span className="hidden md:inline-block my-2 text-xl">
 								{type}
 							</span>
 							<div

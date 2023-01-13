@@ -7,7 +7,8 @@ export default function SwitchComponent({
 	onText,
 	onChange,
 	value,
-	className
+	className,
+	zIndex
 }) {
 	const [enabled, setEnabled] = useState(value || false);
 
@@ -28,9 +29,11 @@ export default function SwitchComponent({
 							setEnabled(value);
 							onChange && onChange(value);
 						}}
-						className={`${
-							enabled ? 'bg-orange' : 'bg-darkBlue'
-						} relative inline-flex h-10 w-28 items-center rounded-full z-0`}>
+						className={classNames(
+							enabled ? 'bg-orange' : 'bg-darkBlue',
+							'relative inline-flex  h-10 w-28 items-center rounded-full',
+							zIndex || '-z-10'
+						)}>
 						<span
 							className={`${
 								enabled ? 'translate-x-20' : 'translate-x-1'

@@ -3,3 +3,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gm-style,
+.gm-style div {
+	z-index: 999 !important;
+}

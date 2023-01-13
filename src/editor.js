@@ -2,10 +2,18 @@ import { TextControl } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
 import settings from '../block.json';
+import { PrayerTypes } from './utils/enums';
 
 registerBlockType('llc/minyan-times', {
 	...settings,
-
+	attributes: PrayerTypes.reduce((acc, curr) => {
+		return {
+			...acc,
+			[curr]: {
+				type: 'string'
+			}
+		};
+	}, {}),
 	edit: EditComponent,
 	save: function () {
 		return null;
@@ -24,39 +32,19 @@ function EditComponent(props) {
 	return (
 		<div {...blockProps}>
 			<div className="bg-blue-200 border border-blue-300 rounded-md p-5">
-				<TextControl
-					className="mr-3 p-2"
-					type="text"
-					value={props.attributes.Shacharis}
-					onChange={(value) =>
-						updateAttribute({ target: { name: 'Shacharis', value } })
-					}
-					name="Shacharis"
-					label="Shacharis Sponsor"
-					placeholder="Shacharis ..."
-				/>
-				<TextControl
-					className="p-2"
-					type="text"
-					value={props.attributes.Mincha}
-					onChange={(value) =>
-						updateAttribute({ target: { name: 'Mincha', value } })
-					}
-					name="Mincha"
-					label="Mincha Sponsor"
-					placeholder="Mincha ..."
-				/>
-				<TextControl
-					className="p-2"
-					type="text"
-					value={props.attributes.Maariv}
-					onChange={(value) =>
-						updateAttribute({ target: { name: 'Maariv', value } })
-					}
-					name="Maariv"
-					label="Maariv Sponsor"
-					placeholder="Maariv ..."
-				/>
+				{PrayerTypes.map((e) => (
+					<TextControl
+						className="mr-3 p-2"
+						type="text"
+						value={props.attributes[e]}
+						onChange={(value) =>
+							updateAttribute({ target: { name: e, value } })
+						}
+						name={e}
+						label={`${e} Sponsor`}
+						placeholder="Sponsor..."
+					/>
+				))}
 			</div>
 		</div>
 	);
