@@ -18,7 +18,7 @@ export default function SwitchComponent({
 				<Switch.Group>
 					<Switch.Label
 						className={classNames(
-							`absolute text-white w-full text-sm text-center z-10`
+							`absolute text-white cursor-pointer w-full text-sm text-center z-10`
 						)}>
 						{enabled ? onText : offText}
 					</Switch.Label>
