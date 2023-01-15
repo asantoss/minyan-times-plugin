@@ -172,6 +172,7 @@ export function useZmanimApi({ dates, postalCode }) {
 			queryKey: ['zManim', getDateAsString(date), postalCode],
 			queryFn: () => fetchDate({ date: getDateAsString(date), postalCode }),
 			staleTime: Infinity,
+			cacheTime: Infinity,
 			enabled: !!postalCode
 		}))
 	});
