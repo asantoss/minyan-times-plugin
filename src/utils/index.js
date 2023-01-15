@@ -170,7 +170,7 @@ export function useZmanimApi({ dates, postalCode }) {
 	const results = useQueries({
 		queries: dates.map((date) => ({
 			queryKey: ['zManim', getDateAsString(date), postalCode],
-			queryFn: () => fetchDate({ date, postalCode }),
+			queryFn: () => fetchDate({ date: getDateAsString(date), postalCode }),
 			staleTime: Infinity,
 			enabled: !!postalCode
 		}))
