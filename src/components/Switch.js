@@ -14,7 +14,7 @@ export default function SwitchComponent({
 
 	return (
 		<div className={classNames(className)}>
-			<div className="relative max-w-max min-w-fit  cursor-pointer  flex items-center ">
+			<div className="relative max-w-max min-w-fit qcursor-pointer  flex items-center ">
 				<Switch.Group>
 					<Switch.Label
 						className={classNames(

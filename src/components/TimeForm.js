@@ -62,6 +62,7 @@ export default function TimeForm({ time, onSuccess }) {
 						name="isCustom"
 						offText="Normal"
 						onText="Custom"
+						zIndex="z-1"
 					/>
 				</div>
 				{isCustom ? (
