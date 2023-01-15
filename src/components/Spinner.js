@@ -6,7 +6,7 @@ export default function Spinner({ isLoading, className }) {
 		<div
 			role="status"
 			className={classNames(
-				'absolute -translate-x-1/2 transition-all ease-in duration-1000 -translate-y-1/2 top-2/4 left-1/2',
+				'absolute -translate-x-1/2 transition-all ease-in duration-250 -translate-y-1/2 top-2/4 left-1/2',
 				isLoading ? 'opacity-100' : 'opacity-0',
 				className
 			)}>
