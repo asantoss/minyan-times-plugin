@@ -206,7 +206,10 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
       array(
         array(
           'methods' => WP_REST_Server::READABLE,
-          'callback' => array($this, 'get_times')
+          'callback' => array($this, 'get_times'),
+          'permission_callback' => function () {
+            return true;
+          }
         ),
         array(
           'methods' => WP_REST_Server::CREATABLE,
@@ -222,7 +225,7 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
         array(
           'methods' => WP_REST_Server::READABLE,
           'callback' => array($this, 'sync_all_locations'),
-          'permission_callback' => array($this, "perm_callback"),
+          'permission_callback' => array($this, "perm_callback")
 
         )
       )
@@ -234,6 +237,9 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
         array(
           'methods' => WP_REST_Server::READABLE,
           'callback' => array($this, 'get_zmanim_data'),
+          'permission_callback' => function () {
+            return true;
+          }
         )
       )
     );
@@ -300,7 +306,10 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
       array(
         array(
           'methods' => WP_REST_Server::READABLE,
-          'callback' => array($this, 'get_locations')
+          'callback' => array($this, 'get_locations'),
+          'permission_callback' => function () {
+            return true;
+          }
         ),
         array(
           'methods' => WP_REST_Server::CREATABLE,

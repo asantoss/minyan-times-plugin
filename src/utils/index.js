@@ -1,8 +1,9 @@
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { FilterTypes, formulaLabels } from './enums';
+import { days, FilterTypes, formulaLabels, SKIP_DAYS } from './enums';
 
 import { Client } from '@googlemaps/google-maps-services-js';
+import { useQueries } from '@tanstack/react-query';
 
 export function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
@@ -14,7 +15,17 @@ export const axiosClient = axios.create({
 	headers: { 'X-WP-Nonce': wpApiSettings.nonce }
 });
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			retry: 1,
+			staleTime: 1000 * 60 * 60 * 4, // 4 hours
+			cacheTime: 1000 * 60 * 60 * 12, // 12 hours
+			refetchOnWindowFocus: false,
+			suspense: false
+		}
+	}
+});
 export function useLocationQuery(props) {
 	return useQuery(
 		{
@@ -155,21 +166,26 @@ export function useLocationMutation(id) {
 	});
 }
 
-export function useZmanimApi({ date, postalCode }) {
-	const dateString = date ? getDateAsString(date) : '';
-	return useQuery(['zManim', dateString, postalCode], async ({ queryKey }) => {
-		try {
-			const [_, dateString, postalCode] = queryKey;
-			if (postalCode) {
-				const response = await axiosClient.get('/zManim', {
-					params: { date: dateString, postalCode }
-				});
-
-				return response.data;
-			}
-			return {};
-		} catch (error) {}
+export function useZmanimApi({ dates, postalCode }) {
+	const results = useQueries({
+		queries: dates.map((date) => ({
+			queryKey: ['zManim', getDateAsString(date), postalCode],
+			queryFn: () => fetchDate({ date, postalCode }),
+			staleTime: Infinity,
+			enabled: !!postalCode
+		}))
 	});
+	async function fetchDate({ date, postalCode }) {
+		if (postalCode) {
+			const response = await axiosClient.get('/zManim', {
+				params: { date, postalCode }
+			});
+			return response.data;
+		} else {
+			throw new Error('Postal code is required');
+		}
+	}
+	return results;
 }
 function getDateAsString(date) {
 	return `${date.getFullYear()}-${(date.getMonth() + 1)
@@ -181,11 +197,16 @@ function firstDayOfWeek(date) {
 	return new Date(date.setDate(diff));
 }
 
-export function getNextSevenDays(startDate, daysToAdd) {
+export function getNextSetOfDays(startDate, daysToAdd) {
 	const outputDates = [startDate];
 	for (let i = 1; i <= daysToAdd; i++) {
 		const target = new Date();
 		target.setDate(startDate.getDate() + i);
+		//Will always skip saturdays
+		const day = target.getDay();
+		if (SKIP_DAYS.includes(day)) {
+			continue;
+		}
 		outputDates.push(target);
 	}
 	return outputDates;
@@ -473,4 +494,12 @@ export function useGeocodeApi({ googleKey, location, enabled }) {
 			enabled
 		}
 	);
+}
+
+export function getWeekday(date) {
+	return days[date.getDay()] ?? 'Saturday';
+}
+
+export function isSameDate(a, b) {
+	return Math.abs(a - b) < 1000 * 3600 * 24 && a.getDay() === b.getDay();
 }

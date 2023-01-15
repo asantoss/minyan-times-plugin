@@ -4,7 +4,6 @@ import DateTable from './DataTable';
 import Modal from './Modal';
 import Button from './Button';
 import LocationForm from './LocationForm';
-import ZManimDisplay from './ZManimDisplay';
 import Spinner from './Spinner';
 
 export default function LocationsSettings({ googleKey }) {

@@ -8,8 +8,9 @@ import {
 	classNames,
 	convertTime,
 	formatZman,
-	formatzManimData,
-	getNextSevenDays,
+	getNextSetOfDays,
+	getWeekday,
+	isSameDate,
 	queryClient,
 	useFilteredTimesQuery,
 	useLocationQuery,
@@ -29,6 +30,7 @@ import Map from './components/Map';
 import FilterDropdown from './components/FilterDropdown';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import Modal from './components/Modal';
+import ZManimDisplay from './components/ZManimDisplay';
 
 document.addEventListener(
 	'DOMContentLoaded',
@@ -51,12 +53,12 @@ document.addEventListener(
 	{ once: true }
 );
 const today = new Date();
-let currentDay = today.getDay(); // Remove saturday.
+
 if (today.getDay() === 6) {
 	today.setDate(today.getDate() + 1);
-	currentDay = 0;
+	//Skip a date on Saturdays
 }
-const weekDates = getNextSevenDays(today, 6);
+const weekDates = getNextSetOfDays(today, 6);
 
 function MinyanTimes(props) {
 	const { googleKey } = props;
@@ -64,13 +66,12 @@ function MinyanTimes(props) {
 	const [city, setCity] = useState('Baltimore');
 	const [nusach, setNusach] = useState('Asheknaz');
 	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
-	const [day, setDay] = useState(days[currentDay]);
 	const [date, setDate] = useState(today);
 	const [openSection, setOpenSection] = useState('');
 	const timesQuery = useFilteredTimesQuery({
 		city,
 		nusach,
-		day,
+		day: getWeekday(date),
 		sortBy
 	});
 	const locationsQuery = useLocationQuery();
@@ -92,7 +93,31 @@ function MinyanTimes(props) {
 		}
 		return '';
 	}, [city, cityOptions]);
-	const zManimQuery = useZmanimApi({ date, postalCode });
+
+	const zManimQueries = useZmanimApi({ dates: weekDates, postalCode });
+
+	const ZmanimQueryData = useMemo(() => {
+		const output = {};
+		for (const query of zManimQueries) {
+			const { status } = query;
+			if (status === 'success') {
+				const { data } = query;
+				if (Object.keys(data)?.length > 0) {
+					const {
+						Time: { Weekday },
+						Place: { PostalCode }
+					} = data;
+					const queryMatch =
+						Weekday === getWeekday(date) && PostalCode === postalCode;
+					if (queryMatch) {
+						return query;
+					}
+				}
+			}
+		}
+
+		return output;
+	}, [zManimQueries, date, postalCode]);
 
 	const sponsors = useMemo(() => {
 		return PrayerTypes.reduce((a, e) => {
@@ -111,7 +136,7 @@ function MinyanTimes(props) {
 			timesQuery.isLoading ||
 			locationsQuery.isLoading ||
 			!Array.isArray(timesQuery.data) ||
-			zManimQuery.isLoading
+			Object.keys(ZmanimQueryData).length < 1
 		) {
 			return output;
 		}
@@ -139,8 +164,9 @@ function MinyanTimes(props) {
 						let { formula, minutes } = timeElement;
 						formula = Number(formula);
 						minutes = Number(minutes);
-						if (zManimQuery?.data?.Zman) {
-							const { SunriseDefault, SunsetDefault } = zManimQuery.data.Zman;
+						if (ZmanimQueryData.data?.Zman) {
+							const { SunriseDefault, SunsetDefault } =
+								ZmanimQueryData.data.Zman;
 							switch (formula) {
 								case FormulaTypes['Before Sunset']:
 									currentTime = formatZman(
@@ -191,18 +217,7 @@ function MinyanTimes(props) {
 			);
 			return acc;
 		}, output);
-	}, [sortBy, day, timesQuery.data, zManimQuery]);
-
-	const { Zman, Time } = useMemo(() => {
-		const output = { Zman: {}, Time: {} };
-		if (!zManimQuery.isLoading && zManimQuery?.data?.Zman) {
-			const { Zman, Time } = formatzManimData(zManimQuery.data);
-			output.Time = Time;
-			output.Zman = Zman;
-		}
-
-		return output;
-	}, [zManimQuery]);
+	}, [sortBy, timesQuery, ZmanimQueryData]);
 
 	const pinLocations = useMemo(() => {
 		const output = [];
@@ -218,7 +233,6 @@ function MinyanTimes(props) {
 	}, [selectedTimeOption]);
 
 	function handleChangeDay(date) {
-		setDay(days[date.getDay()]);
 		setDate(date);
 	}
 	return (
@@ -232,37 +246,20 @@ function MinyanTimes(props) {
 					<Map apiKey={googleKey} locations={pinLocations} />
 				)}
 			</Modal>
-			<div
-				className={classNames(
-					'relative grid grid-cols-2 gap-2 my-2 text-sm font-bold text-darkBlue md:flex py-4 justify-evenly font-sans'
-				)}>
-				{city && (
-					<>
-						<Spinner className="mx-auto " isLoading={zManimQuery.isLoading} />
-						<span>Sunrise: {Zman.SunriseDefault} </span>
-						<span>Sunset: {Zman.SunsetDefault} </span>
-						<span>Hebrew Date: {Time.DateJewishShort} </span>
-						{Time.Parsha && <span>Parsha: {Time.Parsha} </span>}
-						<span>Daf Yomi: {Time.DafYomi}</span>
-					</>
-				)}
-			</div>
+			<ZManimDisplay Zmanim={ZmanimQueryData.data} />
 			<div className=" md:flex  grid gap-2 grid-cols-3 items-start my-3 justify-between">
-				{weekDates.map((date) => {
-					const e = days[date.getDay()];
-					return (
-						e && (
-							<button
-								className={classNames(
-									' py-2 mx-2 font-sans text-bold rounded-full text-white text-sm w-28',
-									day === e ? 'bg-darkBlue text-bold' : 'bg-normalBlue'
-								)}
-								onClick={() => handleChangeDay(date)}>
-								{e}
-							</button>
-						)
-					);
-				})}
+				{weekDates.map((weekDate) => (
+					<button
+						className={classNames(
+							' py-2 mx-2 px-1 font-sans text-bold rounded-full text-white text-sm w-28',
+							isSameDate(date, weekDate)
+								? 'bg-darkBlue text-bold'
+								: 'bg-normalBlue'
+						)}
+						onClick={() => handleChangeDay(weekDate)}>
+						{getWeekday(weekDate)}
+					</button>
+				))}
 			</div>
 			<div className="md:self-center sm:items-center items-start flex flex-col sm:flex-row text-md text-darkBlue mt-4 mb-8 font-bold md:justify-center">
 				<label htmlFor="filter">Filter:</label>
@@ -309,10 +306,11 @@ function MinyanTimes(props) {
 			<div className="flex flex-col md:flex-row md:justify-between md:h-96  my-2">
 				{PrayerTypes.map((type, i) => {
 					const targetSection = formalizedData[type] ?? [];
+					const options = Object.keys(targetSection);
+
 					return (
 						<div
 							className={classNames(
-								`w-full`,
 								'md:relative mb-2 md:min-h-full max-h-96 overflow-y-auto overscroll-y-none  flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
 							)}>
 							<span
@@ -337,12 +335,14 @@ function MinyanTimes(props) {
 									openSection === type ? '' : 'hidden md:block'
 								)}>
 								<Spinner isLoading={timesQuery.isLoading} />
-								<button className="px-4 py-2 mx-2 font-sans rounded-full text-md bg-normalBlue my-2  text-white text-2xl font-extrabold">
-									{sponsors[type]}
-								</button>
+								{sponsors[type] && (
+									<button className="px-4 py-2 mx-2 font-sans rounded-full text-md bg-normalBlue my-2  text-white text-2xl font-extrabold">
+										{sponsors[type]}
+									</button>
+								)}
 								{!timesQuery.isLoading &&
 									timesQuery.data &&
-									Object.keys(targetSection ?? {}).map((j) => (
+									options.map((j) => (
 										<Menu title={j} options={targetSection[j]} />
 									))}
 							</div>
