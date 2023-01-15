@@ -63,7 +63,7 @@ export default function Modal({
 								leave="ease-in duration-200"
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95">
-								<Dialog.Panel className="z-20 max-w-2xl transform overflow-hidden rounded-2xl bg-wpBg p-6 text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="z-20 max-w-2xl transform overflow-hidden rounded-2xl bg-wpBg p-2 text-left align-middle shadow-xl transition-all">
 									<Dialog.Title
 										as="h3"
 										className="text-lg font-medium leading-6 text-gray-900">

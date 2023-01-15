@@ -57,6 +57,7 @@ export default function TimeForm({ time, onSuccess }) {
 					<Switch
 						value={isCustom}
 						onChange={(val) => {
+							qq;
 							setTimeData({ ...timeData, isCustom: val ? 1 : 0 });
 						}}
 						name="isCustom"

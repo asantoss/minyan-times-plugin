@@ -19,13 +19,13 @@ export default function Map({ locations = [], zoomLevel = 16, apiKey }) {
 		);
 	}
 	return (
-		<div className="map z-20 w-fit">
+		<div className="map z-20">
 			{locations.length === 1 && (
-				<div className="flex justify-end mb-2">
+				<div className="text-left mb-2">
 					<LocationLink location={locations[0]} />
 				</div>
 			)}
-			<div className="h-80 w-96">
+			<div className="h-80 w-96 max-w-screen-sm">
 				<GoogleMapReact
 					bootstrapURLKeys={{ key: apiKey }}
 					defaultCenter={locations[0]}
@@ -42,8 +42,5 @@ export default function Map({ locations = [], zoomLevel = 16, apiKey }) {
 const LocationPin = ({ text }) => (
 	<div className="pin h-16 ">
 		<MapPinIcon className="text-red-600 w-8 h-12" />
-		{/* <span className="pin-text  w-full  font-bold text-xs text-darkBlue">
-			{text}
-		</span> */}
 	</div>
 );
