@@ -7,7 +7,8 @@ export const FormulaTypes = {
 	'Before Sunset': 1,
 	'After Sunset': 2,
 	'Before Sunrise': 3,
-	'After Sunrise': 4
+	'After Sunrise': 4,
+	'Midday': 5
 };
 
 export const formulaLabels = Object.keys(FormulaTypes).reduce(

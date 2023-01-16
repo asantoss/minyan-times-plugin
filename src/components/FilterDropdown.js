@@ -24,7 +24,7 @@ export default function FilterDropdown({ title, options = [], className }) {
 						<ChevronDownIcon
 							className={classNames(
 								open ? 'rotate-180' : '',
-								'ml-2 h-8 w-8 text-white active:border-0 transition duration-500 ease-out'
+								'ml-2 h-4 w-4 text-white active:border-0 transition duration-500 ease-out'
 							)}
 							aria-hidden="true"
 						/>
@@ -61,7 +61,7 @@ export default function FilterDropdown({ title, options = [], className }) {
 															}
 															close();
 														}}>
-														{e.label}
+														{e.label ?? 'All'}
 													</button>
 												)}
 											</Menu.Item>

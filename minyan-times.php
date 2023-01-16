@@ -5,7 +5,7 @@
 /*
   Plugin Name: Minyan Times
   Description: A component that organizes prayer times by location or time block...
-  Version: 0.0.8
+  Version: 0.0.9
   Author: Alexander Santos
 */
 
@@ -36,7 +36,6 @@ class Minyantimes
     ));
     wp_localize_script('llc-minyan-times-view-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
-      'nonce' => wp_create_nonce('wp_rest')
     ));
   }
 
@@ -243,7 +242,6 @@ FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id)
         )
       )
     );
-
     register_rest_route(
       "minyan-times/v1",
       "times/(?P<id>\d+)",

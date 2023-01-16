@@ -22,6 +22,9 @@ module.exports = {
 				21: '5.25rem',
 				22: '5.5rem',
 				13: '50px'
+			},
+			fontSize: {
+				xss: '0.5rem'
 			}
 		}
 	}

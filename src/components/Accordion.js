@@ -8,7 +8,7 @@ export default function Accordion({ title, children }) {
 		<Disclosure>
 			{({ open }) => (
 				<>
-					<Disclosure.Button className="py-1 rounded-xl flex text-center min-h-fit text-xl my-2">
+					<Disclosure.Button className="py-1 rounded-xl flex text-center min-h-fit text-xs my-2">
 						<span>{title}</span>
 						<ChevronDownIcon
 							className={classNames(

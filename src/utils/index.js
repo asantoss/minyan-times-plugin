@@ -8,11 +8,12 @@ import { useQueries } from '@tanstack/react-query';
 export function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
-const baseURL = wpApiSettings.root + 'minyan-times/v1';
+const nonce = window?.wpApiSettings?.nonce;
+const baseURL = window?.wpApiSettings?.root + 'minyan-times/v1';
 export const axiosClient = axios.create({
 	baseURL,
 	timeout: 30000,
-	headers: { 'X-WP-Nonce': wpApiSettings.nonce }
+	headers: nonce ? { 'X-WP-Nonce': nonce } : {}
 });
 
 export const queryClient = new QueryClient({
@@ -503,4 +504,23 @@ export function getWeekday(date) {
 
 export function isSameDate(a, b) {
 	return Math.abs(a - b) < 1000 * 3600 * 24 && a.getDay() === b.getDay();
+}
+export function getDateFromTimeString(time) {
+	const date = new Date();
+	var index = time.indexOf(':'); // replace with ":" for differently displayed time.
+	var index2 = time.indexOf(' ');
+
+	var hours = time.substring(0, index);
+	var minutes = time.substring(index + 1, index2);
+
+	var mer = time.substring(index2 + 1, time.length);
+	if (mer == 'pm') {
+		hours = hours + 12;
+	}
+
+	date.setHours(hours);
+	date.setMinutes(minutes);
+	date.setSeconds('00');
+
+	return date;
 }

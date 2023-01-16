@@ -10,7 +10,11 @@ registerBlockType('llc/minyan-times', {
 		return {
 			...acc,
 			[curr]: {
-				type: 'string'
+				type: 'object',
+				default: {
+					url: 'https://www.amfcreative.com/',
+					img: 'https://www.amfcreative.com/wp-content/uploads/2020/10/icon.png'
+				}
 			}
 		};
 	}, {}),
@@ -24,26 +28,39 @@ function EditComponent(props) {
 	const blockProps = useBlockProps({
 		className: 'shul-wrapper'
 	});
-	function updateAttribute(e) {
-		const { name, value } = e.target;
-		props.setAttributes({ [name]: value });
+	function updateAttribute(attribute, update) {
+		const { name, value } = update;
+		props.setAttributes({
+			...props.attributes,
+			[attribute]: { ...props.attributes[attribute], [name]: value }
+		});
 	}
 
 	return (
 		<div {...blockProps}>
 			<div className="bg-blue-200 border border-blue-300 rounded-md p-5">
 				{PrayerTypes.map((e) => (
-					<TextControl
-						className="mr-3 p-2"
-						type="text"
-						value={props.attributes[e]}
-						onChange={(value) =>
-							updateAttribute({ target: { name: e, value } })
-						}
-						name={e}
-						label={`${e} Sponsor`}
-						placeholder="Sponsor..."
-					/>
+					<fieldset>
+						<legend>{e} Sponsor</legend>
+						<TextControl
+							className="p-2"
+							type="text"
+							value={props.attributes[e].img}
+							onChange={(value) => updateAttribute(e, { name: 'img', value })}
+							name="img"
+							label="Logo"
+							placeholder="Image url..."
+						/>
+						<TextControl
+							className="p-2"
+							type="text"
+							value={props.attributes[e].url}
+							onChange={(value) => updateAttribute(e, { name: 'url', value })}
+							name="url"
+							label="URL"
+							placeholder="Url..."
+						/>
+					</fieldset>
 				))}
 			</div>
 		</div>

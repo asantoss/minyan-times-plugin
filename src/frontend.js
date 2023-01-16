@@ -8,6 +8,7 @@ import {
 	classNames,
 	convertTime,
 	formatZman,
+	getDateFromTimeString,
 	getNextSetOfDays,
 	getWeekday,
 	isSameDate,
@@ -31,14 +32,18 @@ import FilterDropdown from './components/FilterDropdown';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import Modal from './components/Modal';
 import ZManimDisplay from './components/ZManimDisplay';
+import SponsorLogo from './components/SponsorLogo';
 
 document.addEventListener(
 	'DOMContentLoaded',
 	() => {
 		const root = document.getElementById('mtp-plugin');
-		const dataEl = root.querySelector('pre');
-		if (dataEl) {
-			const data = JSON.parse(root.querySelector('pre').innerText);
+		if (root) {
+			const dataEl = root.querySelector('pre');
+			let data = {};
+			if (dataEl) {
+				data = JSON.parse(dataEl.innerText);
+			}
 			ReactDOM.render(
 				<div className="mtp-block">
 					<QueryClientProvider client={queryClient}>
@@ -59,12 +64,13 @@ if (today.getDay() === 6) {
 	//Skip a date on Saturdays
 }
 const weekDates = getNextSetOfDays(today, 6);
+const currentWeekday = getWeekday(today);
 
 function MinyanTimes(props) {
 	const { googleKey } = props;
 	const [selectedTimeOption, setSelectedTimeOption] = useState(null);
 	const [city, setCity] = useState('Baltimore');
-	const [nusach, setNusach] = useState('Asheknaz');
+	const [nusach, setNusach] = useState(null);
 	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
 	const [date, setDate] = useState(today);
 	const [openSection, setOpenSection] = useState('');
@@ -135,6 +141,7 @@ function MinyanTimes(props) {
 		if (
 			timesQuery.isLoading ||
 			locationsQuery.isLoading ||
+			!Array.isArray(locationsQuery.data) ||
 			!Array.isArray(timesQuery.data) ||
 			Object.keys(ZmanimQueryData).length < 1
 		) {
@@ -165,7 +172,7 @@ function MinyanTimes(props) {
 						formula = Number(formula);
 						minutes = Number(minutes);
 						if (ZmanimQueryData.data?.Zman) {
-							const { SunriseDefault, SunsetDefault } =
+							const { SunriseDefault, SunsetDefault, MinchaStrict } =
 								ZmanimQueryData.data.Zman;
 							switch (formula) {
 								case FormulaTypes['Before Sunset']:
@@ -185,6 +192,9 @@ function MinyanTimes(props) {
 									currentTime = formatZman(
 										addMinutes(SunriseDefault, Number(minutes))
 									);
+									break;
+								case FormulaTypes['Midday']:
+									currentTime = formatZman(addMinutes(MinchaStrict, 0));
 									break;
 								default:
 									break;
@@ -212,7 +222,16 @@ function MinyanTimes(props) {
 
 			acc[sect] = Object.fromEntries(
 				Object.keys(options)
-					.sort((a, b) => a.label - b.label)
+					.sort((a, b) => {
+						if (sortBy) {
+							const targetA = getDateFromTimeString(a);
+							const targetB = getDateFromTimeString(b);
+							//Sorted by time
+							return targetA - targetB;
+						} else {
+							return a.label - b.label;
+						}
+					})
 					.map((e) => [e, options[e]])
 			);
 			return acc;
@@ -257,53 +276,65 @@ function MinyanTimes(props) {
 								: 'bg-normalBlue'
 						)}
 						onClick={() => handleChangeDay(weekDate)}>
-						{getWeekday(weekDate)}
+						{isSameDate(today, weekDate) ? 'Today' : getWeekday(weekDate)}
 					</button>
 				))}
 			</div>
-			<div className="md:self-center sm:items-center items-start flex flex-col sm:flex-row text-md text-darkBlue mt-4 mb-8 font-bold md:justify-center">
-				<label htmlFor="filter">Filter:</label>
-				<FilterDropdown
-					id="location"
-					name="location"
-					title={city}
-					options={(Object.keys(cityOptions) ?? []).map((e) => ({
-						label: cityOptions[e].city,
-						onClick() {
-							setCity(cityOptions[e].city);
-						}
-					}))}
-					className="m-2"></FilterDropdown>
-
-				<FilterDropdown
-					id="Nusach"
-					name="Nusach"
-					title={nusach}
-					options={NusachOptions.map((e) => ({
-						label: e,
-						onClick() {
-							setNusach(e);
-						}
-					}))}
-					className="m-2 w-28"></FilterDropdown>
-				<label
-					htmlFor="sort"
-					className="mx-4
-				 hidden mdblock">
-					Sort By:
-				</label>
-				{pinLocations.length === 0 && (
-					<Switch
-						offText="Shul"
-						value={sortBy ? true : false}
-						onChange={setSortBy}
-						onText="Times"
-						className="m-2"
-					/>
-				)}
+			<div className="md:self-center md:w-full sm:items-center items-start flex flex-col sm:flex-row text-sm text-darkBlue mt-4 mb-8 font-bold md:justify-center">
+				<div className="mr-auto">
+					{pinLocations.length === 0 && (
+						<>
+							<label htmlFor="sort" className="mx-4 hidden md:block">
+								Sort By:
+							</label>
+							<Switch
+								offText="Shul"
+								value={sortBy ? true : false}
+								onChange={setSortBy}
+								onText="Times"
+								className="m-2"
+							/>
+						</>
+					)}
+				</div>
+				<fieldset className="flex">
+					<div className="m-2">
+						<label htmlFor="location">Location:</label>
+						<FilterDropdown
+							id="location"
+							name="location"
+							title={city}
+							options={(Object.keys(cityOptions) ?? []).map((e) => ({
+								label: cityOptions[e].city,
+								onClick() {
+									setCity(cityOptions[e].city);
+								}
+							}))}
+							className=" w-40"
+						/>
+					</div>
+					<div className="m-2">
+						<label htmlFor="nusach">Nusach:</label>
+						<FilterDropdown
+							id="Nusach"
+							name="Nusach"
+							title={nusach ?? 'All'}
+							options={[
+								{ label: 'All', onClick: () => setNusach(null) },
+								...NusachOptions.map((e) => ({
+									label: e,
+									onClick() {
+										setNusach(e);
+									}
+								}))
+							]}
+							className="w-40"
+						/>
+					</div>
+				</fieldset>
 			</div>
 
-			<div className="flex flex-col md:flex-row md:justify-between md:h-96  my-2">
+			<div className="flex flex-col md:flex-row md:justify-between my-2">
 				{PrayerTypes.map((type, i) => {
 					const targetSection = formalizedData[type] ?? [];
 					const options = Object.keys(targetSection);
@@ -311,35 +342,30 @@ function MinyanTimes(props) {
 					return (
 						<div
 							className={classNames(
-								'md:relative mb-2 md:min-h-full max-h-96 overflow-y-auto overscroll-y-none  flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
+								'w-1/4',
+								'md:relative mb-2 md:min-h-full flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
 							)}>
 							<span
 								onClick={() =>
 									setOpenSection(openSection === type ? null : type)
 								}
-								className="md:hidden my-2 inline-flex text-xl">
+								className="md:hidden inline-flex text-xs">
 								{type}
 								<ChevronDownIcon
 									className={classNames(
 										openSection === type ? 'rotate-180' : '  text-white',
-										' h-8 w-8 ml-auto  text-darkBlue active:border-0 transition duration-500 ease-out'
+										' h-4 w-4 ml-auto text-darkBlue active:border-0 transition duration-500 ease-out'
 									)}
 									aria-hidden="true"
 								/>
 							</span>
-							<span className="hidden md:inline-block my-2 text-xl">
-								{type}
-							</span>
+							<span className="hidden md:inline-block my-2">{type}</span>
 							<div
 								className={classNames(
 									openSection === type ? '' : 'hidden md:block'
 								)}>
 								<Spinner isLoading={timesQuery.isLoading} />
-								{sponsors[type] && (
-									<button className="px-4 py-2 mx-2 font-sans rounded-full text-md bg-normalBlue my-2  text-white text-2xl font-extrabold">
-										{sponsors[type]}
-									</button>
-								)}
+								{sponsors[type] && <SponsorLogo sponsor={sponsors[type]} />}
 								{!timesQuery.isLoading &&
 									timesQuery.data &&
 									options.map((j) => (

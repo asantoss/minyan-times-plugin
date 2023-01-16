@@ -57,7 +57,6 @@ export default function TimeForm({ time, onSuccess }) {
 					<Switch
 						value={isCustom}
 						onChange={(val) => {
-							qq;
 							setTimeData({ ...timeData, isCustom: val ? 1 : 0 });
 						}}
 						name="isCustom"
@@ -75,6 +74,10 @@ export default function TimeForm({ time, onSuccess }) {
 							name="minutes"
 							type="number"
 							label="Minutes"
+							disabled={
+								timeData.formula &&
+								Number(timeData.formula) === FormulaTypes.Midday
+							}
 						/>
 						<Select
 							onChange={handleChange}

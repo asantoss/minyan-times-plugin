@@ -31,13 +31,13 @@ export default function SwitchComponent({
 						}}
 						className={classNames(
 							enabled ? 'bg-orange' : 'bg-darkBlue',
-							'relative inline-flex cursor-pointer  h-10 w-28 items-center rounded-full',
+							'relative inline-flex cursor-pointer  h-8 w-28 items-center rounded-full',
 							zIndex || '-z-10'
 						)}>
 						<span
 							className={`${
-								enabled ? 'translate-x-20' : 'translate-x-1'
-							} inline-block focus-visible:outline-none h-7 w-7  rounded-full bg-white transform transition ease-in-out duration-100`}
+								enabled ? 'translate-x-21' : 'translate-x-1'
+							} inline-block focus-visible:outline-none h-6 w-6  rounded-full bg-white transform transition ease-in-out duration-100`}
 						/>
 					</Switch>
 				</Switch.Group>
