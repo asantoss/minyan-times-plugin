@@ -1,3 +1,4 @@
+// CONSOLE.LOG('LOADED');
 import { QueryClientProvider } from '@tanstack/react-query';
 import React, { useState, useMemo } from 'react';
 import ReactDOM from 'react-dom';
@@ -18,7 +19,6 @@ import {
 	useZmanimApi
 } from './utils';
 import {
-	days,
 	FilterTypes,
 	formulaLabels,
 	FormulaTypes,
@@ -34,29 +34,51 @@ import Modal from './components/Modal';
 import ZManimDisplay from './components/ZManimDisplay';
 import SponsorLogo from './components/SponsorLogo';
 
-document.addEventListener(
-	'DOMContentLoaded',
-	() => {
-		const root = document.getElementById('mtp-plugin');
-		if (root) {
-			const dataEl = root.querySelector('pre');
-			let data = {};
-			if (dataEl) {
-				data = JSON.parse(dataEl.innerText);
-			}
-			ReactDOM.render(
-				<div className="mtp-block">
-					<QueryClientProvider client={queryClient}>
-						<ReactQueryDevtools />
-						<MinyanTimes {...data} />
-					</QueryClientProvider>
-				</div>,
-				root
-			);
+function waitForElm(selector) {
+	return new Promise((resolve) => {
+		if (document.querySelector(selector)) {
+			return resolve(document.querySelector(selector));
 		}
-	},
-	{ once: true }
-);
+
+		const observer = new MutationObserver((mutations) => {
+			if (document.querySelector(selector)) {
+				resolve(document.querySelector(selector));
+				observer.disconnect();
+			}
+		});
+
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true
+		});
+	});
+}
+window.addEventListener('elementor/init', renderApp);
+document.addEventListener('DOMContentLoaded', renderApp, { once: true });
+
+async function renderApp() {
+	let root = document.getElementById('mtp-plugin');
+	if (root) {
+		const dataEl = root.querySelector('pre');
+		let data = {};
+		if (dataEl) {
+			data = JSON.parse(dataEl.innerText);
+		}
+		ReactDOM.render(
+			<div className="mtp-block">
+				<QueryClientProvider client={queryClient}>
+					<ReactQueryDevtools />
+					<MinyanTimes {...data} />
+				</QueryClientProvider>
+			</div>,
+			root
+		);
+	} else {
+		await waitForElm('#mtp-plugin');
+		return renderApp();
+	}
+}
+
 const today = new Date();
 
 if (today.getDay() === 6) {
@@ -64,10 +86,11 @@ if (today.getDay() === 6) {
 	//Skip a date on Saturdays
 }
 const weekDates = getNextSetOfDays(today, 6);
-const currentWeekday = getWeekday(today);
 
 function MinyanTimes(props) {
-	const { googleKey } = props;
+	const { googleKey, isElementor } = props;
+	console.log(props);
+
 	const [selectedTimeOption, setSelectedTimeOption] = useState(null);
 	const [city, setCity] = useState('Baltimore');
 	const [nusach, setNusach] = useState(null);
@@ -342,7 +365,7 @@ function MinyanTimes(props) {
 					return (
 						<div
 							className={classNames(
-								'w-1/4',
+								'md:w-1/4',
 								'md:relative mb-2 md:min-h-full flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
 							)}>
 							<span
@@ -365,7 +388,12 @@ function MinyanTimes(props) {
 									openSection === type ? '' : 'hidden md:block'
 								)}>
 								<Spinner isLoading={timesQuery.isLoading} />
-								{sponsors[type] && <SponsorLogo sponsor={sponsors[type]} />}
+								{sponsors[type] && (
+									<SponsorLogo
+										isElementor={isElementor}
+										sponsor={sponsors[type]}
+									/>
+								)}
 								{!timesQuery.isLoading &&
 									timesQuery.data &&
 									options.map((j) => (
