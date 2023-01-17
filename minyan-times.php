@@ -1,17 +1,25 @@
 <?php
 
-
-
 /*
   Plugin Name: Minyan Times
   Description: A component that organizes prayer times by location or time block...
-  Version: 0.0.9
+  Version: 0.0.10
   Author: Alexander Santos
+
+  * Elementor tested up to: 3.5.0
+  * Elementor Pro tested up to: 3.5.0
 */
 
 if (!defined('ABSPATH')) {
   exit;
 }
+
+
+
+/**
+ * Register scripts and styles for Elementor test widgets.
+ */
+
 
 require_once(__DIR__ . "/includes/zManimService.php");
 
@@ -37,6 +45,20 @@ class Minyantimes
     wp_localize_script('llc-minyan-times-view-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
     ));
+
+    add_action('elementor/widgets/register', [$this, 'register_new_widgets']);
+  }
+
+  function register_new_widgets($widgets_manager)
+  {
+
+    require_once(__DIR__ . "/includes/widgets/MinyanTimesBlock.php");
+    wp_register_style('frontend-style', plugin_dir_url(__FILE__) . 'build/styles.css');
+    wp_register_script('frontend-script', plugin_dir_url(__FILE__) . '/build/frontend.js', ['elementor-frontend', 'wp-element'], '1.0.0', true);
+    wp_localize_script('frontend-script', 'wpApiSettings', array(
+      'root' => esc_url_raw(rest_url()),
+    ));
+    $widgets_manager->register(new \MTP\MinyanTimesBlock());
   }
 
 
