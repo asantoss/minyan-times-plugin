@@ -54,8 +54,20 @@ function waitForElm(selector) {
 		});
 	});
 }
-window.addEventListener('elementor/init', renderApp);
-document.addEventListener('DOMContentLoaded', renderApp, { once: true });
+if (window.elementorFrontend) {
+	window.addEventListener('elementor/frontend/init', () => {
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/minyan-times-block.default',
+			renderApp
+		);
+		elementorFrontend.hooks.addAction(
+			'panel/open_editor/minyan-times-block.default',
+			renderApp
+		);
+	});
+} else {
+	document.addEventListener('DOMContentLoaded', renderApp, { once: true });
+}
 
 async function renderApp() {
 	let root = document.getElementById('mtp-plugin');
@@ -74,9 +86,6 @@ async function renderApp() {
 			</div>,
 			root
 		);
-	} else {
-		await waitForElm('#mtp-plugin');
-		return renderApp();
 	}
 }
 
@@ -89,7 +98,7 @@ if (today.getDay() === 6) {
 const weekDates = getNextSetOfDays(today, 6);
 
 function MinyanTimes(props) {
-	const { googleKey, isElementor } = props;
+	const { googleKey } = props;
 
 	const [selectedTimeOption, setSelectedTimeOption] = useState(null);
 	const [city, setCity] = useState('Baltimore');
@@ -188,7 +197,9 @@ function MinyanTimes(props) {
 					let currentTime = '';
 
 					timeElement.onClick = () => {
-						setSelectedTimeOption(timeElement);
+						if (googleKey) {
+							setSelectedTimeOption(timeElement);
+						}
 					};
 					if (timeElement.isCustom === '1') {
 						let { formula, minutes } = timeElement;
@@ -280,15 +291,17 @@ function MinyanTimes(props) {
 	}
 	return (
 		<div className="flex-col font-sans flex w-full">
-			<Modal
-				className="my-2 mx-auto"
-				state={pinLocations.length > 0}
-				onClose={() => setSelectedTimeOption(null)}
-				button={() => {}}>
-				{googleKey && pinLocations.length > 0 && (
-					<Map apiKey={googleKey} locations={pinLocations} />
-				)}
-			</Modal>
+			{googleKey && (
+				<Modal
+					className="my-2 mx-auto"
+					state={pinLocations.length > 0}
+					onClose={() => setSelectedTimeOption(null)}
+					button={() => {}}>
+					{pinLocations.length > 0 && (
+						<Map apiKey={googleKey} locations={pinLocations} />
+					)}
+				</Modal>
+			)}
 			<ZManimDisplay Zmanim={ZmanimQueryData.data} />
 			<div className=" md:flex  grid gap-2 grid-cols-3 items-start my-3 justify-between">
 				{weekDates.map((weekDate) => (
@@ -389,12 +402,7 @@ function MinyanTimes(props) {
 									openSection === type ? '' : 'hidden md:block'
 								)}>
 								<Spinner isLoading={timesQuery.isLoading} />
-								{sponsors[type] && (
-									<SponsorLogo
-										isElementor={isElementor}
-										sponsor={sponsors[type]}
-									/>
-								)}
+								{sponsors[type] && <SponsorLogo sponsor={sponsors[type]} />}
 								{!timesQuery.isLoading &&
 									timesQuery.data &&
 									options.map(

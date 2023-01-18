@@ -101,7 +101,6 @@ class MinyanTimesBlock extends Widget_Base
     {
         $attributes = $this->get_settings_for_display();
         $attributes["googleKey"] = get_option("mtp_google_api_key");
-        $attributes["isElementor"] = true;
 ?>
 <div id="mtp-plugin">
     <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
@@ -113,6 +112,11 @@ class MinyanTimesBlock extends Widget_Base
     protected function _content_template()
     {
         # code...
-        echo '<div id="mtp-plugin></div>';
+    ?>
+<div id='mtp-plugin'>
+    <pre style="display: none;">{{{JSON.stringify(settings)}}}</pre>
+</div>
+<?php
+
     }
 }
