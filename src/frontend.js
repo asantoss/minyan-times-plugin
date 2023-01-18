@@ -105,7 +105,7 @@ function MinyanTimes(props) {
 	const [nusach, setNusach] = useState(null);
 	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
 	const [date, setDate] = useState(today);
-	const [openSection, setOpenSection] = useState('');
+	const [openSection, setOpenSection] = useState(PrayerTypes[0]);
 	const timesQuery = useFilteredTimesQuery({
 		city,
 		nusach,
