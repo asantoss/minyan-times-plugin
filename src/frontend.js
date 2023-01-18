@@ -27,6 +27,7 @@ import {
 } from './utils/enums';
 import Spinner from './components/Spinner';
 import Menu from './components/Menu';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import Map from './components/Map';
 import FilterDropdown from './components/FilterDropdown';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
@@ -89,7 +90,6 @@ const weekDates = getNextSetOfDays(today, 6);
 
 function MinyanTimes(props) {
 	const { googleKey, isElementor } = props;
-	console.log(props);
 
 	const [selectedTimeOption, setSelectedTimeOption] = useState(null);
 	const [city, setCity] = useState('Baltimore');
@@ -182,7 +182,7 @@ function MinyanTimes(props) {
 		return PrayerTypes.reduce((acc, sect) => {
 			const options = (data || [])
 				.filter((e) => {
-					return e.type && e.type.includes(sect);
+					return e.type === sect;
 				})
 				.reduce((acc, timeElement) => {
 					let currentTime = '';
@@ -217,7 +217,7 @@ function MinyanTimes(props) {
 									);
 									break;
 								case FormulaTypes['Midday']:
-									currentTime = formatZman(addMinutes(MinchaStrict, 0));
+									currentTime = formatZman(MinchaStrict);
 									break;
 								default:
 									break;
@@ -249,8 +249,9 @@ function MinyanTimes(props) {
 						if (sortBy) {
 							const targetA = getDateFromTimeString(a);
 							const targetB = getDateFromTimeString(b);
+
 							//Sorted by time
-							return targetA - targetB;
+							return targetA.isSameOrAfter(targetB) ? 1 : -1;
 						} else {
 							return a.label - b.label;
 						}
@@ -365,7 +366,7 @@ function MinyanTimes(props) {
 					return (
 						<div
 							className={classNames(
-								'md:w-1/4',
+								'w-full md:w-1/4',
 								'md:relative mb-2 md:min-h-full flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
 							)}>
 							<span
@@ -396,9 +397,9 @@ function MinyanTimes(props) {
 								)}
 								{!timesQuery.isLoading &&
 									timesQuery.data &&
-									options.map((j) => (
-										<Menu title={j} options={targetSection[j]} />
-									))}
+									options.map(
+										(j) => j && <Menu title={j} options={targetSection[j]} />
+									)}
 							</div>
 						</div>
 					);

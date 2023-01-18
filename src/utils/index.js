@@ -1,10 +1,19 @@
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import * as dayjs from 'dayjs';
 import axios from 'axios';
-import { days, FilterTypes, formulaLabels, SKIP_DAYS } from './enums';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import {
+	days,
+	FilterTypes,
+	formulaLabels,
+	FormulaTypes,
+	SKIP_DAYS
+} from './enums';
 
 import { Client } from '@googlemaps/google-maps-services-js';
 import { useQueries } from '@tanstack/react-query';
 
+dayjs.extend(isSameOrAfter);
 export function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
 }
@@ -19,11 +28,8 @@ export const axiosClient = axios.create({
 export const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			retry: 1,
-			staleTime: 1000 * 60 * 60 * 4, // 4 hours
-			cacheTime: 1000 * 60 * 60 * 12, // 12 hours
-			refetchOnWindowFocus: false,
-			suspense: false
+			staleTime: 5 * (60 * 1000), // 5 mins
+			cacheTime: 10 * (60 * 1000) // 10 mins
 		}
 	}
 });
@@ -99,31 +105,36 @@ export function useTimesQuery(props) {
 	);
 }
 export function useFilteredTimesQuery({ city, day, nusach, sortBy }) {
-	return useQuery({
-		queryKey: [
-			'times',
-			city,
-			day,
-			nusach,
-			sortBy === FilterTypes.TIME ? 'time' : 'location'
-		],
-		queryFn: async ({ queryKey }) => {
-			try {
-				let url = '/times';
-				const [_, city, day, nusach, sortBy] = queryKey;
-				const params = {
-					city,
-					day,
-					nusach,
-					sortBy
-				};
-				const response = await axiosClient.get(url, { params });
-				return response.data;
-			} catch (error) {
-				throw new Error('Network response was not ok');
+	return useQuery(
+		{
+			queryKey: [
+				'times',
+				city,
+				day,
+				nusach,
+				sortBy === FilterTypes.TIME ? 'time' : 'location'
+			],
+			queryFn: async ({ queryKey }) => {
+				try {
+					let url = '/times';
+					const [_, city, day, nusach, sortBy] = queryKey;
+					const params = {
+						city,
+						day,
+						nusach,
+						sortBy
+					};
+					const response = await axiosClient.get(url, { params });
+					return response.data;
+				} catch (error) {
+					throw new Error('Network response was not ok');
+				}
 			}
+		},
+		{
+			cacheTime: 0
 		}
-	});
+	);
 }
 
 export function useTimeMutation(id) {
@@ -457,7 +468,9 @@ export function exportToCsv(filename, rows) {
 
 export function formatTime(data) {
 	return data.isCustom && Number(data.isCustom)
-		? `Neitz (${data.minutes}m ${formulaLabels[data.formula]})`
+		? Number(data.formula) === FormulaTypes.Midday
+			? formulaLabels[data.formula]
+			: `${data.minutes}m ${formulaLabels[data.formula]}`
 		: convertTime(data.time);
 }
 
@@ -507,20 +520,7 @@ export function isSameDate(a, b) {
 }
 export function getDateFromTimeString(time) {
 	const date = new Date();
-	var index = time.indexOf(':'); // replace with ":" for differently displayed time.
-	var index2 = time.indexOf(' ');
+	const day = dayjs(formatDate(date) + ' ' + time, 'YYYY-MM-DD hh mm a');
 
-	var hours = time.substring(0, index);
-	var minutes = time.substring(index + 1, index2);
-
-	var mer = time.substring(index2 + 1, time.length);
-	if (mer == 'pm') {
-		hours = hours + 12;
-	}
-
-	date.setHours(hours);
-	date.setMinutes(minutes);
-	date.setSeconds('00');
-
-	return date;
+	return day;
 }

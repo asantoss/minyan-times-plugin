@@ -27,6 +27,6 @@ export const days = [
 
 export const PrayerTypes = ['Shacharis', 'Mincha', 'Mincha/Maariv', 'Maariv'];
 
-export const NusachOptions = ['Ari', 'Asheknaz', 'Sefardi', 'Sefard'];
+export const NusachOptions = ['Ari', 'Asheknaz', 'Sefarhadi', 'Sefard'];
 
 export const SKIP_DAYS = [6]; //Skip Saturday

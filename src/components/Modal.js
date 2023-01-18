@@ -17,7 +17,7 @@ export default function Modal({
 
 	function closeModal() {
 		setIsOpen(false);
-		if (onClose) {
+		if (onClose && typeof onClose === 'function') {
 			onClose();
 		}
 	}
@@ -66,7 +66,7 @@ export default function Modal({
 								<Dialog.Panel className="z-20 max-w-2xl transform overflow-hidden rounded-2xl bg-wpBg p-2 text-left align-middle shadow-xl transition-all">
 									<Dialog.Title
 										as="h3"
-										className="text-lg font-medium leading-6 text-gray-900">
+										className="text-md font-medium leading-6 text-gray-900">
 										{title}
 									</Dialog.Title>
 									<div className="mt-2">

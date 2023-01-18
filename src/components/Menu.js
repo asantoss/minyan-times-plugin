@@ -5,23 +5,6 @@ import { Fragment } from 'react';
 import { classNames } from '../utils';
 
 export default function Menu({ title, options = [] }) {
-	const _rowRenderer = ({ index, key, close }) => {
-		const row = options[index];
-
-		return (
-			<button
-				key={key}
-				onClick={() => {
-					if (row.onClick) {
-						row.onClick();
-					}
-					close();
-				}}
-				className="py-2 px-1 w-full focus-visible:border-0 text-left text-darkBlue font-sans text-lg font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue bg-white hover:bg-white border-0 ">
-				{row.label}
-			</button>
-		);
-	};
 	return (
 		<Popover
 			as="div"
@@ -32,7 +15,7 @@ export default function Menu({ title, options = [] }) {
 				<>
 					<Popover.Button
 						as="span"
-						className="flex cursor-pointer  focus-visible:outline-none justify-between w-full text-darkBlue font-sans text-lg font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue hover:bg-white active:border-0 focus:border-0">
+						className="flex cursor-pointer  focus-visible:outline-none justify-between w-full text-darkBlue font-sans text-md font-bold focus:bg-white focus:text-darkBlue hover:text-darkBlue hover:bg-white active:border-0 focus:border-0">
 						<span>{title}</span>
 						<ChevronDownIcon
 							className={classNames(
@@ -55,14 +38,14 @@ export default function Menu({ title, options = [] }) {
 								{options.map((e, i) => {
 									return (
 										<span
+											data-id={e.id}
 											key={i}
 											onClick={() => {
 												if (e.onClick) {
 													e.onClick();
 												}
-												close();
 											}}
-											className="hover:text-orange py-2 cursor-pointer px-1 focus-visible:border-0 text-left text-darkBlue font-sans text-lg font-bold focus:bg-white focus:text-darkBlue  bg-white hover:bg-white border-0 ">
+											className="hover:text-orange py-2 cursor-pointer px-1 focus-visible:border-0 text-left text-darkBlue font-sans text-md font-bold focus:bg-white focus:text-darkBlue  bg-white hover:bg-white border-0 ">
 											{e.label}
 										</span>
 									);
