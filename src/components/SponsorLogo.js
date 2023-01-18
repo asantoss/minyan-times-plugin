@@ -14,11 +14,7 @@ export default function SponsorLogo({ sponsor, isElementor }) {
 							href={url.url}
 							target="_blank"
 							className="items-center font-sans rounded-full text-xss my-1 text-center text-darkBlue  font-extrabold">
-							<img
-								src={logo.url}
-								alt="Sponsor for the section."
-								className="h-12 w-12"
-							/>
+							<img src={logo.url} alt="Sponsor for the section." />
 						</a>
 					</div>
 				)
