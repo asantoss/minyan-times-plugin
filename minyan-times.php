@@ -3,7 +3,7 @@
 /*
   Plugin Name: Minyan Times
   Description: A component that organizes prayer times by location or time block...
-  Version: 0.0.10
+  Version: 0.0.11
   Author: Alexander Santos
 
   * Elementor tested up to: 3.5.0
