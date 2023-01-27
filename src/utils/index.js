@@ -520,7 +520,8 @@ export function isSameDate(a, b) {
 }
 export function getDateFromTimeString(time) {
 	const date = new Date();
-	const day = dayjs(formatDate(date) + ' ' + time, 'YYYY-MM-DD hh mm a');
+	const dateString = dayjs(date).format('MM/DD/YYYY') + ' ' + time;
+	const day = dayjs(dateString, 'MM/DD/YYYY hh mm a');
 
 	return day;
 }

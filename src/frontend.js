@@ -8,6 +8,7 @@ import {
 	addMinutes,
 	classNames,
 	convertTime,
+	formatTime,
 	formatZman,
 	getDateFromTimeString,
 	getNextSetOfDays,
@@ -35,25 +36,6 @@ import Modal from './components/Modal';
 import ZManimDisplay from './components/ZManimDisplay';
 import SponsorLogo from './components/SponsorLogo';
 
-function waitForElm(selector) {
-	return new Promise((resolve) => {
-		if (document.querySelector(selector)) {
-			return resolve(document.querySelector(selector));
-		}
-
-		const observer = new MutationObserver((mutations) => {
-			if (document.querySelector(selector)) {
-				resolve(document.querySelector(selector));
-				observer.disconnect();
-			}
-		});
-
-		observer.observe(document.body, {
-			childList: true,
-			subtree: true
-		});
-	});
-}
 if (window.elementorFrontend) {
 	window.addEventListener('elementor/frontend/init', () => {
 		elementorFrontend.hooks.addAction(
@@ -140,13 +122,11 @@ function MinyanTimes(props) {
 			const { status } = query;
 			if (status === 'success') {
 				const { data } = query;
-				if (Object.keys(data)?.length > 0) {
-					const {
-						Time: { Weekday },
-						Place: { PostalCode }
-					} = data;
+				if (typeof data === 'object' && Object.keys(data)?.length > 0) {
+					const { Time, Place } = data;
 					const queryMatch =
-						Weekday === getWeekday(date) && PostalCode === postalCode;
+						Time?.Weekday === getWeekday(date) &&
+						Place?.PostalCode === postalCode;
 					if (queryMatch) {
 						return query;
 					}
@@ -174,8 +154,7 @@ function MinyanTimes(props) {
 			timesQuery.isLoading ||
 			locationsQuery.isLoading ||
 			!Array.isArray(locationsQuery.data) ||
-			!Array.isArray(timesQuery.data) ||
-			Object.keys(ZmanimQueryData).length < 1
+			!Array.isArray(timesQuery.data)
 		) {
 			return output;
 		}
@@ -234,7 +213,7 @@ function MinyanTimes(props) {
 									break;
 							}
 						} else {
-							currentTime = `Neitz (${minutes}m ${formulaLabels[formula]})`;
+							currentTime = formatTime(timeElement);
 						}
 					} else {
 						currentTime = convertTime(timeElement.time);
@@ -257,14 +236,13 @@ function MinyanTimes(props) {
 			acc[sect] = Object.fromEntries(
 				Object.keys(options)
 					.sort((a, b) => {
-						if (sortBy) {
+						if (sortBy === FilterTypes.TIME) {
 							const targetA = getDateFromTimeString(a);
 							const targetB = getDateFromTimeString(b);
-
 							//Sorted by time
 							return targetA.isSameOrAfter(targetB) ? 1 : -1;
 						} else {
-							return a.label - b.label;
+							return a - b;
 						}
 					})
 					.map((e) => [e, options[e]])
