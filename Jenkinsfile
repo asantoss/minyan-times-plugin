@@ -8,9 +8,8 @@ pipeline {
     stages {
         stage('Install') {
             steps {
+                sh 'pwd'
                 sh 'npm install'
-                sh 'npm install totalist/sync'
-
             }
         }
         stage('Build') {
