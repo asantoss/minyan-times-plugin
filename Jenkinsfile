@@ -5,6 +5,9 @@ pipeline {
                 args '-u root:root --tmpfs /.config'
               }
     }
+    environment {
+    NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+}
     stages {
         stage('Install') {
             steps {
