@@ -3,9 +3,15 @@ pipeline {
         docker { image 'node:16.13.1-alpine' }
     }
     stages {
-        stage('Test') {
+        stage('Install') {
             steps {
                 sh 'node --version'
+                sh 'npm install --legacy-peer-deps'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run release'
             }
         }
     }
