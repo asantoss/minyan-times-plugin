@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
                 image 'node:16.13.1-alpine'
-                args '--tmpfs /.config'
+                args '-u root:root --tmpfs /.config'
               }
     }
     stages {
