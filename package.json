@@ -40,6 +40,8 @@
     "axios": "^1.2.2",
     "dayjs": "^1.11.7",
     "google-map-react": "^2.2.0",
-    "react": "17.0.0"
+    "load-script": "^2.0.0",
+    "react": "17.0.0",
+    "react-google-autocomplete": "^2.7.2"
   }
 }

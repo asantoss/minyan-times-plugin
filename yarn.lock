@@ -6573,6 +6573,11 @@
     "pify" "^3.0.0"
     "strip-bom" "^3.0.0"
 
+"load-script@^2.0.0":
+  "integrity" "sha512-km6cyoPW4rM22JMGb+SHUKPMZVDpUaMpMAKrv8UHWllIxc/qjgMGHD91nY+5hM+/NFs310OZ2pqQeJKs7HqWPA=="
+  "resolved" "https://registry.npmjs.org/load-script/-/load-script-2.0.0.tgz"
+  "version" "2.0.0"
+
 "loader-runner@^4.2.0":
   "integrity" "sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg=="
   "resolved" "https://registry.npmjs.org/loader-runner/-/loader-runner-4.3.0.tgz"
@@ -8002,7 +8007,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.7.0", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@^15.5.0", "prop-types@^15.7.0", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -8152,6 +8157,14 @@
     "loose-envify" "^1.1.0"
     "object-assign" "^4.1.1"
     "scheduler" "^0.20.2"
+
+"react-google-autocomplete@^2.7.2":
+  "integrity" "sha512-HXKWJ94lJQXs5pVvVS8o6y7d9Pnx12xblREBiYN/7fDu812SuC37Lf8UnL/fX7vaQB0ux9b4LCrF0jU9qGimtw=="
+  "resolved" "https://registry.npmjs.org/react-google-autocomplete/-/react-google-autocomplete-2.7.2.tgz"
+  "version" "2.7.2"
+  dependencies:
+    "lodash.debounce" "^4.0.8"
+    "prop-types" "^15.5.0"
 
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", "react-is@^17.0.0", "react-is@^17.0.1", "react-is@^17.0.2":
   "integrity" "sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w=="
