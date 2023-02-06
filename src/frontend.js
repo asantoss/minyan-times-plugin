@@ -20,21 +20,21 @@ import {
 	useZmanimApi
 } from './utils';
 import {
-	FilterTypes,
+	ViewTypes,
 	formulaLabels,
 	FormulaTypes,
 	NusachOptions,
 	PrayerTypes
 } from './utils/enums';
 import Spinner from './components/Spinner';
-import Menu from './components/Menu';
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import Accordion from './components/Accordion';
+
 import Map from './components/Map';
 import FilterDropdown from './components/FilterDropdown';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import Modal from './components/Modal';
 import ZManimDisplay from './components/ZManimDisplay';
 import SponsorLogo from './components/SponsorLogo';
+import TimesCard from './components/TimesCard';
 
 if (window.elementorFrontend) {
 	window.addEventListener('elementor/frontend/init', () => {
@@ -85,9 +85,8 @@ function MinyanTimes(props) {
 	const [selectedTimeOption, setSelectedTimeOption] = useState(null);
 	const [city, setCity] = useState('Baltimore');
 	const [nusach, setNusach] = useState(null);
-	const [sortBy, setSortBy] = useState(FilterTypes.TIME);
+	const [sortBy, setSortBy] = useState(ViewTypes.TIME);
 	const [date, setDate] = useState(today);
-	const [openSection, setOpenSection] = useState(PrayerTypes[0]);
 	const timesQuery = useFilteredTimesQuery({
 		city,
 		nusach,
@@ -219,9 +218,9 @@ function MinyanTimes(props) {
 						currentTime = convertTime(timeElement.time);
 					}
 					const menuLabel =
-						sortBy === FilterTypes.TIME ? currentTime : timeElement.location;
+						sortBy === ViewTypes.TIME ? currentTime : timeElement.location;
 					const optionLabel =
-						sortBy === FilterTypes.TIME ? timeElement.location : currentTime;
+						sortBy === ViewTypes.TIME ? timeElement.location : currentTime;
 					if (acc[menuLabel]) {
 						acc[menuLabel] = [
 							...acc[menuLabel],
@@ -236,7 +235,7 @@ function MinyanTimes(props) {
 			acc[sect] = Object.fromEntries(
 				Object.keys(options)
 					.sort((a, b) => {
-						if (sortBy === FilterTypes.TIME) {
+						if (sortBy === ViewTypes.TIME) {
 							const targetA = getDateFromTimeString(a);
 							const targetB = getDateFromTimeString(b);
 							//Sorted by time
@@ -353,41 +352,35 @@ function MinyanTimes(props) {
 				{PrayerTypes.map((type, i) => {
 					const targetSection = formalizedData[type] ?? [];
 					const options = Object.keys(targetSection);
-
 					return (
-						<div
-							className={classNames(
-								'w-full md:w-1/4',
-								'md:relative mb-2 md:min-h-full flex font-extrabold  text-darkBlue flex-col  text-center mx-2 rounded-xl bg-lightBlue p-2'
-							)}>
-							<span
-								onClick={() =>
-									setOpenSection(openSection === type ? null : type)
-								}
-								className="md:hidden inline-flex text-xs">
-								{type}
-								<ChevronDownIcon
-									className={classNames(
-										openSection === type ? 'rotate-180' : '  text-white',
-										' h-4 w-4 ml-auto text-darkBlue active:border-0 transition duration-500 ease-out'
-									)}
-									aria-hidden="true"
-								/>
-							</span>
-							<span className="hidden md:inline-block my-2">{type}</span>
-							<div
-								className={classNames(
-									openSection === type ? '' : 'hidden md:block'
-								)}>
+						<TimesCard isOpen={i === 0} key={type} title={type}>
+							<>
 								<Spinner isLoading={timesQuery.isLoading} />
 								{sponsors[type] && <SponsorLogo sponsor={sponsors[type]} />}
 								{!timesQuery.isLoading &&
 									timesQuery.data &&
-									options.map(
-										(j) => j && <Menu title={j} options={targetSection[j]} />
-									)}
-							</div>
-						</div>
+									options.map((j) => {
+										const options = targetSection[j];
+
+										let title = j;
+										const isCalculated = options.every(
+											(e) => e.isCustom === '1'
+										);
+										if (isCalculated) {
+											title = (
+												<span className="inline-flex  justify-between w-full">
+													{title}{' '}
+													<span class="bg-yellow-100 self-center text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+														Approximate
+													</span>
+												</span>
+											);
+										}
+
+										return <Accordion title={title} options={options} />;
+									})}
+							</>
+						</TimesCard>
 					);
 				})}
 			</div>

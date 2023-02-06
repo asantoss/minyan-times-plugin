@@ -1,4 +1,4 @@
-export const FilterTypes = {
+export const ViewTypes = {
 	TIME: true,
 	SHUL: false
 };

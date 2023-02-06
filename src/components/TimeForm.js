@@ -126,6 +126,8 @@ export default function TimeForm({ time, onSuccess }) {
 						</option>
 					))}
 				</Select>
+				{/* 
+				!! DEPRECATED TABLE
 				<Select
 					onChange={handleChange}
 					value={timeData.locationId}
@@ -135,6 +137,19 @@ export default function TimeForm({ time, onSuccess }) {
 					{locationQuery.data.map((e) => (
 						<option key={e.id} value={e.id}>
 							{e.name}
+						</option>
+					))}
+				</Select> */}
+
+				<Select
+					onChange={handleChange}
+					value={timeData.post_id}
+					required
+					name="post_id"
+					label="Location">
+					{locationQuery.data.map((e) => (
+						<option key={e.ID} value={e.ID}>
+							{e.post_title}
 						</option>
 					))}
 				</Select>

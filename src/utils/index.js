@@ -4,7 +4,7 @@ import axios from 'axios';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import {
 	days,
-	FilterTypes,
+	ViewTypes,
 	formulaLabels,
 	FormulaTypes,
 	SKIP_DAYS
@@ -112,7 +112,7 @@ export function useFilteredTimesQuery({ city, day, nusach, sortBy }) {
 				city,
 				day,
 				nusach,
-				sortBy === FilterTypes.TIME ? 'time' : 'location'
+				sortBy === ViewTypes.TIME ? 'time' : 'location'
 			],
 			queryFn: async ({ queryKey }) => {
 				try {
