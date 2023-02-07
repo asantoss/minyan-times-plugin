@@ -4,7 +4,7 @@
 
 class TimesController
 {
-    static $timesTableName;
+    public $timesTableName = 'wp_times';
     function __construct()
     {
         register_rest_route(
@@ -55,29 +55,45 @@ class TimesController
             )
         );
     }
-
+    function perm_callback()
+    {
+        return current_user_can('manage_options');
+    }
 
     function get_times($request)
     {
         global $wpdb;
         $city = $request->get_param("city");
+        $rabbi = $request->get_param("rabbi");
+        $shul = $request->get_param("shul");
         $nusach = $request->get_param("nusach");
         $day = $request->get_param("day");
         $sortBy = $request->get_param("sortBy");
-        $sql = "SELECT " . $this->timesTableName .
-            ".id as id, post_id , post_title as location, time, isCustom, formula, minutes, type, nusach, day FROM "
-            . $this->timesTableName .
-            " INNER JOIN wp_posts l ON post_id = l.ID WHERE 1=1 ";
-        // if ($city) {
-        //     $sql = $wpdb->prepare($sql . " AND city = %s", $city);
-        // }
-        // if ($nusach) {
-        //     $sql = $wpdb->prepare($sql . " AND nusach = %s", $nusach);
-        // }
-        // if ($day) {
-        //     $search_text = "%" . $day . "%";
-        //     $sql = $wpdb->prepare($sql . " AND day like %s", $search_text);
-        // }
+        $tableName = $this->timesTableName;
+        $sql = "SELECT t.id, t.post_id , post_title as location, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day FROM " . $tableName .
+            " t INNER JOIN wp_posts l ON t.post_id = l.ID
+                LEFT JOIN wp_postmeta cpm on t.post_id = cpm.post_id AND cpm.meta_key = 'city'
+                LEFT JOIN wp_postmeta rpm on t.post_id = rpm.post_id AND rpm.meta_key = 'rabbi'
+                WHERE 1=1
+                ";
+        if ($nusach) {
+            $sql = $wpdb->prepare($sql . " AND nusach = %s", $nusach);
+        }
+        if ($day) {
+            $search_text = "%" . $day . "%";
+            $sql = $wpdb->prepare($sql . " AND day like %s", $search_text);
+        }
+        if ($rabbi) {
+            $search_text = "%" . $rabbi . "%";
+            $sql = $wpdb->prepare($sql . " AND rpm.meta_value like %s", $search_text);
+        }
+        if ($shul) {
+            $search_text = "%" . $shul . "%";
+            $sql = $wpdb->prepare($sql . " AND post_title like %s", $search_text);
+        }
+        if ($city) {
+            $sql = $wpdb->prepare($sql . " AND cpm.meta_value = %s", $city);
+        }
         if ($sortBy) {
             $sql = $wpdb->prepare($sql . "ORDER BY %s ASC", $sortBy);
         }
@@ -86,7 +102,57 @@ class TimesController
 
 
         $results = $wpdb->get_results($sql);
+
+
+
+        foreach ($results as $item) {
+            $item->address = get_post_meta($item->post_id, 'address', true);
+            $item->rabbi = get_post_meta($item->post_id, 'rabbi', true);
+            $item->city = get_post_meta($item->post_id, 'city', true);
+            $item->state = get_post_meta($item->post_id, 'state', true);
+            $item->zipCode = get_post_meta($item->post_id, 'zipCode', true);
+            $item->geometry = get_post_meta($item->post_id, 'geometry', true);
+            # code...
+        }
+
+
+
         return $results;
+    }
+
+    function create_time($request)
+    {
+        global $wpdb;
+        $parameters = $request->get_body_params();
+        $time = $parameters["time"];
+        $postId = $parameters["post_id"];
+        $nusach = $parameters["nusach"];
+        $day = $parameters["day"];
+        $type = $parameters["type"];
+        $formula = $parameters["formula"];
+        $minutes = $parameters["minutes"];
+        $isCustom = $parameters["isCustom"];
+        if (($time || $isCustom == "1") && $postId && $nusach && $day) {
+            $insert = $wpdb->insert(
+                $this->timesTableName,
+                array(
+                    "time" => $time,
+                    "post_id" => (int)$postId,
+                    "isCustom" => (int)$isCustom,
+                    "nusach" => $nusach,
+                    "day" => $day,
+                    "type" => $type,
+                    "formula" => (int)$formula,
+                    "minutes" => (int)$minutes,
+                )
+            );
+            if ($insert) {
+                return rest_ensure_response('Success');
+            }
+            return new WP_Error('invalid', 'Invalid body', array('status' => 404));
+        }
+
+        return $parameters;
     }
 
     function delete_time($request)

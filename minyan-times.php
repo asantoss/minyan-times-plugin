@@ -21,9 +21,6 @@ if (!defined('ABSPATH')) {
  */
 
 
-require_once(__DIR__ . "/includes/zManimService.php");
-
-require_once(__DIR__ . "/includes/TimesController.php");
 
 
 
@@ -167,7 +164,6 @@ class Minyantimes
 
 class MinyanTimesApi
 {
-  private $zManimService;
   private $locationsTableName;
   private $timesTableName;
   private $charset;
@@ -178,7 +174,6 @@ class MinyanTimesApi
     $this->charset = $wpdb->get_charset_collate();
     $this->timesTableName = $wpdb->prefix . "times";
     $this->locationsTableName = $wpdb->prefix . "locations";
-    $this->zManimService = new zManimService(get_option("mtp_api_user"), get_option("mtp_api_key"));
     register_activation_hook(__FILE__, array($this, 'onActivate'));
     add_action("rest_api_init", array($this, "initRest"));
     add_action('init', [$this, 'create_location_posts']);
@@ -271,8 +266,6 @@ PRIMARY KEY (id)
 ) $this->charset;";
 
 
-
-
     $timesSql = "CREATE TABLE $this->timesTableName (
 id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 time varchar(50),
@@ -282,14 +275,14 @@ isCustom boolean,
 day TEXT,
 nusach varchar(255) NOT NULL DEFAULT '',
 type varchar(255),
-locationId bigint(20) unsigned,
-post_id bigint(20) unsigned,
+locationId bigint(20) unsigned NULL DEFAULT NULL,
+post_id bigint(20) unsigned NULL,
 effectiveOn date,
 expiresOn date,
 isActive boolean,
 PRIMARY KEY (id),
 FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id),
-FOREIGN KEY (post_id) REFERENCES wp_posts(ID),
+FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
 ) $this->charset;";
     dbDelta($locationSql);
     dbDelta($timesSql);
@@ -304,265 +297,12 @@ FOREIGN KEY (post_id) REFERENCES wp_posts(ID),
   function initRest()
   {
     wp_create_nonce('wp_rest');
+    require_once(__DIR__ . "/includes/zManimService.php");
+    require_once(__DIR__ . "/includes/TimesController.php");
+    require_once(__DIR__ . "/includes/LocationsController.php");
     new TimesController();
-
-    register_rest_route(
-      "minyan-times/v1",
-      "zManim",
-      array(
-        array(
-          'methods' => WP_REST_Server::READABLE,
-          'callback' => array($this, 'get_zmanim_data'),
-          'permission_callback' => function () {
-            return true;
-          }
-        )
-      )
-    );
-
-
-    // Location Routes
-    register_rest_route(
-      "minyan-times/v1",
-      "locations/(?P<id>\d+)",
-      array(array(
-        'methods' => WP_REST_Server::DELETABLE,
-        'callback' => array($this, 'delete_location'),
-        'permission_callback' => array($this, "perm_callback"),
-        'args' => array(
-          'id' => array(
-            'validate_callback' => function ($param, $request, $key) {
-              return is_numeric($param);
-            }
-          )
-        )
-      ), array(
-        'methods' => WP_REST_Server::EDITABLE,
-        'callback' => array($this, 'update_location'),
-        'permission_callback' => array($this, "perm_callback"),
-        'args' => array(
-          'id' => array(
-            'validate_callback' => function ($param, $request, $key) {
-              return is_numeric($param);
-            }
-          )
-        )
-      ))
-    );
-    // register_rest_route(
-    //   "minyan-times/v1",
-    //   "locations",
-    //   array(
-    //     array(
-    //       'methods' => WP_REST_Server::READABLE,
-    //       'callback' => array($this, 'get_locations'),
-    //       'permission_callback' => function () {
-    //         return true;
-    //       }
-    //     ),
-    //     array(
-    //       'methods' => WP_REST_Server::CREATABLE,
-    //       'callback' => array($this, 'create_locations'),
-    //       'permission_callback' => array($this, "perm_callback")
-    //     ),
-    //   )
-    // );
-    register_rest_route(
-      "minyan-times/v1",
-      "locations",
-      array(
-        'methods' => WP_REST_Server::READABLE,
-        'callback' => array($this, 'get_location_posts'),
-        'permission_callback' => function () {
-          return true;
-        }
-      )
-
-    );
-  }
-
-
-  function get_locations()
-  {
-    global $wpdb;
-    $table = $this->locationsTableName;
-    $sql = "SELECT id, name, city, address, zipCode, state, lat,lng FROM " . $table;
-    $query = $wpdb->prepare($sql);
-    $results = $wpdb->get_results($query);
-    return $results;
-  }
-  function get_location_posts()
-  {
-    $args = [
-      "post_type" => 'mtp_location',
-      'post_status' => 'publish',
-      'nopaging' => true
-    ];
-    $query = new WP_Query($args);
-    $posts = $query->get_posts();
-    return wp_send_json($posts);
-  }
-
-  function create_locations($request)
-  {
-    global $wpdb;
-    $parameters = $request->get_body_params();
-    $name = $parameters['name'];
-    $zipCode = $parameters['zipCode'];
-    $address = $parameters['address'];
-    $state = $parameters['state'];
-    $city = $parameters['city'];
-    $lat = $parameters['lat'];
-    $lng = $parameters['lng'];
-    $place_id = $parameters['place_id'];
-    $locationData = array(
-      "name" => $name,
-      "address" => $address,
-      "city" => $city,
-      "zipCode" => $zipCode,
-      "state" => $state,
-      "lat" => $lat,
-      "lng" => $lng,
-      "place_id" => $place_id,
-    );
-
-    if ($name && $address && $city) {
-      $insert = $wpdb->insert(
-        $this->locationsTableName,
-        $locationData
-      );
-      if ($insert) {
-        return rest_ensure_response('Success');
-      }
-      return new WP_Error('invalid', 'Invalid body', array('status' => 404));
-    }
-
-    return $parameters;
-  }
-  function update_location($request)
-  {
-    global $wpdb;
-    $parameters = $request->get_body_params();
-    $name = $parameters['name'];
-    $address = $parameters['address'];
-    $city = $parameters['city'];
-    $state = $parameters['state'];
-    $zipCode = $parameters['zipCode'];
-    $id = $parameters['id'];
-    $lat = $parameters['lat'];
-    $lng = $parameters['lng'];
-    $place_id = $parameters['place_id'];
-    $locationData = array(
-      "name" => $name,
-      "address" => $address,
-      "city" => $city,
-      "zipCode" => $zipCode,
-      "state" => $state,
-      "lat" => $lat,
-      "lng" => $lng,
-      "place_id" => $place_id,
-    );
-
-    $update = $wpdb->update(
-      $this->locationsTableName,
-      $locationData,
-      array("id" => $id),
-
-    );
-    switch ($update) {
-      case 1:
-        return rest_ensure_response("Success updated " . $update . " record(s)");
-      case 0:
-        return rest_ensure_response("No record updated");
-      default:
-        return new WP_Error("invalid", "bad input", array("status" => 400, 'update' => $update));
-    }
-  }
-  function delete_location($request)
-  {
-    global $wpdb;
-    $id = $request->get_param('id');
-    $delete = $wpdb->delete(
-      $this->locationsTableName,
-      array(
-        "id" => $id
-      )
-    );
-    if ($delete) {
-      $wpdb->delete(
-        $this->timesTableName,
-        array(
-          "locationId" => $id
-        )
-      );
-      return rest_ensure_response("Success");
-    }
-    return new WP_Error("invalid", "bad input", array("status" => 400));
-  }
-
-  function use_zManim_api($locations)
-  {
-    global $wpdb;
-
-    $zManimLocations = array();
-    foreach ($locations as $location) {
-      $zipCode = $location->zipCode;
-      $response = $this->zManimService->getToday($zipCode);
-      $zManimLocations[$zipCode] =
-        json_encode($response);
-    }
-    foreach ($zManimLocations as $key => $value) {
-      $wpdb->update($this->locationsTableName, array("thirdPartyData" => $value), array("zipCode" => $key));
-    }
-
-    return wp_next_scheduled('mtp_cron_hook');
-  }
-
-  function get_zmanim_data($request)
-  {
-    $date = $request["date"];
-    $postalCode = $request["postalCode"];
-    if ($date && $postalCode) {
-      $response = $this->zManimService->getDay($date, $postalCode);
-      return $response;
-    }
-    return new WP_Error("invalid", "bad input", array("status" => 400));
-  }
-
-
-  function create_time($request)
-  {
-    global $wpdb;
-    $parameters = $request->get_body_params();
-    $time = $parameters["time"];
-    $locationId = $parameters["locationId"];
-    $nusach = $parameters["nusach"];
-    $day = $parameters["day"];
-    $type = $parameters["type"];
-    $formula = $parameters["formula"];
-    $minutes = $parameters["minutes"];
-    $isCustom = $parameters["isCustom"];
-    if (($time || $isCustom == "1") && $locationId && $nusach && $day) {
-      $insert = $wpdb->insert(
-        $this->timesTableName,
-        array(
-          "time" => $time,
-          "locationId" => (int)$locationId,
-          "isCustom" => (int)$isCustom,
-          "nusach" => $nusach,
-          "day" => $day,
-          "type" => $type,
-          "formula" => (int)$formula,
-          "minutes" => (int)$minutes,
-        )
-      );
-      if ($insert) {
-        return rest_ensure_response('Success');
-      }
-      return new WP_Error('invalid', 'Invalid body', array('status' => 404));
-    }
-
-    return $parameters;
+    new LocationsController();
+    new zManimService(get_option("mtp_api_user"), get_option("mtp_api_key"));
   }
 }
 

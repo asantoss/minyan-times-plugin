@@ -20,8 +20,30 @@ class zManimService
     {
         $this->user = $user;
         $this->key = $key;
+        register_rest_route(
+            "minyan-times/v1",
+            "zManim",
+            array(
+                array(
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => array($this, 'get_zmanim_data'),
+                    'permission_callback' => function () {
+                        return true;
+                    }
+                )
+            )
+        );
     }
-
+    function get_zmanim_data($request)
+    {
+        $date = $request["date"];
+        $postalCode = $request["postalCode"];
+        if ($date && $postalCode) {
+            $response = $this->getDay($date, $postalCode);
+            return $response;
+        }
+        return new WP_Error("invalid", "bad input", array("status" => 400));
+    }
     function findGps($lat, $lon)
     {
 
