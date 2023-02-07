@@ -35,6 +35,10 @@ import Modal from './components/Modal';
 import ZManimDisplay from './components/ZManimDisplay';
 import SponsorLogo from './components/SponsorLogo';
 import TimesCard from './components/TimesCard';
+import WeekdayFilter from './components/WeekdaysFilter';
+import Input from './components/Input';
+import { debounce } from 'lodash';
+import { useCallback } from 'react';
 
 if (window.elementorFrontend) {
 	window.addEventListener('elementor/frontend/init', () => {
@@ -87,11 +91,15 @@ function MinyanTimes(props) {
 	const [nusach, setNusach] = useState(null);
 	const [sortBy, setSortBy] = useState(ViewTypes.TIME);
 	const [date, setDate] = useState(today);
+	const [rabbi, setRabbi] = useState('');
+	const [shul, setShul] = useState('');
 	const timesQuery = useFilteredTimesQuery({
 		city,
 		nusach,
 		day: getWeekday(date),
-		sortBy
+		sortBy,
+		rabbi,
+		shul
 	});
 	const locationsQuery = useLocationQuery();
 	const cityOptions = useMemo(() => {
@@ -251,49 +259,54 @@ function MinyanTimes(props) {
 	}, [sortBy, timesQuery, ZmanimQueryData]);
 
 	const pinLocations = useMemo(() => {
-		const output = [];
-		if (selectedTimeOption) {
+		const pins = [];
+		let bounds = null;
+		if (selectedTimeOption && selectedTimeOption.geometry) {
+			const { viewport, location } = JSON.parse(
+				selectedTimeOption.geometry ?? '{}'
+			);
+			bounds = viewport;
 			const pin = {
-				lat: Number(selectedTimeOption.lat),
-				lng: Number(selectedTimeOption.lng),
+				lat: Number(location.lat),
+				lng: Number(location.lng),
 				text: `${selectedTimeOption.address}, ${selectedTimeOption.state}, ${selectedTimeOption.city}, ${selectedTimeOption.zipCode}`
 			};
-			output.push(pin);
+			pins.push(pin);
 		}
-		return output;
+		return { pins, bounds };
 	}, [selectedTimeOption]);
 
 	function handleChangeDay(date) {
 		setDate(date);
 	}
+
+	const debouncedCall = useCallback(
+		debounce((e) => {
+			const { name, value } = e.target;
+			if (name === 'rabbi') {
+				setRabbi(e.target.value);
+			}
+			if (name === 'shul') {
+				setShul(e.target.value);
+			}
+		}),
+		300
+	);
 	return (
 		<div className="flex-col font-sans flex w-full">
 			{googleKey && (
 				<Modal
 					className="my-2 mx-auto"
-					state={pinLocations.length > 0}
+					state={pinLocations?.pins?.length > 0}
 					onClose={() => setSelectedTimeOption(null)}
 					button={() => {}}>
-					{pinLocations.length > 0 && (
-						<Map apiKey={googleKey} locations={pinLocations} />
+					{pinLocations?.pins?.length > 0 && (
+						<Map apiKey={googleKey} {...pinLocations} />
 					)}
 				</Modal>
 			)}
 			<ZManimDisplay Zmanim={ZmanimQueryData.data} />
-			<div className=" md:flex  grid gap-2 grid-cols-3 items-start my-3 justify-between">
-				{weekDates.map((weekDate) => (
-					<button
-						className={classNames(
-							' py-2 mx-2 px-1 font-sans text-bold rounded-full text-white text-sm w-28',
-							isSameDate(date, weekDate)
-								? 'bg-darkBlue text-bold'
-								: 'bg-normalBlue'
-						)}
-						onClick={() => handleChangeDay(weekDate)}>
-						{isSameDate(today, weekDate) ? 'Today' : getWeekday(weekDate)}
-					</button>
-				))}
-			</div>
+			<WeekdayFilter date={date} onChange={handleChangeDay} />
 			<div className="md:self-center md:w-full sm:items-center items-start flex flex-col sm:flex-row text-sm text-darkBlue mt-4 mb-8 font-bold md:justify-center">
 				<div className="mr-auto">
 					{pinLocations.length === 0 && (
@@ -311,8 +324,21 @@ function MinyanTimes(props) {
 						</>
 					)}
 				</div>
-				<fieldset className="flex">
-					<div className="m-2">
+				<fieldset className="md:flex grid grid-cols-2 gap-2">
+					<Input
+						onChange={debouncedCall}
+						id="shul"
+						name="shul"
+						className="md:mx-2"
+						label="Shul"
+					/>
+					<Input
+						onChange={debouncedCall}
+						id="rabbi"
+						name="rabbi"
+						label="Rabbi"
+					/>
+					<div className="md:mx-2">
 						<label htmlFor="location">Location:</label>
 						<FilterDropdown
 							id="location"
@@ -324,10 +350,10 @@ function MinyanTimes(props) {
 									setCity(cityOptions[e].city);
 								}
 							}))}
-							className=" w-40"
+							className="md:w-40"
 						/>
 					</div>
-					<div className="m-2">
+					<div className="md:mx-2">
 						<label htmlFor="nusach">Nusach:</label>
 						<FilterDropdown
 							id="Nusach"
@@ -342,7 +368,7 @@ function MinyanTimes(props) {
 									}
 								}))
 							]}
-							className="w-40"
+							className="w- md:w-40"
 						/>
 					</div>
 				</fieldset>

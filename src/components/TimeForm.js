@@ -28,7 +28,6 @@ export default function TimeForm({ time, onSuccess }) {
 		for (const key in timeData) {
 			body.append(key, timeData[key]);
 		}
-
 		await mutate(body);
 		if (onSuccess) {
 			onSuccess();
@@ -126,30 +125,15 @@ export default function TimeForm({ time, onSuccess }) {
 						</option>
 					))}
 				</Select>
-				{/* 
-				!! DEPRECATED TABLE
-				<Select
-					onChange={handleChange}
-					value={timeData.locationId}
-					required
-					name="locationId"
-					label="Location">
-					{locationQuery.data.map((e) => (
-						<option key={e.id} value={e.id}>
-							{e.name}
-						</option>
-					))}
-				</Select> */}
-
 				<Select
 					onChange={handleChange}
 					value={timeData.post_id}
 					required
 					name="post_id"
 					label="Location">
-					{locationQuery.data.map((e) => (
-						<option key={e.ID} value={e.ID}>
-							{e.post_title}
+					{(locationQuery.data ?? []).map((e) => (
+						<option key={e.id} value={e.id}>
+							{e.name}
 						</option>
 					))}
 				</Select>

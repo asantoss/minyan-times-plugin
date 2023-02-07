@@ -69,98 +69,33 @@ function SettingsPage({ googleKey }) {
 				</div>
 			</div>
 			<div className="w-full px-2 py-16 sm:px-0 mx-auto">
-				<Tab.Group>
-					<Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-						<Tab
-							className={({ selected }) =>
-								classNames(
-									'w-full rounded-lg py-2.5 text-md font-bold text-black  ',
-									'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-									selected
-										? 'bg-wpBg shadow text-blue-700'
-										: 'text-blue-100 hover:bg-white/[0.12] hover:text-black'
-								)
-							}>
-							Locations
-						</Tab>
-						<Tab
-							className={({ selected }) =>
-								classNames(
-									'w-full rounded-lg py-2.5 text-md text-black  font-bold  ',
-									'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-									selected
-										? 'bg-wpBg shadow text-blue-700'
-										: 'text-blue-100 hover:bg-white/[0.12] hover:text-black'
-								)
-							}>
-							Times
-						</Tab>
-					</Tab.List>
-					<Tab.Panels>
-						<Tab.Panel
-							className={classNames(
-								'rounded-xl bg-wpBg p-3',
-								'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+				<div className="flex flex-col">
+					<span className="ml-auto mt-2 text-right pr-4">
+						<Modal
+							title="Add Time"
+							button={({ setIsOpen }) => (
+								<>
+									<Button
+										onClick={() => setIsOpen(true)}
+										className="rounded-md bg-blue-700 ml-auto my-2 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+										Add Time
+									</Button>
+									{!timesQuery.isLoadn && (
+										<Button
+											onClick={handleTimeExport}
+											className="rounded-md bg-blue-700 my-2 ml-4 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+											Export To CSV
+										</Button>
+									)}
+								</>
 							)}>
-							<div className="flex flex-col">
-								<div className="ml-auto mt-2 text-right pr-4">
-									<Modal
-										title="Add Location"
-										button={({ setIsOpen }) => (
-											<div className="py-2 px-3 ">
-												<Button
-													onClick={() => setIsOpen(true)}
-													className="rounded-lg bg-blue-700  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													Add Location
-												</Button>
-											</div>
-										)}>
-										{({ setIsOpen }) => (
-											<LocationForm
-												googleKey={googleKey}
-												onSuccess={() => setIsOpen(false)}
-											/>
-										)}
-									</Modal>
-								</div>
-								<LocationsSettings googleKey={googleKey} />
-							</div>
-						</Tab.Panel>
-						<Tab.Panel
-							className={classNames(
-								'rounded-xl bg-wpBg p-3',
-								'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-							)}>
-							<div className="flex flex-col">
-								<span className="ml-auto mt-2 text-right pr-4">
-									<Modal
-										title="Add Time"
-										button={({ setIsOpen }) => (
-											<>
-												<Button
-													onClick={() => setIsOpen(true)}
-													className="rounded-md bg-blue-700 ml-auto my-2 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													Add Time
-												</Button>
-												{!timesQuery.isLoadn && (
-													<Button
-														onClick={handleTimeExport}
-														className="rounded-md bg-blue-700 my-2 ml-4 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-														Export To CSV
-													</Button>
-												)}
-											</>
-										)}>
-										{({ setIsOpen }) => (
-											<TimeForm onSuccess={() => setIsOpen(false)} />
-										)}
-									</Modal>
-								</span>
-								<TimeSettings />
-							</div>
-						</Tab.Panel>
-					</Tab.Panels>
-				</Tab.Group>
+							{({ setIsOpen }) => (
+								<TimeForm onSuccess={() => setIsOpen(false)} />
+							)}
+						</Modal>
+					</span>
+					<TimeSettings />
+				</div>
 			</div>
 		</div>
 	);

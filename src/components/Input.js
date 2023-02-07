@@ -15,11 +15,7 @@
 export default function Input({ label, className, ...props }) {
 	return (
 		<div className={className}>
-			<label
-				htmlFor={props.id || props.name}
-				className="block text-sm font-medium text-gray-700">
-				{label}
-			</label>
+			<label htmlFor={props.id || props.name}>{label}</label>
 			<div className="mt-1">
 				<input
 					{...props}

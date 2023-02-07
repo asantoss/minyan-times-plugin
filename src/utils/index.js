@@ -104,7 +104,14 @@ export function useTimesQuery(props) {
 		{}
 	);
 }
-export function useFilteredTimesQuery({ city, day, nusach, sortBy }) {
+export function useFilteredTimesQuery({
+	city,
+	day,
+	nusach,
+	sortBy,
+	rabbi,
+	shul
+}) {
 	return useQuery(
 		{
 			queryKey: [
@@ -112,17 +119,21 @@ export function useFilteredTimesQuery({ city, day, nusach, sortBy }) {
 				city,
 				day,
 				nusach,
-				sortBy === ViewTypes.TIME ? 'time' : 'location'
+				sortBy === ViewTypes.TIME ? 'time' : 'location',
+				rabbi,
+				shul
 			],
 			queryFn: async ({ queryKey }) => {
 				try {
 					let url = '/times';
-					const [_, city, day, nusach, sortBy] = queryKey;
+					const [_, city, day, nusach, sortBy, rabbi] = queryKey;
 					const params = {
 						city,
 						day,
 						nusach,
-						sortBy
+						sortBy,
+						rabbi,
+						shul
 					};
 					const response = await axiosClient.get(url, { params });
 					return response.data;
