@@ -42,7 +42,6 @@ export default function TimeForm({ time, onSuccess }) {
 		});
 	}
 
-	const nusachOptions = ['Sefarhadi', 'Asheknaz', 'Ari', 'Sefard'];
 	const isCustom = useMemo(
 		() => (timeData.isCustom ? Number(timeData.isCustom) : false),
 		[timeData]
