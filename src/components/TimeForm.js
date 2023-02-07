@@ -173,7 +173,6 @@ export default function TimeForm({ time, onSuccess, postId }) {
 					value={timeData.nusach}
 					name="nusach"
 					label="Nusach">
-					<option value="">--</option>
 					{NusachOptions.map((e) => (
 						<option value={e} key={e}>
 							{e}
