@@ -118,7 +118,7 @@ export default function TimeForm({ time, onSuccess }) {
 					required
 					name="nusach"
 					label="Nusach">
-					{nusachOptions.map((e) => (
+					{NusachOptions.map((e) => (
 						<option value={e} key={e}>
 							{e}
 						</option>
