@@ -3,16 +3,16 @@ import { useLocationQuery, useTimeMutation } from '../utils';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
-import Switch from './Switch';
 import Checkboxes from './Checkboxes';
 import { days, FormulaTypes, NusachOptions, PrayerTypes } from '../utils/enums';
-export default function TimeForm({ time, onSuccess }) {
+import { XMarkIcon } from '@heroicons/react/24/solid';
+export default function TimeForm({ time, onSuccess, postId }) {
 	const locationQuery = useLocationQuery();
 	const { mutate } = useTimeMutation(time?.id);
 	const [timeData, setTimeData] = useState({
-		...(time || {
-			isCustom: 0
-		})
+		isCustom: 0,
+		post_id: postId,
+		...(time || {})
 	});
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -52,19 +52,27 @@ export default function TimeForm({ time, onSuccess }) {
 				onSubmit={handleSubmit}
 				className="grid gap-4 grid-cols-3 p-4 bg-wpBg">
 				<div className="self-end">
-					<Switch
-						value={isCustom}
-						onChange={(val) => {
-							setTimeData({ ...timeData, isCustom: val ? 1 : 0 });
-						}}
-						name="isCustom"
-						offText="Normal"
-						onText="Custom"
-						zIndex="z-1"
-					/>
+					<Select
+						label="Controller"
+						value={timeData.isCustom}
+						onChange={handleChange}
+						name="isCustom">
+						<option value="0">Normal</option>
+						<option value="1">Custom</option>
+					</Select>
 				</div>
 				{isCustom ? (
 					<>
+						<Select
+							onChange={handleChange}
+							value={timeData.formula}
+							required
+							name="formula"
+							label="Formula">
+							{Object.keys(FormulaTypes).map((e) => (
+								<option value={FormulaTypes[e]}>{e}</option>
+							))}
+						</Select>
 						<Input
 							onChange={handleChange}
 							value={timeData.minutes}
@@ -77,16 +85,6 @@ export default function TimeForm({ time, onSuccess }) {
 								Number(timeData.formula) === FormulaTypes.Midday
 							}
 						/>
-						<Select
-							onChange={handleChange}
-							value={timeData.formula}
-							required
-							name="formula"
-							label="Formula">
-							{Object.keys(FormulaTypes).map((e) => (
-								<option value={FormulaTypes[e]}>{e}</option>
-							))}
-						</Select>
 					</>
 				) : (
 					<Input
@@ -111,7 +109,6 @@ export default function TimeForm({ time, onSuccess }) {
 						</option>
 					))}
 				</Select>
-
 				<Select
 					onChange={handleChange}
 					value={timeData.nusach}
@@ -128,6 +125,7 @@ export default function TimeForm({ time, onSuccess }) {
 					onChange={handleChange}
 					value={timeData.post_id}
 					required
+					disabled={!!postId}
 					name="post_id"
 					label="Location">
 					{(locationQuery.data ?? []).map((e) => (
@@ -137,13 +135,46 @@ export default function TimeForm({ time, onSuccess }) {
 					))}
 				</Select>
 				<Checkboxes
-					className="row-span-2 row-start-2 col-start-3"
+					className="col-span-3"
 					label="Day"
 					onChange={handleChangeDay}
 					value={timeData.day}
 					options={days.map((e) => ({ label: e, value: e }))}
 				/>
-
+				<div className="flex items-center">
+					<Input
+						name="effectiveOn"
+						type="date"
+						label="Effective On"
+						onChange={handleChange}
+						value={timeData.effectiveOn}
+					/>
+					<button
+						type="button"
+						className="p-2 mt-6"
+						onClick={() =>
+							handleChange({ target: { name: 'effectiveOn', value: '' } })
+						}>
+						<XMarkIcon className="h-6 w-6" />
+					</button>
+				</div>
+				<div className="flex items-center">
+					<Input
+						name="expiresOn"
+						type="date"
+						label="Expires On"
+						onChange={handleChange}
+						value={timeData.expiresOn}
+					/>
+					<button
+						type="button"
+						className=" p-2 mt-6"
+						onClick={() =>
+							handleChange({ target: { name: 'expiresOn', value: '' } })
+						}>
+						<XMarkIcon className="h-6 w-6 font-bold" />
+					</button>
+				</div>
 				<div className="col-span-3 flex items-end">
 					<Button type="submit" className=" mt-4 ml-auto   bg-blue-600">
 						Submit

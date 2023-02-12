@@ -87,14 +87,17 @@ export function useDeleteLocation() {
 	});
 }
 
-export function useTimesQuery(props) {
+export function useTimesQuery(postId) {
 	return useQuery(
 		{
-			queryKey: ['times'],
+			queryKey: ['times', postId],
 			queryFn: async () => {
 				try {
 					let url = '/times';
-					const response = await axiosClient.get(url);
+					const params = {
+						postId
+					};
+					const response = await axiosClient.get(url, { params });
 					return response.data;
 				} catch (error) {
 					throw new Error('Network response was not ok');
@@ -110,7 +113,8 @@ export function useFilteredTimesQuery({
 	nusach,
 	sortBy,
 	rabbi,
-	shul
+	shul,
+	date
 }) {
 	return useQuery(
 		{
@@ -121,19 +125,21 @@ export function useFilteredTimesQuery({
 				nusach,
 				sortBy === ViewTypes.TIME ? 'time' : 'location',
 				rabbi,
-				shul
+				shul,
+				date
 			],
 			queryFn: async ({ queryKey }) => {
 				try {
 					let url = '/times';
-					const [_, city, day, nusach, sortBy, rabbi] = queryKey;
+					const [_, city, day, nusach, sortBy, rabbi, shul, date] = queryKey;
 					const params = {
 						city,
 						day,
 						nusach,
 						sortBy,
 						rabbi,
-						shul
+						shul,
+						date: dayjs(date).format('YYYY/MM/DD')
 					};
 					const response = await axiosClient.get(url, { params });
 					return response.data;
@@ -211,27 +217,39 @@ export function useZmanimApi({ dates, postalCode }) {
 	}
 	return results;
 }
-function getDateAsString(date) {
-	return `${date.getFullYear()}-${(date.getMonth() + 1)
-		.toString()
-		.padStart(2, '0')}-${date.getDate()}`;
-}
-function firstDayOfWeek(date) {
-	const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-	return new Date(date.setDate(diff));
-}
 
+export function useZmanimData(date, postalCode) {
+	const key = ['zManim', getDateAsString(date), postalCode];
+	const data = queryClient.getQueryData(key);
+	return data;
+}
+export function getDateAsString(date) {
+	return dayjs(date).format('YYYY-MM-DD');
+}
+export function firstDayOfWeek(dateObject, firstDayOfWeekIndex = 0) {
+	const dayOfWeek = dateObject.getDay(),
+		firstDayOfWeek = new Date(dateObject),
+		diff =
+			dayOfWeek >= firstDayOfWeekIndex
+				? dayOfWeek - firstDayOfWeekIndex
+				: 6 - dayOfWeek;
+
+	firstDayOfWeek.setDate(dateObject.getDate() - diff);
+	firstDayOfWeek.setHours(0, 0, 0, 0);
+
+	return firstDayOfWeek;
+}
 export function getNextSetOfDays(startDate, daysToAdd) {
 	const outputDates = [startDate];
+	const start = dayjs(startDate);
 	for (let i = 1; i <= daysToAdd; i++) {
-		const target = new Date();
-		target.setDate(startDate.getDate() + i);
+		const target = start.add(i, 'days');
 		//Will always skip saturdays
-		const day = target.getDay();
+		const day = target.day();
 		if (SKIP_DAYS.includes(day)) {
 			continue;
 		}
-		outputDates.push(target);
+		outputDates.push(target.toDate());
 	}
 	return outputDates;
 }
@@ -535,4 +553,10 @@ export function getDateFromTimeString(time) {
 	const day = dayjs(dateString, 'MM/DD/YYYY hh mm a');
 
 	return day;
+}
+
+export const startDate = new Date();
+if (startDate.getDay() === 6) {
+	startDate.setDate(startDate.getDate() + 1);
+	//Skip a date on Saturdays
 }

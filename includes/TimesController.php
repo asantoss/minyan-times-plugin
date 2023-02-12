@@ -69,8 +69,12 @@ class TimesController
         $nusach = $request->get_param("nusach");
         $day = $request->get_param("day");
         $sortBy = $request->get_param("sortBy");
+        $post_id = $request->get_param("postId");
+
+        //Only filter the active ones by checking their effective date and expire date.
+        $isActive = $request->get_param('isActive');
         $tableName = $this->timesTableName;
-        $sql = "SELECT t.id, t.post_id , post_title as location, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day FROM " . $tableName .
+        $sql = "SELECT t.id, t.post_id , post_title as location, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day FROM " . $tableName .
             " t INNER JOIN wp_posts l ON t.post_id = l.ID
                 LEFT JOIN wp_postmeta cpm on t.post_id = cpm.post_id AND cpm.meta_key = 'city'
                 LEFT JOIN wp_postmeta rpm on t.post_id = rpm.post_id AND rpm.meta_key = 'rabbi'
@@ -91,9 +95,21 @@ class TimesController
             $search_text = "%" . $shul . "%";
             $sql = $wpdb->prepare($sql . " AND post_title like %s", $search_text);
         }
-        if ($city) {
-            $sql = $wpdb->prepare($sql . " AND cpm.meta_value = %s", $city);
+        if ($post_id) {
+            $sql = $wpdb->prepare($sql . " AND t.post_id = %s", $post_id);
         }
+        if ($city) {
+            $search_text = "%" . $city . "%";
+
+            $sql = $wpdb->prepare($sql . " AND cpm.meta_value LIKE %s", $search_text);
+        }
+        $date = $request->get_param("date");
+        if (!empty($date)) {
+            $sql = $wpdb->prepare($sql . " AND effectiveOn IS NOT NULL AND effectiveOn <= %s", $date);
+            $sql = $wpdb->prepare($sql . " AND  expiresOn IS NOT NULL AND expiresOn > %s", $date);
+        }
+
+
         if ($sortBy) {
             $sql = $wpdb->prepare($sql . "ORDER BY %s ASC", $sortBy);
         }
@@ -131,6 +147,14 @@ class TimesController
         $type = $parameters["type"];
         $formula = $parameters["formula"];
         $minutes = $parameters["minutes"];
+        $effectiveOn = $parameters["effectiveOn"];
+        if (empty($effectiveOn)) {
+            $effectiveOn = null;
+        }
+        $expiresOn = $parameters["expiresOn"];
+        if (empty($expiresOn)) {
+            $expiresOn = null;
+        }
         $isCustom = $parameters["isCustom"];
         if (($time || $isCustom == "1") && $postId && $nusach && $day) {
             $insert = $wpdb->insert(
@@ -144,6 +168,8 @@ class TimesController
                     "type" => $type,
                     "formula" => (int)$formula,
                     "minutes" => (int)$minutes,
+                    "expiresOn" => $expiresOn,
+                    "effectiveOn" => $effectiveOn,
                 )
             );
             if ($insert) {
@@ -186,6 +212,14 @@ class TimesController
         $formula = $parameters["formula"];
         $minutes = $parameters["minutes"];
         $isCustom = $parameters["isCustom"];
+        $effectiveOn = $parameters["effectiveOn"];
+        if (empty($effectiveOn)) {
+            $effectiveOn = null;
+        }
+        $expiresOn = $parameters["expiresOn"];
+        if (empty($expiresOn)) {
+            $expiresOn = null;
+        }
         $update = $wpdb->update(
             $this->timesTableName,
             array(
@@ -196,7 +230,9 @@ class TimesController
                 "type" => $type,
                 "formula" => (int)$formula,
                 "minutes" => (int)$minutes,
-                "isCustom" => (int)$isCustom
+                "isCustom" => (int)$isCustom,
+                "expiresOn" => $expiresOn,
+                "effectiveOn" => $effectiveOn,
             ),
             array("id" => $id),
 

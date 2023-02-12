@@ -3,16 +3,47 @@ import DataTable from './DataTable';
 import Modal from './Modal';
 import Button from './Button';
 import TimeForm from './TimeForm';
-import {
-	convertTime,
-	formatTime,
-	useDeleteTime,
-	useTimesQuery
-} from '../utils';
+import { formatTime, useDeleteTime, useTimesQuery } from '../utils';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
+const defaultCol = [
+	{
+		fieldName: 'location',
+		label: 'Location'
+	},
+	{
+		fieldName: 'nusach',
+		label: 'Nusach'
+	},
+	{
+		fieldName: 'day',
+		label: 'Day'
+	},
 
-export default function TimeSettings() {
+	{
+		fieldName: 'effectiveOn',
+		label: 'Effective'
+	},
+	{
+		fieldName: 'expiresOn',
+		label: 'Expires'
+	},
+	{
+		fieldName: 'time',
+		label: 'Time',
+		calculateDisplay: formatTime
+	},
+	{
+		fieldName: 'type',
+		label: 'Type'
+	},
+	{
+		fieldName: 'isActive',
+		label: 'Active'
+	}
+];
+export default function TimeSettings({ postId, columns = defaultCol }) {
 	const { mutate: deleteItem } = useDeleteTime();
-	const { isLoading, isError, data, error } = useTimesQuery();
+	const { isLoading, isError, data, error } = useTimesQuery({ postId });
 	if (isLoading) {
 		return <div>Loading...</div>;
 	}
@@ -20,29 +51,6 @@ export default function TimeSettings() {
 		return <div>{JSON.stringify(error, null, 2)}</div>;
 	}
 
-	const columns = [
-		{
-			fieldName: 'location',
-			label: 'Location'
-		},
-		{
-			fieldName: 'nusach',
-			label: 'Nusach'
-		},
-		{
-			fieldName: 'day',
-			label: 'Day'
-		},
-		{
-			fieldName: 'time',
-			label: 'Time',
-			calculateDisplay: formatTime
-		},
-		{
-			fieldName: 'type',
-			label: 'Type'
-		}
-	];
 	return (
 		<DataTable data={data} columns={columns}>
 			{({ item }) => (
@@ -50,23 +58,25 @@ export default function TimeSettings() {
 					<Modal
 						title="Edit Time"
 						button={
-							<button className="text-indigo-600 mr-4 hover:text-indigo-900 ">
-								Edit
-								<span className="sr-only">
-									,{item.location} @ {item.time}
-								</span>
+							<button className="text-indigo-600 mr-2 hover:text-indigo-900 ">
+								<PencilSquareIcon className="h-4 w-4" />
+								<span className="sr-only">Edit</span>
 							</button>
 						}>
 						{({ setIsOpen }) => (
-							<TimeForm time={item} onSuccess={() => setIsOpen(false)} />
+							<TimeForm
+								postId={postId}
+								time={item}
+								onSuccess={() => setIsOpen(false)}
+							/>
 						)}
 					</Modal>
 					<Modal
 						title="Delete Confirmation"
 						button={
 							<button className="text-red-600 hover:text-red-900 ml-2">
-								Delete
-								<span className="sr-only">,{item.location}</span>
+								<TrashIcon className="h-4 w-4" />
+								<span className="sr-only">Delete</span>
 							</button>
 						}>
 						{({ setIsOpen }) => (

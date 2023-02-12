@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	EnvelopeIcon,
-	PencilIcon,
-	PhoneIcon,
-	TrashIcon,
-	EllipsisVerticalIcon
-} from '@heroicons/react/20/solid';
+import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { classNames } from '../utils';
 
 function getRandomItem(arr) {

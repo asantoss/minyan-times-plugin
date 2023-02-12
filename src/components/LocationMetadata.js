@@ -36,7 +36,9 @@ export default function LocationMetadata({ googleKey }) {
 									addressData.address = value;
 									break;
 								case 'route': {
-									addressData.address = `${addressData.address} ${component.long_name}`;
+									addressData.address = `${addressData.address || ''} ${
+										component.long_name
+									}`;
 									break;
 								}
 								case 'locality':

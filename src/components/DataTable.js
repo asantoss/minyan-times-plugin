@@ -12,7 +12,7 @@ export default function DateTable({ data = [], columns = [], children }) {
 	return (
 		<div className=" flex flex-col">
 			<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-				<div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+				<div className="inline-block min-w-full py-2 align-middle">
 					<div className="overflow-hidden  ring-1 ring-black ring-opacity-5">
 						{data.length ? (
 							<table className="min-w-full shadow divide-y divide-gray-300">
@@ -38,19 +38,19 @@ export default function DateTable({ data = [], columns = [], children }) {
 											{columns.map((column, i) => {
 												if (i === 0) {
 													return (
-														<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+														<td className="whitespace-nowrap border-2 bg-white py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-6">
 															{getValue(column, item)}
 														</td>
 													);
 												}
 												return (
-													<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+													<td className="whitespace-nowrap border-2 bg-white px-3 py-4 text-sm text-gray-900">
 														{getValue(column, item)}
 													</td>
 												);
 											})}
 
-											<td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+											<td className="relative whitespace-nowrap border-2 bg-white py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
 												{typeof children === 'function'
 													? children({ item })
 													: children}

@@ -68,10 +68,10 @@ class Minyantimes
     $attributes["googleKey"] = get_option("mtp_google_api_key");
 
     ob_start(); ?>
-<div id="mtp-plugin">
-    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-</div>
-<?php return ob_get_clean();
+    <div id="mtp-plugin">
+      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+    </div>
+  <?php return ob_get_clean();
   }
 
   function ourMenu()
@@ -97,42 +97,41 @@ class Minyantimes
   {
   ?>
 
-<input type="text" value="<?php echo get_option("mtp_api_key") ?>" name="mtp_api_key" id="mtp_api_key" />
-<?php
+    <input type="text" value="<?php echo get_option("mtp_api_key") ?>" name="mtp_api_key" id="mtp_api_key" />
+  <?php
   }
   function apiUserHtml()
   {
   ?>
 
-<input value="<?php echo get_option("mtp_api_user") ?>" type="text" name="mtp_api_user" id="mtp_api_user" />
-<?php
+    <input value="<?php echo get_option("mtp_api_user") ?>" type="text" name="mtp_api_user" id="mtp_api_user" />
+  <?php
   }
   function googleApiKey()
   {
   ?>
 
-<input value="<?php echo get_option("mtp_google_api_key") ?>" type="text" name="mtp_google_api_key"
-    id="mtp_google_api_key" />
-<?php
+    <input value="<?php echo get_option("mtp_google_api_key") ?>" type="text" name="mtp_google_api_key" id="mtp_google_api_key" />
+  <?php
   }
 
 
   function settings_page()
   {
   ?>
-<div class="wrap">
-    <h1 class="settings_header">Minyan API Credentials</h1>
-    <form action="options.php" method="POST">
+    <div class="wrap">
+      <h1 class="settings_header">Minyan API Credentials</h1>
+      <form action="options.php" method="POST">
         <?php
         settings_fields("minyantimesplugin");
         do_settings_sections("minyan-times-settings");
         submit_button();
 
         ?>
-    </form>
-</div>
+      </form>
+    </div>
 
-<?php
+  <?php
   }
 
 
@@ -155,12 +154,18 @@ class Minyantimes
     $attributes = array();
     $attributes["googleKey"] = get_option("mtp_google_api_key");
   ?><div id="mtp-plugin" class="mtp-plugin-wrapper">
-    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-</div>
-<?php
+      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+    </div>
+  <?php
   }
 }
 
+
+
+require_once(__DIR__ . "/includes/zManimService.php");
+require_once(__DIR__ . "/includes/TimesController.php");
+require_once(__DIR__ . "/includes/LocationsController.php");
+require_once(__DIR__ . "/includes/Schema/Location.php");
 
 class MinyanTimesApi
 {
@@ -176,74 +181,40 @@ class MinyanTimesApi
     $this->locationsTableName = $wpdb->prefix . "locations";
     register_activation_hook(__FILE__, array($this, 'onActivate'));
     add_action("rest_api_init", array($this, "initRest"));
-    add_action('init', [$this, 'create_location_posts']);
-    add_action('add_meta_boxes', [$this, 'create_location_meta_boxes']);
-    add_action('enqueue_block_editor_assets', function () {
-      wp_enqueue_script(
-        'sidebar-data',
-        plugin_dir_url(__FILE__) . 'build/Sidebar.js',
-        ['wp-element', 'wp-blocks', 'wp-components', 'wp-editor'],
-        '0.1.0',
-        true
-      );
-      wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css');
-    });
+    add_action('enqueue_block_editor_assets', [$this, 'render_location_js']);
+    LocationPost::getInstance();
   }
 
-  function create_location_posts()
-  {
-    register_post_type(
-      'mtp_location',
-      [
-        'labels' => [
-          'name' => __('Locations', 'textdomain'),
-          'singular_name' => __('Location', 'textdomain')
-        ],
-        'public' => true,
-        'has_archive' => true,
-        'publicly_queryable' => true,
-        "show_ui" => true,
-        "show_in_menu" => true,
-        "show_in_rest" => true,
-        "supports" => ['title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'revisions'],
-        "can_export" => true,
-      ]
-    );
-    $metafields = ['address', "city", "state", "zipCode", "placeId", "geometry", "rabbi"];
 
-    foreach ($metafields as $metafield) {
-      // Pass an empty string to register the meta key only on the mtp_location posts.
-      register_post_meta('mtp_location', $metafield, array(
-        'show_in_rest' => true,
-        'type' => 'string',
-        'single' => true,
-        'prepare_callback' => function ($value) {
-          return is_object($value) ? $value : json_decode($value);
-        },
-      ));
-    }
-  }
-  function create_location_meta_boxes()
+  function render_location_js()
   {
+
     add_meta_box(
       "location_metadata", // div id containing rendered fields
-      "Location Info", //section Heading
+      "Address Information", //section Heading
       [$this, "render_location_meta"], //callback func to render fields
       "mtp_location", //post type name
       "normal", //Screen location
       'high' // placement
     );
+    wp_enqueue_script(
+      'sidebar-data',
+      plugins_url('/build/Sidebar.js', __FILE__),
+      ['wp-element', 'wp-blocks', 'wp-components', 'wp-editor'],
+      '0.1.0',
+      true
+    );
+    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css');
   }
-
 
   function render_location_meta($post)
   {
     $attributes["googleKey"] = get_option("mtp_google_api_key");
     $attributes["id"] = $post->ID;
   ?>
-<div id="mtp-plugin-sidebar">
-    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-</div>
+    <div id="mtp-plugin-sidebar">
+      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+    </div>
 <?php
   }
 
@@ -279,7 +250,6 @@ locationId bigint(20) unsigned NULL DEFAULT NULL,
 post_id bigint(20) unsigned NULL,
 effectiveOn date,
 expiresOn date,
-isActive boolean,
 PRIMARY KEY (id),
 FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id),
 FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
@@ -297,9 +267,7 @@ FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
   function initRest()
   {
     wp_create_nonce('wp_rest');
-    require_once(__DIR__ . "/includes/zManimService.php");
-    require_once(__DIR__ . "/includes/TimesController.php");
-    require_once(__DIR__ . "/includes/LocationsController.php");
+
     new TimesController();
     new LocationsController();
     new zManimService(get_option("mtp_api_user"), get_option("mtp_api_key"));
