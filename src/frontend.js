@@ -13,6 +13,7 @@ import {
 	useLocationQuery,
 	useZmanimData
 } from './utils';
+import { Helmet } from 'react-helmet';
 import { ViewTypes, FormulaTypes, PrayerTypes } from './utils/enums';
 import Spinner from './components/Spinner';
 import Accordion from './components/Accordion';
@@ -63,11 +64,14 @@ async function renderApp() {
 }
 
 function MinyanTimes(props) {
-	const { googleKey } = props;
-	const [state, dispatch] = usePrayerTimesReducer();
+	const { googleKey, zipCode, city } = props;
+
+	const [state, dispatch] = usePrayerTimesReducer({
+		zipCode,
+		city
+	});
 	const timesQuery = useFilteredTimesQuery(state);
 	const locationsQuery = useLocationQuery();
-
 	const ZmanimQueryData = useZmanimData(state.date, state.zipCode);
 
 	const sponsors = useMemo(() => {
@@ -206,13 +210,12 @@ function MinyanTimes(props) {
 		return { pins, bounds };
 	}, [state.currentTimeRecord]);
 
-	function handleChangeDay(date) {
-		dispatch({ type: 'SET_DATE', payload: date });
-	}
-
 	return (
 		<PrayerTimesContext.Provider value={[state, dispatch]}>
 			<div className="flex-col font-sans flex w-full">
+				<Helmet>
+					<meta charSet="utf-8" />
+				</Helmet>
 				{googleKey && (
 					<Modal
 						className="my-2 mx-auto"
@@ -225,13 +228,12 @@ function MinyanTimes(props) {
 					</Modal>
 				)}
 				<ZManimDisplay Zmanim={ZmanimQueryData} />
-				<WeekdayFilter date={state.date} onChange={handleChangeDay} />
+				<WeekdayFilter />
 				<SearchFilters />
-
 				<div className="flex flex-col md:flex-row md:justify-between my-2">
 					{PrayerTypes.map((type, i) => {
 						const targetSection = formalizedData[type] ?? [];
-						const options = Object.keys(targetSection);
+						const sectionOptions = Object.keys(targetSection);
 						return (
 							<TimesCard isOpen={i === 0} key={type} title={type}>
 								<>
@@ -239,7 +241,7 @@ function MinyanTimes(props) {
 									{sponsors[type] && <SponsorLogo sponsor={sponsors[type]} />}
 									{!timesQuery.isLoading &&
 										timesQuery.data &&
-										options.map((j) => {
+										sectionOptions.map((j) => {
 											const options = targetSection[j];
 											let title = j;
 											const isCalculated = options.every(

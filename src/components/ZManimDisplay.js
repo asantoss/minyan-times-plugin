@@ -1,12 +1,18 @@
-import { React } from 'react';
-import { classNames, formatzManimData, useZmanimApi } from '../utils';
-import Spinner from './Spinner';
+import _ from 'lodash';
+import { React, useContext } from 'react';
+import { classNames, formatzManimData, useZmanimData } from '../utils';
+import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 
-export default function ZManimDisplay({ Zmanim }) {
+export default function ZManimDisplay() {
+	const [state] = useContext(PrayerTimesContext);
+	let Zmanim = useZmanimData(state.date, state.zipCode);
 	if (!Zmanim) {
 		return null;
 	}
 	const { Zman, Time } = formatzManimData(Zmanim);
+	if (!Zman || !Time) {
+		return null;
+	}
 	return (
 		<div
 			className={classNames(

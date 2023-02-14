@@ -71,30 +71,29 @@ export default function LocationMetadata({ googleKey }) {
 	};
 
 	return (
-		<div className=" grid grid-cols-2 gap-1">
+		<div className="w-3/5 grid grid-cols-4 gap-2">
 			<Input
+				className="col-span-2"
 				onChange={handleChange}
 				value={meta?.rabbi}
-				className="col-span-2"
 				required
 				name="rabbi"
 				label="Rabbi"
 			/>
-			<div className="col-span-2">
+
+			<div className="col-span-4">
 				<label
 					htmlFor="Address"
 					className="block text-sm font-medium text-gray-700">
 					Address
 				</label>
-				<div className="mt-1">
-					<input
-						onChange={handleChange}
-						ref={inputRef}
-						value={meta?.address}
-						name="address"
-						className="mt-1 block w-full border-2 p-2 rounded-md border-gray-300 py-2 pl-3 pr-3 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-					/>
-				</div>
+				<input
+					onChange={handleChange}
+					ref={inputRef}
+					value={meta?.address}
+					name="address"
+					className="mt-1 block w-full border-2 p-2 rounded-md border-gray-300 py-2 pl-3 pr-3 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+				/>
 			</div>
 			<Input
 				onChange={handleChange}
@@ -114,6 +113,25 @@ export default function LocationMetadata({ googleKey }) {
 				value={meta?.zipCode}
 				name="zipCode"
 				label="Zip Code"
+			/>
+			<div className="col-span-4"></div>
+			<Input
+				onChange={handleChange}
+				value={meta?.website}
+				name="website"
+				label="Website"
+			/>
+			<Input
+				onChange={handleChange}
+				value={meta?.email}
+				name="email"
+				label="Email"
+			/>
+			<Input
+				onChange={handleChange}
+				value={meta?.phone}
+				name="phone"
+				label="Phone"
 			/>
 		</div>
 	);

@@ -114,7 +114,9 @@ export function useFilteredTimesQuery({
 	sortBy,
 	rabbi,
 	shul,
-	date
+	date,
+	postId,
+	type
 }) {
 	return useQuery(
 		{
@@ -126,21 +128,45 @@ export function useFilteredTimesQuery({
 				sortBy === ViewTypes.TIME ? 'time' : 'location',
 				rabbi,
 				shul,
-				date
+				date,
+				postId,
+				type
 			],
 			queryFn: async ({ queryKey }) => {
 				try {
 					let url = '/times';
-					const [_, city, day, nusach, sortBy, rabbi, shul, date] = queryKey;
-					const params = {
+					const [
+						_,
 						city,
 						day,
 						nusach,
 						sortBy,
 						rabbi,
 						shul,
-						date: dayjs(date).format('YYYY/MM/DD')
+						date,
+						postId,
+						type
+					] = queryKey;
+					let params = {
+						city,
+						day,
+						nusach,
+						sortBy,
+						rabbi,
+						shul,
+						date: dayjs(date).format('YYYY/MM/DD'),
+						type
 					};
+					if (postId) {
+						params = {
+							day,
+							nusach,
+							sortBy,
+							date: dayjs(date).format('YYYY/MM/DD'),
+							postId,
+							type
+						};
+					}
 					const response = await axiosClient.get(url, { params });
 					return response.data;
 				} catch (error) {

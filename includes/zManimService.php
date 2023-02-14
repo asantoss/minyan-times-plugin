@@ -48,7 +48,7 @@ class zManimService
     {
 
         $params = "user=" . $this->user . "&key=" . $this->key . "&coding=PHP" . "&lat=" . $lat . "&lon=" . $lon;
-        $response = CallApi("searchGps", $params);
+        $response = $this->CallApi("searchGps", $params);
         if ($response->ErrMsg != NULL) {
             echo "Error: ";
             echo $response->ErrMsg;

@@ -10,7 +10,8 @@ const initialState = {
 	date: startDate,
 	rabbi: '',
 	shul: '',
-	currentTimeRecord: {}
+	currentTimeRecord: {},
+	postId: null
 };
 
 function reducer(state = initialState, action) {
@@ -63,10 +64,10 @@ function reducer(state = initialState, action) {
 	return state;
 }
 
-export const PrayerTimesContext = createContext(initialState);
+export const PrayerTimesContext = createContext([initialState]);
 
-export default function () {
-	const [state, dispatch] = useReducer(reducer, initialState);
+export default function (props) {
+	const [state, dispatch] = useReducer(reducer, { ...initialState, ...props });
 
 	return [state, dispatch];
 }

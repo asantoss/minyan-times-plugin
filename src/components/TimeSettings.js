@@ -35,10 +35,6 @@ const defaultCol = [
 	{
 		fieldName: 'type',
 		label: 'Type'
-	},
-	{
-		fieldName: 'isActive',
-		label: 'Active'
 	}
 ];
 export default function TimeSettings({ postId, columns = defaultCol }) {

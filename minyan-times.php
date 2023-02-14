@@ -3,7 +3,7 @@
 /*
   Plugin Name: Minyan Times
   Description: A component that organizes prayer times by location or time block...
-  Version: 0.0.14
+  Version: 0.1.02
   Author: Alexander Santos
 
   * Elementor tested up to: 3.5.0
@@ -15,6 +15,10 @@ if (!defined('ABSPATH')) {
 }
 
 
+require_once(__DIR__ . "/includes/zManimService.php");
+require_once(__DIR__ . "/includes/TimesController.php");
+require_once(__DIR__ . "/includes/LocationsController.php");
+require_once(__DIR__ . "/includes/Schema/Location.php");
 
 /**
  * Register scripts and styles for Elementor test widgets.
@@ -50,22 +54,30 @@ class Minyantimes
 
   function register_new_widgets($widgets_manager)
   {
-
+    $versions = '0.1.21';
     require_once(__DIR__ . "/includes/widgets/MinyanTimesBlock.php");
-    wp_register_style('frontend-style', plugin_dir_url(__FILE__) . 'build/styles.css');
-    wp_register_script('frontend-script', plugin_dir_url(__FILE__) . '/build/frontend.js', ['elementor-frontend', 'wp-element'], '1.0.0', true);
+    require_once(__DIR__ . "/includes/widgets/MinyanTimesPostBlock.php");
+    wp_register_style('frontend-style', plugin_dir_url(__FILE__) . 'build/styles.css', null, $versions);
+    wp_register_script('frontend-script', plugin_dir_url(__FILE__) . 'build/frontend.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor'], $versions, true);
     wp_localize_script('frontend-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
     ));
     $widgets_manager->register(new \MTP\MinyanTimesBlock());
+
+    wp_register_script('post-block-script', plugin_dir_url(__FILE__) . 'build/PostBlock.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor'], $versions, true);
+    wp_localize_script('post-block-script', 'wpApiSettings', array(
+      'root' => esc_url_raw(rest_url()),
+    ));
+    $widgets_manager->register(new \MTP\MinyanTimesPostBlock());
   }
 
 
   function renderCallback($attributes)
   {
-
+    global $post;
 
     $attributes["googleKey"] = get_option("mtp_google_api_key");
+    $attributes["postId"] = $post->ID;
 
     ob_start(); ?>
     <div id="mtp-plugin">
@@ -140,8 +152,8 @@ class Minyantimes
   {
     wp_next_scheduled('mtp_cron_hook');
 
-    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css');
-    wp_enqueue_script('minyan-setting-scripts', plugin_dir_url(__FILE__) . 'build/Settings.js', array('wp-element', 'wp-i18n', 'wp-components'));
+    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css', null, "0.15");
+    wp_enqueue_script('minyan-setting-scripts', plugin_dir_url(__FILE__) . 'build/Settings.js', array('wp-element', 'wp-i18n', 'wp-components'), "0.15");
     wp_localize_script('minyan-setting-scripts', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
       'nonce' => wp_create_nonce('wp_rest')
@@ -161,11 +173,6 @@ class Minyantimes
 }
 
 
-
-require_once(__DIR__ . "/includes/zManimService.php");
-require_once(__DIR__ . "/includes/TimesController.php");
-require_once(__DIR__ . "/includes/LocationsController.php");
-require_once(__DIR__ . "/includes/Schema/Location.php");
 
 class MinyanTimesApi
 {
@@ -223,38 +230,23 @@ class MinyanTimesApi
   function onActivate()
   {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    $locationSql = "CREATE TABLE $this->locationsTableName (
-id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-name varchar(255) NOT NULL DEFAULT '',
-address varchar(255) NOT NULL DEFAULT '',
-city varchar(255) NOT NULL DEFAULT '',
-zipCode varchar(255) NOT NULL DEFAULT '',
-state varchar(255) NOT NULL DEFAULT '',
-lat varchar(255) NOT NULL DEFAULT '',
-lng varchar(255) NOT NULL DEFAULT '',
-place_id text NOT NULL DEFAULT '',
-PRIMARY KEY (id)
-) $this->charset;";
-
-
     $timesSql = "CREATE TABLE $this->timesTableName (
-id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-time varchar(50),
-formula bigint(20),
-minutes bigint(20),
-isCustom boolean,
-day TEXT,
-nusach varchar(255) NOT NULL DEFAULT '',
-type varchar(255),
-locationId bigint(20) unsigned NULL DEFAULT NULL,
-post_id bigint(20) unsigned NULL,
-effectiveOn date,
-expiresOn date,
-PRIMARY KEY (id),
-FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id),
-FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
-) $this->charset;";
-    dbDelta($locationSql);
+      id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+      time varchar(50),
+      formula bigint(20),
+      minutes bigint(20),
+      isCustom boolean,
+      day TEXT,
+      nusach varchar(255) NOT NULL DEFAULT '',
+      type varchar(255),
+      locationId bigint(20) unsigned NULL DEFAULT NULL,
+      post_id bigint(20) unsigned NULL,
+      effectiveOn date,
+      expiresOn date,
+      PRIMARY KEY (id),
+      FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id),
+      FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
+      ) $this->charset;";
     dbDelta($timesSql);
   }
 

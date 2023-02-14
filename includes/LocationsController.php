@@ -18,8 +18,55 @@ class LocationsController
                 }
             )
         );
+        register_rest_route(
+            "minyan-times/v1",
+            "migrate",
+            array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'callback' => array($this, 'migrate_to_post'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
     }
-    function add_query_meta($wp_query = "")
+    function migrate_to_post()
+    {
+        global $wpdb;
+
+        $locationSql = "SELECT Id, name, address, city, zipCode, state FROM wp_locations";
+        $results = $wpdb->get_results($locationSql);
+
+
+        foreach ($results as $location) {
+            $post_id = wp_insert_post(array(
+                'post_type' => 'mtp_location',
+                'post_title' => $location->name,
+                'post_status' => 'publish'
+            ));
+            if ($post_id) {
+                // insert post meta
+                add_post_meta($post_id, 'address', $location->address);
+                add_post_meta($post_id, 'city', $location->city);
+                add_post_meta($post_id, 'zipCode', $location->zipCode);
+                $time_records = $wpdb->get_results($wpdb->prepare("SELECT Id FROM " . $this->timesTableName . " WHERE locationId = %s", $location->Id));
+                if (count($time_records) > 0) {
+                    foreach ($time_records as $record) {
+                        $wpdb->update(
+                            $this->timesTableName,
+                            array(
+                                "post_id" => (int)$post_id
+                            ),
+                            array("id" => $record->Id),
+
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    function add_query_meta($wp_query)
     {
 
         //return In case if wp_query is empty or postmeta already exist
@@ -57,7 +104,6 @@ class LocationsController
     }
     function get_location_posts()
     {
-
         $wp_query = new WP_Query([
             'post_type' => 'mtp_location'
         ]);

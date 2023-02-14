@@ -70,12 +70,12 @@ class TimesController
         $day = $request->get_param("day");
         $sortBy = $request->get_param("sortBy");
         $post_id = $request->get_param("postId");
+        $type = $request->get_param("type");
 
         //Only filter the active ones by checking their effective date and expire date.
-        $isActive = $request->get_param('isActive');
         $tableName = $this->timesTableName;
-        $sql = "SELECT t.id, t.post_id , post_title as location, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day FROM " . $tableName .
-            " t INNER JOIN wp_posts l ON t.post_id = l.ID
+        $sql = "SELECT t.id, t.post_id , post_title as location, locationId, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day FROM " . $tableName .
+            " t LEFT JOIN wp_posts l ON t.post_id = l.ID
                 LEFT JOIN wp_postmeta cpm on t.post_id = cpm.post_id AND cpm.meta_key = 'city'
                 LEFT JOIN wp_postmeta rpm on t.post_id = rpm.post_id AND rpm.meta_key = 'rabbi'
                 WHERE 1=1
@@ -85,15 +85,18 @@ class TimesController
         }
         if ($day) {
             $search_text = "%" . $day . "%";
-            $sql = $wpdb->prepare($sql . " AND day like %s", $search_text);
+            $sql = $wpdb->prepare($sql . " AND day LIKE %s", $search_text);
         }
         if ($rabbi) {
             $search_text = "%" . $rabbi . "%";
-            $sql = $wpdb->prepare($sql . " AND rpm.meta_value like %s", $search_text);
+            $sql = $wpdb->prepare($sql . " AND rpm.meta_value LIKE %s", $search_text);
+        }
+        if ($type) {
+            $sql = $wpdb->prepare($sql . " AND type = %s", $type);
         }
         if ($shul) {
             $search_text = "%" . $shul . "%";
-            $sql = $wpdb->prepare($sql . " AND post_title like %s", $search_text);
+            $sql = $wpdb->prepare($sql . " AND post_title LIKE %s", $search_text);
         }
         if ($post_id) {
             $sql = $wpdb->prepare($sql . " AND t.post_id = %s", $post_id);
@@ -105,8 +108,8 @@ class TimesController
         }
         $date = $request->get_param("date");
         if (!empty($date)) {
-            $sql = $wpdb->prepare($sql . " AND effectiveOn IS NOT NULL AND effectiveOn <= %s", $date);
-            $sql = $wpdb->prepare($sql . " AND  expiresOn IS NOT NULL AND expiresOn > %s", $date);
+            $sql = $wpdb->prepare($sql . " AND (effectiveOn <= %s OR effectiveOn IS NULL)", $date);
+            $sql = $wpdb->prepare($sql . " AND  (expiresOn > %s OR expiresOn IS NULL)", $date);
         }
 
 

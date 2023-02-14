@@ -99,13 +99,27 @@ class MinyanTimesBlock extends Widget_Base
     //PHP RENDER
     protected function render()
     {
+        global $post;
         $attributes = $this->get_settings_for_display();
         $attributes["googleKey"] = get_option("mtp_google_api_key");
+        $attributes["postId"] = $post->ID;
+        $zipCode = get_post_meta($post->ID, 'zipCode', true);
+        if (empty($zipCode)) {
+            $attributes["zipCode"] = '21209';
+        } else {
+            $attributes["zipCode"] = $zipCode;
+        }
+        $city = get_post_meta($post->ID, 'city', true);
+        if (empty($city)) {
+            $attributes["city"] = 'Baltimore';
+        } else {
+            $attributes["city"] = $city;
+        }
 ?>
-<div id="mtp-plugin">
-    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-</div>
-<?php
+        <div id="mtp-plugin">
+            <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+        </div>
+    <?php
 
         # code...
     }
@@ -113,9 +127,9 @@ class MinyanTimesBlock extends Widget_Base
     {
         # code...
     ?>
-<div id='mtp-plugin'>
-    <pre style="display: none;">{{{JSON.stringify(settings)}}}</pre>
-</div>
+        <div id='mtp-plugin'>
+            <pre style="display: none;">{{{JSON.stringify(settings)}}}</pre>
+        </div>
 <?php
 
     }

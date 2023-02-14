@@ -47,7 +47,7 @@ class LocationPost
                 "can_export" => true,
             ]
         );
-        $metafields = ['address', "city", "state", "zipCode", "placeId", "geometry", "rabbi"];
+        $metafields = ['address', "city", "state", "zipCode", "placeId", "geometry", "rabbi", "email", "website", "phone"];
 
         foreach ($metafields as $metafield) {
             // Pass an empty string to register the meta key only on the mtp_location posts.

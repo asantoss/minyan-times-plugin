@@ -1,19 +1,16 @@
 import React from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Tab } from '@headlessui/react';
 import Modal from './components/Modal';
 import Button from './components/Button';
-import LocationsSettings from './components/LocationsSettings';
 import TimeSettings from './components/TimeSettings';
 import TimeForm from './components/TimeForm';
 import {
-	classNames,
+	axiosClient,
 	exportToCsv,
 	formatTime,
 	queryClient,
 	useTimesQuery
 } from './utils';
-import LocationForm from './components/LocationForm';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const root = document.getElementById('mtp-plugin');
@@ -33,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-function SettingsPage({ googleKey }) {
+function SettingsPage() {
 	const timesQuery = useTimesQuery();
 	function handleTimeExport() {
 		const today = new Date();
@@ -51,6 +48,9 @@ function SettingsPage({ googleKey }) {
 			};
 		});
 		exportToCsv(fileName, data);
+	}
+	function handleMigration() {
+		axiosClient.post('/migrate');
 	}
 
 	return (
@@ -87,6 +87,11 @@ function SettingsPage({ googleKey }) {
 											Export To CSV
 										</Button>
 									)}
+									<Button
+										onClick={handleMigration}
+										className="rounded-md bg-blue-700 my-2 ml-4 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+										Migrate
+									</Button>
 								</>
 							)}>
 							{({ setIsOpen }) => (

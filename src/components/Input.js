@@ -15,15 +15,13 @@
 export default function Input({ label, className, ...props }) {
 	return (
 		<div className={className}>
-			<label className="font-bold" htmlFor={props.id || props.name}>
+			<label className="font-bold block" htmlFor={props.id || props.name}>
 				{label}
 			</label>
-			<div className="mt-1">
-				<input
-					{...props}
-					className="mt-1 border-2 py-2 rounded-md border-gray-300 px-3 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-				/>
-			</div>
+			<input
+				{...props}
+				className="mt-1 w-full border-2 py-2 rounded-md border-gray-300 px-3 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+			/>
 		</div>
 	);
 }

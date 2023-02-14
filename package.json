@@ -39,10 +39,13 @@
     "@tanstack/react-query-devtools": "^4.22.0",
     "axios": "^1.2.2",
     "dayjs": "^1.11.7",
+    "eslint-plugin-jsdoc": "^40.0.0",
     "google-map-react": "^2.2.0",
     "load-script": "^2.0.0",
     "lodash": "^4.17.21",
     "react": "17.0.0",
-    "react-google-autocomplete": "^2.7.2"
+    "react-google-autocomplete": "^2.7.2",
+    "react-helmet": "^6.1.0",
+    "underscore": "^1.13.6"
   }
 }

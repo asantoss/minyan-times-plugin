@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useMemo } from 'react';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 import FilterDropdown from './FilterDropdown';
 import Input from './Input';
-import { debounce } from 'lodash';
+import { debounce } from 'underscore';
 import { NusachOptions } from '../utils/enums';
 import { useLocationQuery } from '../utils';
 import SwitchComponent from './Switch';
@@ -44,9 +44,9 @@ export default function SearchFilters() {
 					<SwitchComponent
 						offText="Shul"
 						value={state.sortBy ? true : false}
-						onChange={(e) => dispatch({ type: 'SET_SORTBY', payload: e })}
+						onChange={(e) => dispatch({ type: 'SET_SORT_BY', payload: e })}
 						onText="Times"
-						className="m-2"
+						className="mx-2"
 					/>
 				</div>
 			</div>
@@ -75,7 +75,7 @@ export default function SearchFilters() {
 								});
 							}
 						}))}
-						className=""
+						className="w-32"
 					/>
 				</div>
 				<div className="md:mx-2">
@@ -96,7 +96,7 @@ export default function SearchFilters() {
 								}
 							}))
 						]}
-						className=""
+						className="w-32"
 					/>
 				</div>
 			</fieldset>
