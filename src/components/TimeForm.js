@@ -1,10 +1,17 @@
 import React, { useState, useMemo } from 'react';
 import { useLocationQuery, useTimeMutation } from '../utils';
+import { TextareaControl } from '@wordpress/components';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
 import Checkboxes from './Checkboxes';
-import { days, FormulaTypes, NusachOptions, PrayerTypes } from '../utils/enums';
+import {
+	days,
+	FormulaTypes,
+	jewishHolidays,
+	NusachOptions,
+	PrayerTypes
+} from '../utils/enums';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 export default function TimeForm({ time, onSuccess, postId }) {
 	const locationQuery = useLocationQuery();
@@ -12,6 +19,24 @@ export default function TimeForm({ time, onSuccess, postId }) {
 	const [timeData, setTimeData] = useState({
 		isCustom: 0,
 		post_id: postId,
+		IsAsaraBiteves: 0,
+		IsCholHamoed: 0,
+		IsErevPesach: 0,
+		IsErevShabbos: 1,
+		IsErevTishaBav: 0,
+		IsErevYomKipper: 0,
+		IsErevYomTov: 0,
+		IsFastDay: 0,
+		IsRoshChodesh: 0,
+		IsShabbos: 0,
+		IsShivaAsarBitammuz: 0,
+		IsTaanisEsther: 0,
+		IsTishaBav: 0,
+		IsTuBeshvat: 0,
+		IsTzomGedalia: 0,
+		IsYomKipper: 0,
+		IsYomTov: 0,
+		notes: '',
 		...(time || {})
 	});
 	const handleChange = (e) => {
@@ -24,11 +49,20 @@ export default function TimeForm({ time, onSuccess, postId }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const body = new FormData();
+		const body = new FormData(e.target);
+		const payload = new FormData();
 		for (const key in timeData) {
-			body.append(key, timeData[key]);
+			if (body.has(key) && timeData[key]) {
+				payload.set(key, timeData[key]);
+			}
 		}
-		await mutate(body);
+		if (time && time?.id) {
+			payload.set('id', time.id);
+		}
+		if (postId) {
+			payload.set('post_id', postId);
+		}
+		await mutate(payload);
 		if (onSuccess) {
 			onSuccess();
 		}
@@ -46,6 +80,7 @@ export default function TimeForm({ time, onSuccess, postId }) {
 		() => (timeData.isCustom ? Number(timeData.isCustom) : false),
 		[timeData]
 	);
+
 	return (
 		<div>
 			<form
@@ -108,19 +143,31 @@ export default function TimeForm({ time, onSuccess, postId }) {
 							{e}
 						</option>
 					))}
+					<option value="Daf Yomi">Daf Yomi</option>
 				</Select>
+				{!!timeData.type && timeData.type === 'Daf Yomi' && (
+					<Input
+						onChange={handleChange}
+						value={timeData.teacher}
+						name="teacher"
+						label="Teacher"
+						required
+					/>
+				)}
 				<Select
 					onChange={handleChange}
 					value={timeData.nusach}
 					required
 					name="nusach"
 					label="Nusach">
+					<option value="all">All</option>
 					{NusachOptions.map((e) => (
 						<option value={e} key={e}>
 							{e}
 						</option>
 					))}
 				</Select>
+
 				<Select
 					onChange={handleChange}
 					value={timeData.post_id}
@@ -129,18 +176,20 @@ export default function TimeForm({ time, onSuccess, postId }) {
 					name="post_id"
 					label="Location">
 					{(locationQuery.data ?? []).map((e) => (
-						<option key={e.id} value={e.id}>
-							{e.name}
+						<option key={e.ID} value={e.ID}>
+							{e.post_title}
 						</option>
 					))}
 				</Select>
 				<Checkboxes
 					className="col-span-3"
 					label="Day"
+					name="day"
 					onChange={handleChangeDay}
 					value={timeData.day}
 					options={days.map((e) => ({ label: e, value: e }))}
 				/>
+
 				<div className="flex items-center">
 					<Input
 						name="effectiveOn"
@@ -175,6 +224,31 @@ export default function TimeForm({ time, onSuccess, postId }) {
 						<XMarkIcon className="h-6 w-6 font-bold" />
 					</button>
 				</div>
+				<div className="col-span-3">
+					<TextareaControl
+						type="textarea"
+						rows="5"
+						name="notes"
+						label="Notes"
+						onChange={(value) =>
+							handleChange({ target: { value, name: 'notes' } })
+						}
+						value={timeData.notes}
+					/>
+				</div>
+				<div className="col-span-3"></div>
+				{jewishHolidays.map((e) => (
+					<Select
+						key={e + timeData?.id}
+						label={e}
+						name={e}
+						onChange={handleChange}
+						className="my-2 justify-between items-center"
+						value={timeData[e] ? timeData[e] : '0'}>
+						<option value="1">Yes</option>
+						<option value="0">No</option>
+					</Select>
+				))}
 				<div className="col-span-3 flex items-end">
 					<Button type="submit" className=" mt-4 ml-auto   bg-blue-600">
 						Submit

@@ -20,6 +20,17 @@ class LocationsController
         );
         register_rest_route(
             "minyan-times/v1",
+            "cities",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_cities'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
             "migrate",
             array(
                 'methods' => WP_REST_Server::CREATABLE,
@@ -66,68 +77,39 @@ class LocationsController
         }
     }
 
-    function add_query_meta($wp_query)
+    public function get_cities()
     {
-
-        //return In case if wp_query is empty or postmeta already exist
-        if ((empty($wp_query)) || (!empty($wp_query) && !empty($wp_query->posts) && isset($wp_query->posts[0]->postmeta))) {
-            return $wp_query;
-        }
-
-        $sql = $postmeta = '';
-        $post_ids = array();
-        $post_ids = wp_list_pluck($wp_query->posts, 'ID');
-        if (!empty($post_ids)) {
-            global $wpdb;
-            $post_ids = implode(',', $post_ids);
-            $sql = "SELECT meta_key, meta_value, post_id FROM $wpdb->postmeta WHERE post_id IN ($post_ids)";
-            $postmeta = $wpdb->get_results($sql, OBJECT);
-            if (!empty($postmeta)) {
-                foreach ($wp_query->posts as $pKey => $pVal) {
-                    $wp_query->posts[$pKey]->postmeta = new StdClass();
-                    foreach ($postmeta as $mKey => $mVal) {
-                        if ($postmeta[$mKey]->post_id == $wp_query->posts[$pKey]->ID) {
-                            $newmeta[$mKey] = new stdClass();
-                            $newmeta[$mKey]->meta_key = $postmeta[$mKey]->meta_key;
-                            $newmeta[$mKey]->meta_value = maybe_unserialize($postmeta[$mKey]->meta_value);
-                            $wp_query->posts[$pKey]->postmeta = (object) array_merge((array) $wp_query->posts[$pKey]->postmeta, (array) $newmeta);
-                            unset($newmeta);
-                        }
-                    }
-                }
-            }
-            unset($post_ids);
-            unset($sql);
-            unset($postmeta);
-        }
-        return $wp_query;
+        global $wpdb;
+        $sql = $wpdb->prepare('SELECT DISTINCT cpm.meta_value as city FROM wp_posts l
+        INNER JOIN wp_postmeta  cpm on l.ID = cpm.post_id AND cpm.meta_key = %s
+        WHERE  l.post_type= %s AND cpm.meta_key IS NOT NULL ', ['city', 'mtp_location']);
+        $results = $wpdb->get_results($sql);
+        $cities = array_map(function ($record) {
+            return $record->city;
+        }, $results);
+        return $cities;
     }
     function get_location_posts()
     {
-        $wp_query = new WP_Query([
-            'post_type' => 'mtp_location'
-        ]);
 
-        $posts = $wp_query->get_posts();
-        $response = [];
+        global $wpdb;
+        $sql = $wpdb->prepare('SELECT ID, post_title FROM wp_posts WHERE post_type = %s', 'mtp_location');
+
+
+        $posts = $wpdb->get_results($sql);
 
 
         foreach ($posts as $post) {
-            $location = [
-                "id" => $post->ID,
-                "name" => $post->post_title,
-                "address" => get_post_meta($post->ID, 'address', true),
-                "rabbi" => get_post_meta($post->ID, 'rabbi', true),
-                "city" => get_post_meta($post->ID, 'city', true),
-                "state" => get_post_meta($post->ID, 'state', true),
-                "zipCode" => get_post_meta($post->ID, 'zipCode', true),
-                "geometry" => get_post_meta($post->ID, 'geometry', true),
-            ];
-            array_push($response, $location);
+            $post->address = get_post_meta($post->ID, 'address', true);
+            $post->rabbi = get_post_meta($post->ID, 'rabbi', true);
+            $post->city = get_post_meta($post->ID, 'city', true);
+            $post->state = get_post_meta($post->ID, 'state', true);
+            $post->zipCode = get_post_meta($post->ID, 'zipCode', true);
+            $post->geometry = get_post_meta($post->ID, 'geometry', true);
             # code...
         }
 
-        return wp_send_json($response);
+        return wp_send_json($posts);
     }
 
 

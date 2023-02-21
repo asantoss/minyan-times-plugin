@@ -1,13 +1,16 @@
 <?php
 
-/*
-  Plugin Name: Minyan Times
-  Description: A component that organizes prayer times by location or time block...
-  Version: 0.1.02
-  Author: Alexander Santos
 
-  * Elementor tested up to: 3.5.0
-  * Elementor Pro tested up to: 3.5.0
+
+
+/*
+Plugin Name: Minyan Times
+Description: A component that organizes prayer times by location or time block...
+Version: 0.1.27
+Author: Alexander Santos
+
+* Elementor tested up to: 3.5.0
+* Elementor Pro tested up to: 3.5.0
 */
 
 if (!defined('ABSPATH')) {
@@ -19,12 +22,6 @@ require_once(__DIR__ . "/includes/zManimService.php");
 require_once(__DIR__ . "/includes/TimesController.php");
 require_once(__DIR__ . "/includes/LocationsController.php");
 require_once(__DIR__ . "/includes/Schema/Location.php");
-
-/**
- * Register scripts and styles for Elementor test widgets.
- */
-
-
 
 
 
@@ -48,24 +45,36 @@ class Minyantimes
     wp_localize_script('llc-minyan-times-view-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
     ));
+    wp_register_script('new-relic-telemetry', plugin_dir_url(__FILE__) . 'build/newrelic.js', null);
+
 
     add_action('elementor/widgets/register', [$this, 'register_new_widgets']);
   }
 
   function register_new_widgets($widgets_manager)
   {
-    $versions = '0.1.21';
+    $JS_VERSION = '0.1.27';
     require_once(__DIR__ . "/includes/widgets/MinyanTimesBlock.php");
+    require_once(__DIR__ . "/includes/widgets/LocationTimeBlock.php");
     require_once(__DIR__ . "/includes/widgets/MinyanTimesPostBlock.php");
-    wp_register_style('frontend-style', plugin_dir_url(__FILE__) . 'build/styles.css', null, $versions);
-    wp_register_script('frontend-script', plugin_dir_url(__FILE__) . 'build/frontend.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor'], $versions, true);
+    require_once(__DIR__ . "/includes/widgets/LocationMetaBlock.php");
+    $widgets_manager->register(new \MTP\LocationMetaBlock());
+
+    wp_register_style('frontend-style', plugin_dir_url(__FILE__) . 'build/styles.css', null, $JS_VERSION);
+    wp_register_script('frontend-script', plugin_dir_url(__FILE__) . 'build/frontend.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'new-relic-telemetry'], $JS_VERSION, true);
     wp_localize_script('frontend-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
     ));
     $widgets_manager->register(new \MTP\MinyanTimesBlock());
 
-    wp_register_script('post-block-script', plugin_dir_url(__FILE__) . 'build/PostBlock.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor'], $versions, true);
+    wp_register_script('post-block-script', plugin_dir_url(__FILE__) . 'build/PostBlock.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'new-relic-telemetry'], $JS_VERSION, true);
     wp_localize_script('post-block-script', 'wpApiSettings', array(
+      'root' => esc_url_raw(rest_url()),
+    ));
+
+    $widgets_manager->register(new \MTP\LocationTimeBlock());
+    wp_register_script('time-block-script', plugin_dir_url(__FILE__) . 'build/TimeBlock.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'new-relic-telemetry'], $JS_VERSION, true);
+    wp_localize_script('time-block-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
     ));
     $widgets_manager->register(new \MTP\MinyanTimesPostBlock());
@@ -80,10 +89,10 @@ class Minyantimes
     $attributes["postId"] = $post->ID;
 
     ob_start(); ?>
-    <div id="mtp-plugin">
-      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-    </div>
-  <?php return ob_get_clean();
+<div id="mtp-plugin">
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+</div>
+<?php return ob_get_clean();
   }
 
   function ourMenu()
@@ -109,41 +118,42 @@ class Minyantimes
   {
   ?>
 
-    <input type="text" value="<?php echo get_option("mtp_api_key") ?>" name="mtp_api_key" id="mtp_api_key" />
-  <?php
+<input type="text" value="<?php echo get_option("mtp_api_key") ?>" name="mtp_api_key" id="mtp_api_key" />
+<?php
   }
   function apiUserHtml()
   {
   ?>
 
-    <input value="<?php echo get_option("mtp_api_user") ?>" type="text" name="mtp_api_user" id="mtp_api_user" />
-  <?php
+<input value="<?php echo get_option("mtp_api_user") ?>" type="text" name="mtp_api_user" id="mtp_api_user" />
+<?php
   }
   function googleApiKey()
   {
   ?>
 
-    <input value="<?php echo get_option("mtp_google_api_key") ?>" type="text" name="mtp_google_api_key" id="mtp_google_api_key" />
-  <?php
+<input value="<?php echo get_option("mtp_google_api_key") ?>" type="text" name="mtp_google_api_key"
+    id="mtp_google_api_key" />
+<?php
   }
 
 
   function settings_page()
   {
   ?>
-    <div class="wrap">
-      <h1 class="settings_header">Minyan API Credentials</h1>
-      <form action="options.php" method="POST">
+<div class="wrap">
+    <h1 class="settings_header">Minyan API Credentials</h1>
+    <form action="options.php" method="POST">
         <?php
         settings_fields("minyantimesplugin");
         do_settings_sections("minyan-times-settings");
         submit_button();
 
         ?>
-      </form>
-    </div>
+    </form>
+</div>
 
-  <?php
+<?php
   }
 
 
@@ -166,9 +176,9 @@ class Minyantimes
     $attributes = array();
     $attributes["googleKey"] = get_option("mtp_google_api_key");
   ?><div id="mtp-plugin" class="mtp-plugin-wrapper">
-      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-    </div>
-  <?php
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+</div>
+<?php
   }
 }
 
@@ -219,9 +229,9 @@ class MinyanTimesApi
     $attributes["googleKey"] = get_option("mtp_google_api_key");
     $attributes["id"] = $post->ID;
   ?>
-    <div id="mtp-plugin-sidebar">
-      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-    </div>
+<div id="mtp-plugin-sidebar">
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+</div>
 <?php
   }
 
@@ -237,12 +247,32 @@ class MinyanTimesApi
       minutes bigint(20),
       isCustom boolean,
       day TEXT,
-      nusach varchar(255) NOT NULL DEFAULT '',
+      teacher TEXT,
+      notes TEXT,
+      language TEXT,
+      nusach varchar(255),
       type varchar(255),
       locationId bigint(20) unsigned NULL DEFAULT NULL,
       post_id bigint(20) unsigned NULL,
       effectiveOn date,
       expiresOn date,
+      IsAsaraBiteves boolean,
+      IsCholHamoed boolean,
+      IsErevPesach boolean,
+      IsErevShabbos boolean,
+      IsErevTishaBav boolean,
+      IsErevYomKipper boolean,
+      IsErevYomTov boolean,
+      IsFastDay boolean,
+      IsShabbos boolean,
+      IsShivaAsarBitammuz boolean,
+      IsTaanisEsther boolean,
+      IsTishaBav boolean,
+      IsTuBeshvat boolean,
+      IsTzomGedalia boolean,
+      IsYomKipper boolean,
+      IsYomTov boolean,
+      IsRoshChodesh boolean,
       PRIMARY KEY (id),
       FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id),
       FOREIGN KEY (post_id) REFERENCES wp_posts(ID)

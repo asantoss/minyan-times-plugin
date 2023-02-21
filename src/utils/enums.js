@@ -29,3 +29,22 @@ export const PrayerTypes = ['Shacharis', 'Mincha', 'Mincha/Maariv', 'Maariv'];
 
 export const NusachOptions = ['Ari', 'Asheknaz', 'Sefarhadi', 'Sefard'];
 export const SKIP_DAYS = [6]; //Skip Saturday
+export const jewishHolidays = [
+	'IsAsaraBiteves',
+	'IsCholHamoed',
+	'IsErevPesach',
+	'IsErevShabbos',
+	'IsErevTishaBav',
+	'IsErevYomKipper',
+	'IsErevYomTov',
+	'IsFastDay',
+	'IsRoshChodesh',
+	'IsShabbos',
+	'IsShivaAsarBitammuz',
+	'IsTaanisEsther',
+	'IsTishaBav',
+	'IsTuBeshvat',
+	'IsTzomGedalia',
+	'IsYomKipper',
+	'IsYomTov'
+];

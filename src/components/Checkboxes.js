@@ -19,16 +19,16 @@ export default function Checkboxes({
 	onChange,
 	options,
 	value = '',
-	className
+	className,
+	name
 }) {
 	function handleChange(e) {
-		const { name, checked } = e.target;
+		const { checked, value: elValue } = e.target;
 		let currentValue = (value || '').split(', ');
-
 		if (checked) {
-			currentValue = [...currentValue, name];
+			currentValue = [...currentValue, elValue];
 		} else {
-			currentValue = currentValue.filter((e) => e !== name);
+			currentValue = currentValue.filter((e) => e !== elValue);
 		}
 		const dataSet = new Set(currentValue.filter((e) => e && e !== 'null'));
 		onChange(Array.from(dataSet).join(', '));
@@ -61,9 +61,9 @@ export default function Checkboxes({
 							id={e.value}
 							aria-describedby={`${e.label}-description`}
 							checked={inputVal(e.value)}
-							value={inputVal(e.value)}
+							value={e.value}
 							onChange={handleChange}
-							name={e.value}
+							name={name}
 							type="checkbox"
 							className="h-5 w-5 rounded text-indigo-600 focus:ring-indigo-500"
 						/>

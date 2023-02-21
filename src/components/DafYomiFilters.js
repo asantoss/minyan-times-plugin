@@ -3,24 +3,23 @@ import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 import FilterDropdown from './FilterDropdown';
 import Input from './Input';
 import { debounce } from 'underscore';
-import { NusachOptions } from '../utils/enums';
-import { useCitiesQuery, useLocationQuery } from '../utils';
+import { useCitiesQuery } from '../utils';
 import SwitchComponent from './Switch';
-export default function SearchFilters({}) {
+export default function DafYomiFilters({}) {
 	const [state, dispatch] = useContext(PrayerTimesContext);
 	const citiesQuery = useCitiesQuery();
 
 	const debouncedCall = useCallback(
 		debounce((e) => {
 			const { name, value } = e.target;
-			if (name === 'rabbi') {
-				dispatch({ type: 'SET_RABBI', payload: value });
+			if (name === 'teacher') {
+				dispatch({ type: 'SET_TEACHER', payload: value });
 			}
 			if (name === 'shul') {
 				dispatch({ type: 'SET_SHUL', payload: value });
 			}
 		}),
-		300
+		500
 	);
 
 	return (
@@ -39,7 +38,7 @@ export default function SearchFilters({}) {
 					/>
 				</div>
 			</div>
-			<fieldset className=" flex ml-auto ">
+			<fieldset className=" grid grid-cols-2 gap-2 ml-auto ">
 				<Input
 					onChange={debouncedCall}
 					id="shul"
@@ -47,7 +46,12 @@ export default function SearchFilters({}) {
 					className="md:mx-2"
 					label="Shul"
 				/>
-				<Input onChange={debouncedCall} id="rabbi" name="rabbi" label="Rabbi" />
+				<Input
+					onChange={debouncedCall}
+					id="teacher"
+					name="teacher"
+					label="Teacher"
+				/>
 				{!citiesQuery.isLoading && citiesQuery.isSuccess && (
 					<div className="md:mx-2">
 						<label htmlFor="city">City:</label>
@@ -68,27 +72,6 @@ export default function SearchFilters({}) {
 						/>
 					</div>
 				)}
-				<div className="md:mx-2">
-					<label htmlFor="nusach">Nusach:</label>
-					<FilterDropdown
-						id="Nusach"
-						name="Nusach"
-						title={state.nusach ?? 'All'}
-						options={[
-							{
-								label: 'All',
-								onClick: () => dispatch({ type: 'SET_NUSACH', payload: null })
-							},
-							...NusachOptions.map((e) => ({
-								label: e,
-								onClick() {
-									dispatch({ type: 'SET_NUSACH', payload: e });
-								}
-							}))
-						]}
-						className="w-32"
-					/>
-				</div>
 			</fieldset>
 		</div>
 	);

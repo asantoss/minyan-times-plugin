@@ -11,6 +11,7 @@ import {
 	queryClient,
 	useTimesQuery
 } from './utils';
+import ErrorBoundary from './components/ErrorBoundary';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const root = document.getElementById('mtp-plugin');
@@ -20,9 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			const data = JSON.parse(root.querySelector('pre').innerText);
 			ReactDOM.render(
 				<div className="mtp-block">
-					<QueryClientProvider client={queryClient}>
-						<SettingsPage {...data} />
-					</QueryClientProvider>
+					<ErrorBoundary>
+						<QueryClientProvider client={queryClient}>
+							<SettingsPage {...data} />
+						</QueryClientProvider>
+					</ErrorBoundary>
 				</div>,
 				root
 			);

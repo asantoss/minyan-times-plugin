@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react';
-import { getWeekday, startDate } from '..';
+import { getNextSetOfDays, getWeekday, startDate } from '..';
 import { ViewTypes } from '../enums';
 
 const initialState = {
@@ -10,8 +10,10 @@ const initialState = {
 	date: startDate,
 	rabbi: '',
 	shul: '',
+	teacher: '',
 	currentTimeRecord: {},
-	postId: null
+	postId: null,
+	week: getNextSetOfDays(startDate, 6)
 };
 
 function reducer(state = initialState, action) {
@@ -20,7 +22,7 @@ function reducer(state = initialState, action) {
 		case 'SET_CITY':
 			state = {
 				...state,
-				...payload
+				city: payload
 			};
 			break;
 		case 'SET_NUSACH':
@@ -42,10 +44,22 @@ function reducer(state = initialState, action) {
 				day: getWeekday(payload)
 			};
 			break;
+		case 'SET_WEEK':
+			state = {
+				...state,
+				week: payload
+			};
+			break;
 		case 'SET_RABBI':
 			state = {
 				...state,
 				rabbi: payload
+			};
+			break;
+		case 'SET_TEACHER':
+			state = {
+				...state,
+				teacher: payload
 			};
 			break;
 		case 'SET_SHUL':

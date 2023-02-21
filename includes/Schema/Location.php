@@ -47,10 +47,10 @@ class LocationPost
                 "can_export" => true,
             ]
         );
-        $metafields = ['address', "city", "state", "zipCode", "placeId", "geometry", "rabbi", "email", "website", "phone"];
+        $metafields = ['address', "city", "state", "zipCode", "placeId", "geometry", "rabbi", "email", "website", "phone", "full_address"];
 
         foreach ($metafields as $metafield) {
-            // Pass an empty string to register the meta key only on the mtp_location posts.
+            // Pass an empty string to register the meta key only on the shul posts.
             register_post_meta('mtp_location', $metafield, array(
                 'show_in_rest' => true,
                 'type' => 'string',

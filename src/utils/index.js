@@ -51,6 +51,24 @@ export function useLocationQuery(props) {
 		}
 	);
 }
+export function useCitiesQuery(props) {
+	return useQuery(
+		{
+			queryKey: ['cities'],
+			queryFn: async () => {
+				try {
+					const response = await axiosClient.get('/cities');
+					return response.data;
+				} catch (error) {
+					throw new Error('Network response was not ok');
+				}
+			}
+		},
+		{
+			...props
+		}
+	);
+}
 
 export function useDeleteTime(props) {
 	return useMutation(
@@ -116,7 +134,8 @@ export function useFilteredTimesQuery({
 	shul,
 	date,
 	postId,
-	type
+	type,
+	teacher
 }) {
 	return useQuery(
 		{
@@ -130,7 +149,8 @@ export function useFilteredTimesQuery({
 				shul,
 				date,
 				postId,
-				type
+				type,
+				teacher
 			],
 			queryFn: async ({ queryKey }) => {
 				try {
@@ -145,7 +165,8 @@ export function useFilteredTimesQuery({
 						shul,
 						date,
 						postId,
-						type
+						type,
+						teacher
 					] = queryKey;
 					let params = {
 						city,
@@ -155,7 +176,8 @@ export function useFilteredTimesQuery({
 						rabbi,
 						shul,
 						date: dayjs(date).format('YYYY/MM/DD'),
-						type
+						type,
+						teacher
 					};
 					if (postId) {
 						params = {
@@ -178,6 +200,9 @@ export function useFilteredTimesQuery({
 			cacheTime: 0
 		}
 	);
+}
+export function useTimeQueryData(key) {
+	return queryClient.getQueriesData(key);
 }
 
 export function useTimeMutation(id) {
@@ -221,7 +246,35 @@ export function useLocationMutation(id) {
 	});
 }
 
-export function useZmanimApi({ dates, postalCode }) {
+export function useZmanimGPSApi({ dates, lat, lng, enabled }) {
+	const results = useQueries({
+		queries: dates.map((date) => ({
+			queryKey: ['zManim', getDateAsString(date), lat, lng],
+			queryFn: () => fetchDate({ date: getDateAsString(date), lat, lng }),
+			staleTime: Infinity,
+			cacheTime: Infinity,
+			enabled
+		}))
+	});
+	async function fetchDate({ date, lat, lng }) {
+		if ((lat, lng)) {
+			const response = await axiosClient.get('/zManim/gps', {
+				params: { date, lat, lng }
+			});
+			return response.data;
+		} else {
+			throw new Error('Postal code is required');
+		}
+	}
+	return results;
+}
+export function useZmanimGPSData(date, lat, lng) {
+	const key = ['zManim', getDateAsString(date), lat, lng];
+	const data = queryClient.getQueryData(key);
+	return data;
+}
+
+export function useZmanimPostalCodeApi({ dates, postalCode }) {
 	const results = useQueries({
 		queries: dates.map((date) => ({
 			queryKey: ['zManim', getDateAsString(date), postalCode],
@@ -536,6 +589,36 @@ export function capitalize(str) {
 
 let client = new Client({});
 
+export function useCityGeocodeData(city) {
+	return queryClient.getQueryData(['gMap', city]);
+}
+export function getCityGeocode({ googleKey, city, enabled }) {
+	return useQuery(
+		['gMap', city],
+		async ({ queryKey }) => {
+			const [_, city] = queryKey;
+			if (city.trim()) {
+				const response = await client.geocode({
+					params: {
+						key: googleKey,
+						components: { country: 'us', locality: city }
+					}
+				});
+				if (response.status === 200) {
+					const { results } = response.data;
+					if (results?.length > 0) {
+						return results[0]?.geometry?.location;
+					}
+				}
+				return response.data;
+			}
+			return {};
+		},
+		{
+			enabled
+		}
+	);
+}
 export function useGeocodeApi({ googleKey, location, enabled }) {
 	const address = location
 		? `${location.address || ''} ${location.city || ''} ${

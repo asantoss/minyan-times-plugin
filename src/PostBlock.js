@@ -7,7 +7,7 @@ import {
 	getNextSetOfDays,
 	queryClient,
 	startDate,
-	useZmanimApi
+	useZmanimPostalCodeApi
 } from './utils';
 import { Helmet } from 'react-helmet';
 import { PrayerTypes, days } from './utils/enums';
@@ -16,12 +16,9 @@ import usePrayerTimesReducer, {
 } from './utils/hooks/usePrayerTimesReducer';
 import TimeElement from './components/TimeElement';
 import { Disclosure } from '@headlessui/react';
-import {
-	ChevronDownIcon,
-	MinusIcon,
-	PlusIcon
-} from '@heroicons/react/24/solid';
+import { ChevronDownIcon, MinusIcon } from '@heroicons/react/24/solid';
 import { Transition } from '@headlessui/react';
+import ErrorBoundary from './components/ErrorBoundary';
 
 if (window.elementorFrontend) {
 	window.addEventListener('elementor/frontend/init', () => {
@@ -48,10 +45,12 @@ async function renderApp() {
 		}
 		ReactDOM.render(
 			<div className="mtp-block">
-				<QueryClientProvider client={queryClient}>
-					<ReactQueryDevtools />
-					<TimesPostBlock {...data} />
-				</QueryClientProvider>
+				<ErrorBoundary>
+					<QueryClientProvider client={queryClient}>
+						<ReactQueryDevtools />
+						<TimesPostBlock {...data} />
+					</QueryClientProvider>
+				</ErrorBoundary>
 			</div>,
 			root
 		);
@@ -67,7 +66,7 @@ function TimesPostBlock(props) {
 		city
 	});
 
-	useZmanimApi({
+	useZmanimPostalCodeApi({
 		dates: weekDates,
 		postalCode: zipCode
 	});

@@ -1,8 +1,19 @@
 import { Transition } from '@headlessui/react';
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { Fragment } from 'react';
-import { classNames } from '../utils';
+import { Fragment, useContext } from 'react';
+import {
+	addMinutes,
+	classNames,
+	convertTime,
+	formatTime,
+	formatZman,
+	useCityGeocodeData,
+	useFilteredTimesQuery,
+	useZmanimGPSData
+} from '../utils';
+import { jewishHolidays } from '../utils/enums';
+import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 
 export default function Accordion({ title, options = [] }) {
 	return (
@@ -38,21 +49,17 @@ export default function Accordion({ title, options = [] }) {
 							<div className="flex flex-col text-left bg-white w-full">
 								{options.map((e, i, arr) => {
 									return (
-										<span
+										<a
 											data-id={e.id}
 											key={i}
-											onClick={() => {
-												if (e.onClick) {
-													e.onClick();
-												}
-											}}
+											href={e.url}
 											className={classNames(
 												i > 0 && i < arr.length - 1 && 'border-b-2',
 												i == 1 && 'border-t-2',
-												'border-0 hover:text-orange py-2 cursor-pointer focus-visible:border-0 text-left text-darkBlue font-sans text-xs font-bold focus:bg-white focus:text-darkBlue bg-white hover:bg-white '
+												'no-underline border-0 hover:text-orange py-2 cursor-pointer focus-visible:border-0 text-left text-darkBlue font-sans text-xs font-bold focus:bg-white focus:text-darkBlue bg-white hover:bg-white '
 											)}>
 											{e.label}
-										</span>
+										</a>
 									);
 								})}
 							</div>

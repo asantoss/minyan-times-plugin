@@ -1,11 +1,25 @@
 import _ from 'lodash';
 import { React, useContext } from 'react';
-import { classNames, formatzManimData, useZmanimData } from '../utils';
+import {
+	classNames,
+	formatzManimData,
+	getCityGeocode,
+	useCityGeocodeData,
+	useZmanimData,
+	useZmanimGPSApi,
+	useZmanimGPSData
+} from '../utils';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 
 export default function ZManimDisplay() {
 	const [state] = useContext(PrayerTimesContext);
-	let Zmanim = useZmanimData(state.date, state.zipCode);
+	const geocodeQuery = useCityGeocodeData(state.city);
+
+	let Zmanim = useZmanimGPSData(
+		state.date,
+		geocodeQuery?.lat,
+		geocodeQuery?.lng
+	);
 	if (!Zmanim) {
 		return null;
 	}

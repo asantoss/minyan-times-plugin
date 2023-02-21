@@ -26,11 +26,13 @@ export default function LocationMetadata({ googleKey }) {
 			autocompleteRef.current.addListener('place_changed', () => {
 				const place = autocompleteRef.current.getPlace();
 				if (place.address_components?.length) {
-					const addressData = { placeId: place.place_id };
+					const addressData = {};
+					const full_address = '';
 					for (const component of place.address_components) {
 						if (component.types?.length) {
 							const componentType = component.types[0];
 							const value = component.short_name;
+
 							switch (componentType) {
 								case 'street_number':
 									addressData.address = value;
@@ -54,7 +56,14 @@ export default function LocationMetadata({ googleKey }) {
 							}
 						}
 					}
-					editPost({ meta: { ...addressData } });
+					debugger;
+					editPost({
+						meta: {
+							...addressData,
+							placeId: place.place_id,
+							full_address: Object.values(addressData).join(', ')
+						}
+					});
 				}
 				if (place.geometry) {
 					editPost({ meta: { geometry: JSON.stringify(place.geometry) } });

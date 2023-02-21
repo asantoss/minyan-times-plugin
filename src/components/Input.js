@@ -20,7 +20,7 @@ export default function Input({ label, className, ...props }) {
 			</label>
 			<input
 				{...props}
-				className="mt-1 w-full border-2 py-2 rounded-md border-gray-300 px-3 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+				className="mt-1 border-2 py-2 rounded-md border-gray-300 px-3 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 			/>
 		</div>
 	);

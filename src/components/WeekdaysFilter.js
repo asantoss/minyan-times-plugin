@@ -6,7 +6,7 @@ import {
 	getDateAsString,
 	getNextSetOfDays,
 	startDate,
-	useZmanimApi
+	useZmanimPostalCodeApi
 } from '../utils';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 import Input from './Input';
@@ -19,7 +19,6 @@ const dtFormat = new Intl.DateTimeFormat('en-US', {
 });
 export default function WeekdayFilter() {
 	const [state, dispatch] = useContext(PrayerTimesContext);
-	const [weekDates, setWeekDates] = useState(getNextSetOfDays(startDate, 6));
 	const formEl = useRef();
 	function handleChangeDate(e) {
 		const { value } = e.target;
@@ -38,15 +37,10 @@ export default function WeekdayFilter() {
 		const currentStartOfWeek = firstDayOfWeek(state.date);
 		if (!dayjs(currentStartOfWeek).isSame(dayjs(newStartOfWeek))) {
 			const newWeek = getNextSetOfDays(newStartOfWeek, 6);
-			setWeekDates(newWeek);
+			dispatch({ type: 'SET_WEEK', payload: newWeek });
 		}
 		dispatch({ type: 'SET_DATE', payload: date });
 	}
-
-	useZmanimApi({
-		dates: weekDates,
-		postalCode: state.zipCode
-	});
 
 	function isSameDate(date1, date2) {
 		date1 = getDateAsString(date1);
@@ -55,19 +49,18 @@ export default function WeekdayFilter() {
 		return value;
 	}
 	return (
-		<form ref={formEl} className="flex flex-col">
+		<form ref={formEl} className="flex flex-row-reverse">
 			<Input
 				onChange={handleChangeDate}
 				id="date"
 				className="ml-auto"
 				name="date"
-				label="Date"
 				type="date"
 				value={getDateAsString(state.date)}
 				min={getDateAsString(startDate)}
 			/>
 			<div className="md:flex grid gap-2 grid-cols-3 items-start my-3 justify-between">
-				{weekDates.map((weekDate) => (
+				{state.week.map((weekDate) => (
 					<button
 						type="button"
 						className={classNames(

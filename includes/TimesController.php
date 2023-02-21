@@ -65,6 +65,7 @@ class TimesController
         global $wpdb;
         $city = $request->get_param("city");
         $rabbi = $request->get_param("rabbi");
+        $teacher = $request->get_param("teacher");
         $shul = $request->get_param("shul");
         $nusach = $request->get_param("nusach");
         $day = $request->get_param("day");
@@ -74,7 +75,10 @@ class TimesController
 
         //Only filter the active ones by checking their effective date and expire date.
         $tableName = $this->timesTableName;
-        $sql = "SELECT t.id, t.post_id , post_title as location, locationId, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day FROM " . $tableName .
+        $sql = "SELECT t.id, t.post_id , post_title as location,IsAsaraBiteves,IsCholHamoed ,IsErevPesach ,IsErevShabbos ,      IsErevTishaBav ,IsErevYomKipper ,IsErevYomTov ,IsFastDay ,IsShabbos ,IsShivaAsarBitammuz ,IsTaanisEsther ,
+        IsTishaBav ,IsTuBeshvat ,IsTzomGedalia ,IsYomKipper ,IsYomTov,  
+        locationId, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day 
+         FROM " . $tableName .
             " t LEFT JOIN wp_posts l ON t.post_id = l.ID
                 LEFT JOIN wp_postmeta cpm on t.post_id = cpm.post_id AND cpm.meta_key = 'city'
                 LEFT JOIN wp_postmeta rpm on t.post_id = rpm.post_id AND rpm.meta_key = 'rabbi'
@@ -91,6 +95,10 @@ class TimesController
             $search_text = "%" . $rabbi . "%";
             $sql = $wpdb->prepare($sql . " AND rpm.meta_value LIKE %s", $search_text);
         }
+        if ($teacher) {
+            $search_text = "%" . $teacher . "%";
+            $sql = $wpdb->prepare($sql . " AND teacher LIKE %s", $search_text);
+        }
         if ($type) {
             $sql = $wpdb->prepare($sql . " AND type = %s", $type);
         }
@@ -99,12 +107,12 @@ class TimesController
             $sql = $wpdb->prepare($sql . " AND post_title LIKE %s", $search_text);
         }
         if ($post_id) {
-            $sql = $wpdb->prepare($sql . " AND t.post_id = %s", $post_id);
+            $sql = $wpdb->prepare($sql . " AND t.post_id =  %s ", $post_id);
         }
         if ($city) {
             $search_text = "%" . $city . "%";
 
-            $sql = $wpdb->prepare($sql . " AND cpm.meta_value LIKE %s", $search_text);
+            $sql = $wpdb->prepare($sql . " AND LOWER( cpm.meta_value ) LIKE  LOWER (%s)", $search_text);
         }
         $date = $request->get_param("date");
         if (!empty($date)) {
@@ -131,6 +139,7 @@ class TimesController
             $item->state = get_post_meta($item->post_id, 'state', true);
             $item->zipCode = get_post_meta($item->post_id, 'zipCode', true);
             $item->geometry = get_post_meta($item->post_id, 'geometry', true);
+            $item->locationSlug = basename(get_permalink($item->post_id));
             # code...
         }
 
@@ -150,6 +159,7 @@ class TimesController
         $type = $parameters["type"];
         $formula = $parameters["formula"];
         $minutes = $parameters["minutes"];
+        $notes = $parameters["notes"];
         $effectiveOn = $parameters["effectiveOn"];
         if (empty($effectiveOn)) {
             $effectiveOn = null;
@@ -159,10 +169,11 @@ class TimesController
             $expiresOn = null;
         }
         $isCustom = $parameters["isCustom"];
-        if (($time || $isCustom == "1") && $postId && $nusach && $day) {
+        if (($time || $isCustom == "1") && $postId && $day) {
             $insert = $wpdb->insert(
                 $this->timesTableName,
                 array(
+                    ...$parameters,
                     "time" => $time,
                     "post_id" => (int)$postId,
                     "isCustom" => (int)$isCustom,
@@ -173,15 +184,15 @@ class TimesController
                     "minutes" => (int)$minutes,
                     "expiresOn" => $expiresOn,
                     "effectiveOn" => $effectiveOn,
+                    "notes" => $notes,
                 )
             );
             if ($insert) {
                 return rest_ensure_response('Success');
             }
-            return new WP_Error('invalid', 'Invalid body', array('status' => 404));
         }
 
-        return $parameters;
+        return new WP_Error('invalid', 'Invalid body', array('status' => 404));
     }
 
     function delete_time($request)
@@ -207,7 +218,6 @@ class TimesController
         global $wpdb;
         $parameters = $request->get_body_params();
         $time = $request["time"];
-        $post_id = $parameters["post_id"];
         $nusach = $parameters["nusach"];
         $day = $parameters["day"];
         $id = $parameters["id"];
@@ -215,28 +225,31 @@ class TimesController
         $formula = $parameters["formula"];
         $minutes = $parameters["minutes"];
         $isCustom = $parameters["isCustom"];
+        $notes = $parameters["notes"];
         $effectiveOn = $parameters["effectiveOn"];
-        if (empty($effectiveOn)) {
+        if (empty($effectiveOn) || $effectiveOn == "0000-00-00") {
             $effectiveOn = null;
         }
         $expiresOn = $parameters["expiresOn"];
-        if (empty($expiresOn)) {
+        if (empty($expiresOn) || $expiresOn == "0000-00-00") {
             $expiresOn = null;
         }
+        $updatePayload = array(
+            ...$parameters,
+            "time" => $time,
+            "nusach" => $nusach,
+            "day" => $day,
+            "type" => $type,
+            "formula" => (int)$formula,
+            "minutes" => (int)$minutes,
+            "isCustom" => (int)$isCustom,
+            "expiresOn" => $expiresOn,
+            "effectiveOn" => $effectiveOn,
+            "notes" => $notes,
+        );
         $update = $wpdb->update(
             $this->timesTableName,
-            array(
-                "time" => $time,
-                "post_id" => (int)$post_id,
-                "nusach" => $nusach,
-                "day" => $day,
-                "type" => $type,
-                "formula" => (int)$formula,
-                "minutes" => (int)$minutes,
-                "isCustom" => (int)$isCustom,
-                "expiresOn" => $expiresOn,
-                "effectiveOn" => $effectiveOn,
-            ),
+            $updatePayload,
             array("id" => $id),
 
         );

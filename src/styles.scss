@@ -10,3 +10,24 @@ html {
 .gm-style div {
 	z-index: 999 !important;
 }
+
+.location-meta-widget {
+	.location-meta-tags {
+		margin-bottom: 2rem;
+		display: flex;
+		flex-wrap: wrap;
+		max-width: 300px;
+		span {
+			color: white;
+			padding: 5px;
+			background: #ff7108;
+			margin: 5px 5px 5px 0px;
+		}
+	}
+}
+
+[type='button'],
+[type='submit'],
+button {
+	border: unset;
+}

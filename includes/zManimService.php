@@ -22,6 +22,19 @@ class zManimService
         $this->key = $key;
         register_rest_route(
             "minyan-times/v1",
+            "zManim/gps",
+            array(
+                array(
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => array($this, 'get_zmanim_data_gps'),
+                    'permission_callback' => function () {
+                        return true;
+                    }
+                )
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
             "zManim",
             array(
                 array(
@@ -39,6 +52,19 @@ class zManimService
         $date = $request["date"];
         $postalCode = $request["postalCode"];
         if ($date && $postalCode) {
+            $pLocationID = $this->findPostal($postalCode);
+            $response = $this->getDay($date, $pLocationID);
+            return $response;
+        }
+        return new WP_Error("invalid", "bad input", array("status" => 400));
+    }
+    function get_zmanim_data_gps($request)
+    {
+        $date = $request["date"];
+        $lat = $request["lat"];
+        $lng = $request["lng"];
+        if ($date && $lat && $lng) {
+            $postalCode = $this->findGps($lat, $lng);
             $response = $this->getDay($date, $postalCode);
             return $response;
         }
@@ -47,7 +73,7 @@ class zManimService
     function findGps($lat, $lon)
     {
 
-        $params = "user=" . $this->user . "&key=" . $this->key . "&coding=PHP" . "&lat=" . $lat . "&lon=" . $lon;
+        $params = "user=" . $this->user . "&key=" . $this->key . "&coding=PHP" . "&latitude=" . $lat . "&longitude=" . $lon;
         $response = $this->CallApi("searchGps", $params);
         if ($response->ErrMsg != NULL) {
             echo "Error: ";
@@ -78,9 +104,9 @@ class zManimService
         $response = $this->CallApi("getDay", $params);
         return $response;
     }
-    function getDay($day, $postalCode)
+    function getDay($day, $pLocationID)
     {
-        $pLocationID = $this->findPostal($postalCode);
+
         $params = "user=" . $this->user . "&key=" . $this->key . "&coding=PHP" . "&language=en" . "&locationID=" . $pLocationID . "&inputDate=" . $day;
         date_default_timezone_set('UTC');
         $response = $this->CallApi("getDay", $params);

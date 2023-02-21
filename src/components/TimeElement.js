@@ -12,6 +12,7 @@ import {
 	useFilteredTimesQuery,
 	useZmanimData
 } from '../utils';
+import { FormulaTypes } from '../utils/enums';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 import Spinner from './Spinner';
 
@@ -22,14 +23,12 @@ export default function TimeElement({ day, type, list = false }) {
 		return dateDay === day;
 	});
 	const [state] = useContext(PrayerTimesContext);
-
 	const ZmanimQuery = useZmanimData(targetDate, state.zipCode);
 	const { data, isLoading } = useFilteredTimesQuery({
 		day,
 		postId: state.postId,
 		type
 	});
-
 	const timeSlots = useMemo(() => {
 		return (data ?? [])
 			.map((timeElement) => {
@@ -93,21 +92,21 @@ export default function TimeElement({ day, type, list = false }) {
 	});
 	if (list) {
 		return (
-			<div className="text-xs">
+			<span className="text-xs">
 				{listFormat.format(timeSlots.map((e) => e.label))}
-			</div>
+			</span>
 		);
 	}
 	return (
 		<>
 			{timeSlots.map((e, i, arr) => (
-				<div
+				<span
 					className={classNames(
 						'text-xs my-2',
 						i !== arr.length - 1 && 'border-b-2'
 					)}>
 					{e.label}
-				</div>
+				</span>
 			))}
 		</>
 	);

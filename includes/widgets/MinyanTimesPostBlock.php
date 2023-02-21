@@ -2,7 +2,6 @@
 
 namespace MTP;
 
-use Elementor\Controls_Manager;
 use Elementor\Widget_Base;
 
 if (!defined('ABSPATH'))
