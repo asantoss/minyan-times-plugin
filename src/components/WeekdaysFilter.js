@@ -5,8 +5,7 @@ import {
 	firstDayOfWeek,
 	getDateAsString,
 	getNextSetOfDays,
-	startDate,
-	useZmanimPostalCodeApi
+	startDate
 } from '../utils';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 import Input from './Input';
@@ -49,7 +48,7 @@ export default function WeekdayFilter() {
 		return value;
 	}
 	return (
-		<form ref={formEl} className="flex flex-row-reverse">
+		<form ref={formEl} className="flex flex-wrap flex-row-reverse">
 			<Input
 				onChange={handleChangeDate}
 				id="date"
@@ -59,7 +58,7 @@ export default function WeekdayFilter() {
 				value={getDateAsString(state.date)}
 				min={getDateAsString(startDate)}
 			/>
-			<div className="md:flex grid gap-2 grid-cols-3 items-start my-3 justify-between">
+			<div className="lg:flex grid gap-2 grid-cols-3 items-start my-3 justify-between">
 				{state.week.map((weekDate) => (
 					<button
 						type="button"
