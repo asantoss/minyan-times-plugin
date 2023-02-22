@@ -75,6 +75,13 @@ export default function TimeForm({ time, onSuccess, postId }) {
 			day: selectedDays.join(', ')
 		});
 	}
+	function handleChangeHoliday(event) {
+		const { name, value } = event.target;
+		setTimeData({
+			...timeData,
+			[name]: value === 'true' ? 1 : 0
+		});
+	}
 
 	const isCustom = useMemo(
 		() => (timeData.isCustom ? Number(timeData.isCustom) : false),
@@ -236,18 +243,17 @@ export default function TimeForm({ time, onSuccess, postId }) {
 						value={timeData.notes}
 					/>
 				</div>
-				<div className="col-span-3 grid grid-cols-3">
+				<div className="col-span-3 grid grid-cols-3 text-center">
 					{jewishHolidays.map((e) => (
-						<Select
+						<Input
+							type="checkbox"
 							key={e + timeData?.id}
 							label={e}
 							name={e}
-							onChange={handleChange}
+							onChange={handleChangeHoliday}
 							className="my-2 justify-between items-center"
-							value={timeData[e] ? timeData[e] : '0'}>
-							<option value="1">No</option>
-							<option value="0">Yes</option>
-						</Select>
+							checked={Number(timeData[e]) !== 1}
+							value={Number(timeData[e]) !== 1}></Input>
 					))}
 				</div>
 
