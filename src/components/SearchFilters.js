@@ -1,10 +1,10 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 import FilterDropdown from './FilterDropdown';
 import Input from './Input';
 import { debounce } from 'underscore';
 import { NusachOptions } from '../utils/enums';
-import { useCitiesQuery, useLocationQuery } from '../utils';
+import { useCitiesQuery } from '../utils';
 import SwitchComponent from './Switch';
 export default function SearchFilters({}) {
 	const [state, dispatch] = useContext(PrayerTimesContext);
@@ -39,17 +39,23 @@ export default function SearchFilters({}) {
 					/>
 				</div>
 			</div>
-			<fieldset className=" flex ml-auto ">
+			<fieldset className="flex flex-wrap md:flex-row ml-auto ">
 				<Input
 					onChange={debouncedCall}
 					id="shul"
 					name="shul"
-					className="md:mx-2"
+					className="mr-2"
 					label="Shul"
 				/>
-				<Input onChange={debouncedCall} id="rabbi" name="rabbi" label="Rabbi" />
+				<Input
+					className="mr-2"
+					onChange={debouncedCall}
+					id="rabbi"
+					name="rabbi"
+					label="Rabbi"
+				/>
 				{!citiesQuery.isLoading && citiesQuery.isSuccess && (
-					<div className="md:mx-2">
+					<div className="mr-2">
 						<label htmlFor="city">City:</label>
 						<FilterDropdown
 							id="city"
@@ -64,11 +70,11 @@ export default function SearchFilters({}) {
 									});
 								}
 							}))}
-							className="w-32"
+							className="w-32 "
 						/>
 					</div>
 				)}
-				<div className="md:mx-2">
+				<div className="">
 					<label htmlFor="nusach">Nusach:</label>
 					<FilterDropdown
 						id="Nusach"
