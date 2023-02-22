@@ -94,9 +94,11 @@ function MinyanTimes(props) {
 			<Tab.Group>
 				<Tab.List className="flex space-x-1 rounded-xl rounded-b-none border-b-0 bg-white p-1">
 					<Tab
+						as="span"
+						role="tab"
 						className={({ selected }) =>
 							classNames(
-								'w-full  rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
+								'w-full cursor-pointer rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
 								'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
 								selected
 									? 'bg-lightBlue shadow'
@@ -106,9 +108,11 @@ function MinyanTimes(props) {
 						Minyan
 					</Tab>
 					<Tab
+						as="span"
+						role="tab"
 						className={({ selected }) =>
 							classNames(
-								'w-full  rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
+								'w-full cursor-pointer   rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
 								'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
 								selected
 									? 'bg-lightBlue shadow'
@@ -141,9 +145,11 @@ function MinyanTimes(props) {
 										{PrayerTypes.map((type, i) => {
 											return (
 												<Tab
+													as="span"
+													role="tab"
 													className={({ selected }) =>
 														classNames(
-															'w-full  rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
+															'w-full cursor-pointer rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
 															'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
 															selected
 																? 'bg-white shadow'
