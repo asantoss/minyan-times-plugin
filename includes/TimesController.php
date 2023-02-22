@@ -72,6 +72,7 @@ class TimesController
         $sortBy = $request->get_param("sortBy");
         $post_id = $request->get_param("postId");
         $type = $request->get_param("type");
+        $holidays = $request->get_param("holidays");
 
         //Only filter the active ones by checking their effective date and expire date.
         $tableName = $this->timesTableName;
@@ -120,10 +121,19 @@ class TimesController
             $sql = $wpdb->prepare($sql . " AND  (expiresOn > %s OR expiresOn IS NULL)", $date);
         }
 
+        if ($holidays != null) {
+            foreach ($holidays as $holiday) {
+                $sql = $wpdb->prepare($sql . " AND ($holiday = 0 OR $holiday IS NULL) ");
+            }
+        }
+
+
+
 
         if ($sortBy) {
             $sql = $wpdb->prepare($sql . "ORDER BY %s ASC", $sortBy);
         }
+
 
 
 
