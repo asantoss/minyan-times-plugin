@@ -22,7 +22,7 @@ export default function TimeForm({ time, onSuccess, postId }) {
 		IsAsaraBiteves: 0,
 		IsCholHamoed: 0,
 		IsErevPesach: 0,
-		IsErevShabbos: 1,
+		IsErevShabbos: 0,
 		IsErevTishaBav: 0,
 		IsErevYomKipper: 0,
 		IsErevYomTov: 0,
@@ -236,19 +236,21 @@ export default function TimeForm({ time, onSuccess, postId }) {
 						value={timeData.notes}
 					/>
 				</div>
-				<div className="col-span-3"></div>
-				{jewishHolidays.map((e) => (
-					<Select
-						key={e + timeData?.id}
-						label={e}
-						name={e}
-						onChange={handleChange}
-						className="my-2 justify-between items-center"
-						value={timeData[e] ? timeData[e] : '0'}>
-						<option value="1">Yes</option>
-						<option value="0">No</option>
-					</Select>
-				))}
+				<div className="col-span-3 grid grid-cols-3">
+					{jewishHolidays.map((e) => (
+						<Select
+							key={e + timeData?.id}
+							label={e}
+							name={e}
+							onChange={handleChange}
+							className="my-2 justify-between items-center"
+							value={timeData[e] ? timeData[e] : '0'}>
+							<option value="1">No</option>
+							<option value="0">Yes</option>
+						</Select>
+					))}
+				</div>
+
 				<div className="col-span-3 flex items-end">
 					<Button type="submit" className=" mt-4 ml-auto   bg-blue-600">
 						Submit
