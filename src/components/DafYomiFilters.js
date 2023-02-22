@@ -38,12 +38,12 @@ export default function DafYomiFilters({}) {
 					/>
 				</div>
 			</div>
-			<fieldset className=" grid grid-cols-2 gap-2 ml-auto ">
+			<fieldset className=" flex flex-wrap md:flex-row ml-auto ">
 				<Input
 					onChange={debouncedCall}
 					id="shul"
 					name="shul"
-					className="md:mx-2"
+					className="mr-2"
 					label="Shul"
 				/>
 				<Input
@@ -51,6 +51,7 @@ export default function DafYomiFilters({}) {
 					id="teacher"
 					name="teacher"
 					label="Teacher"
+					className="mr-2"
 				/>
 				{!citiesQuery.isLoading && citiesQuery.isSuccess && (
 					<div className="md:mx-2">
