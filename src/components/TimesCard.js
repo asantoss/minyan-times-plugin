@@ -11,98 +11,86 @@ import {
 	useFilteredTimesQuery,
 	useZmanimGPSData
 } from '../utils';
-import { FormulaTypes, jewishHolidays, ViewTypes } from '../utils/enums';
+import { FormulaTypes, ViewTypes } from '../utils/enums';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
 import Accordion from './Accordion';
 import Spinner from './Spinner';
-import SponsorLogo from './SponsorLogo';
 
 export default function TimesCard({ type, children }) {
 	const [state] = useContext(PrayerTimesContext);
 
-	const timesQuery = useFilteredTimesQuery({ ...state, type });
 	const geocodeQuery = useCityGeocodeData(state.city);
 
-	let ZmanimQueryData = useZmanimGPSData(
+	let ZManQuery = useZmanimGPSData(
 		state.date,
 		geocodeQuery?.lat,
 		geocodeQuery?.lng
 	);
+	const timesQuery = useFilteredTimesQuery({
+		...state,
+		type,
+		zManTime: ZManQuery?.Time ?? null
+	});
 	const options = useMemo(() => {
 		if (
 			timesQuery.isLoading ||
 			!Array.isArray(timesQuery.data) ||
-			!ZmanimQueryData?.Zman
+			!ZManQuery?.Zman
 		) {
 			return [];
 		}
 		const { data } = timesQuery;
-		const options = (data || [])
-			.filter((e) => {
-				const anyHolidays = jewishHolidays.findIndex((h) => e[h] === '1');
-				if (anyHolidays > -1 && ZmanimQueryData?.Time) {
-					return (
-						e.type === type &&
-						ZmanimQueryData?.Time[jewishHolidays[anyHolidays]]
-					);
-				}
-				return e.type === type;
-			})
-			.reduce((acc, timeElement) => {
-				let currentTime = '';
-				timeElement.url = `/mtp_location/${timeElement?.locationSlug}`;
-				if (timeElement.isCustom === '1') {
-					let { formula, minutes } = timeElement;
-					formula = Number(formula);
-					minutes = Number(minutes);
-					if (ZmanimQueryData?.Zman) {
-						const { SunriseDefault, SunsetDefault, MinchaStrict } =
-							ZmanimQueryData?.Zman;
-						switch (formula) {
-							case FormulaTypes['Before Sunset']:
-								currentTime = formatZman(
-									addMinutes(SunsetDefault, 0 - minutes)
-								);
-								break;
-							case FormulaTypes['After Sunset']:
-								currentTime = formatZman(addMinutes(SunsetDefault, minutes));
-								break;
-							case FormulaTypes['Before Sunrise']:
-								currentTime = formatZman(
-									addMinutes(SunriseDefault, 0 - minutes)
-								);
-								break;
-							case FormulaTypes['After Sunrise']:
-								currentTime = formatZman(
-									addMinutes(SunriseDefault, Number(minutes))
-								);
-								break;
-							case FormulaTypes['Midday']:
-								currentTime = formatZman(MinchaStrict);
-								break;
-							default:
-								break;
-						}
-					} else {
-						currentTime = formatTime(timeElement);
+		const options = (data || []).reduce((acc, timeElement) => {
+			let currentTime = '';
+			timeElement.url = `/mtp_location/${timeElement?.locationSlug}`;
+			if (timeElement.isCustom === '1') {
+				let { formula, minutes } = timeElement;
+				formula = Number(formula);
+				minutes = Number(minutes);
+				if (ZManQuery?.Zman) {
+					const { SunriseDefault, SunsetDefault, MinchaStrict } =
+						ZManQuery?.Zman;
+					switch (formula) {
+						case FormulaTypes['Before Sunset']:
+							currentTime = formatZman(addMinutes(SunsetDefault, 0 - minutes));
+							break;
+						case FormulaTypes['After Sunset']:
+							currentTime = formatZman(addMinutes(SunsetDefault, minutes));
+							break;
+						case FormulaTypes['Before Sunrise']:
+							currentTime = formatZman(addMinutes(SunriseDefault, 0 - minutes));
+							break;
+						case FormulaTypes['After Sunrise']:
+							currentTime = formatZman(
+								addMinutes(SunriseDefault, Number(minutes))
+							);
+							break;
+						case FormulaTypes['Midday']:
+							currentTime = formatZman(MinchaStrict);
+							break;
+						default:
+							break;
 					}
 				} else {
-					currentTime = convertTime(timeElement.time);
+					currentTime = formatTime(timeElement);
 				}
-				const menuLabel =
-					state.sortBy === ViewTypes.TIME ? currentTime : timeElement.location;
-				const optionLabel =
-					state.sortBy === ViewTypes.TIME ? timeElement.location : currentTime;
-				if (acc[menuLabel]) {
-					acc[menuLabel] = [
-						...acc[menuLabel],
-						{ ...timeElement, label: optionLabel }
-					];
-				} else {
-					acc[menuLabel] = [{ ...timeElement, label: optionLabel }];
-				}
-				return acc;
-			}, {});
+			} else {
+				currentTime = convertTime(timeElement.time);
+			}
+			const menuLabel =
+				state.sortBy === ViewTypes.TIME ? currentTime : timeElement.location;
+			const optionLabel =
+				state.sortBy === ViewTypes.TIME ? timeElement.location : currentTime;
+			if (acc[menuLabel]) {
+				acc[menuLabel] = [
+					...acc[menuLabel],
+					{ ...timeElement, label: optionLabel }
+				];
+			} else {
+				acc[menuLabel] = [{ ...timeElement, label: optionLabel }];
+			}
+			return acc;
+		}, {});
 		return Object.fromEntries(
 			Object.keys(options)
 				.sort((a, b) => {
@@ -117,12 +105,12 @@ export default function TimesCard({ type, children }) {
 				})
 				.map((e) => [e, options[e]])
 		);
-	}, [state.sortBy, timesQuery, ZmanimQueryData]);
+	}, [state.sortBy, timesQuery, ZManQuery]);
 	return (
 		<div
 			className={classNames(
 				'w-full md:w-1/4',
-				'md:relative mb-2 md:min-h-full flex font-extrabold  text-darkBlue flex-col  text-center mx-0 md:mx-2 md:rounded-xl bg-lightBlue p-2'
+				'md:relative mb-2  md:min-h-full flex font-extrabold  text-darkBlue flex-col text-center  md:mx-2 md:rounded-xl bg-lightBlue p-2'
 			)}>
 			<div>
 				<Spinner isLoading={timesQuery.isLoading} />
