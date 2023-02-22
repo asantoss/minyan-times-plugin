@@ -159,6 +159,7 @@ class TimesController
         $type = $parameters["type"];
         $formula = $parameters["formula"];
         $minutes = $parameters["minutes"];
+        $teacher = $parameters["teacher"];
         $notes = $parameters["notes"];
         $effectiveOn = $parameters["effectiveOn"];
         if (empty($effectiveOn)) {
@@ -169,11 +170,29 @@ class TimesController
             $expiresOn = null;
         }
         $isCustom = $parameters["isCustom"];
+
+        $IsAsaraBiteves = $parameters['IsAsaraBiteves'];
+        $IsCholHamoed = $parameters['IsCholHamoed'];
+        $IsErevPesach = $parameters['IsErevPesach'];
+        $IsErevShabbos = $parameters['IsErevShabbos'];
+        $IsErevTishaBav = $parameters['IsErevTishaBav'];
+        $IsErevYomKipper = $parameters['IsErevYomKipper'];
+        $IsErevYomTov = $parameters['IsErevYomTov'];
+        $IsFastDay = $parameters['IsFastDay'];
+        $IsRoshChodesh = $parameters['IsRoshChodesh'];
+        $IsShabbos = $parameters['IsShabbos'];
+        $IsShivaAsarBitammuz = $parameters['IsShivaAsarBitammuz'];
+        $IsTaanisEsther = $parameters['IsTaanisEsther'];
+        $IsTishaBav = $parameters['IsTishaBav'];
+        $IsTuBeshvat = $parameters['IsTuBeshvat'];
+        $IsTzomGedalia = $parameters['IsTzomGedalia'];
+        $IsYomKipper = $parameters['IsYomKipper'];
+        $IsYomTov = $parameters['IsYomTov'];
+
         if (($time || $isCustom == "1") && $postId && $day) {
             $insert = $wpdb->insert(
                 $this->timesTableName,
                 array(
-                    ...$parameters,
                     "time" => $time,
                     "post_id" => (int)$postId,
                     "isCustom" => (int)$isCustom,
@@ -185,6 +204,24 @@ class TimesController
                     "expiresOn" => $expiresOn,
                     "effectiveOn" => $effectiveOn,
                     "notes" => $notes,
+                    'IsAsaraBiteves' => (int)$IsAsaraBiteves,
+                    'IsCholHamoed' => (int)$IsCholHamoed,
+                    'IsErevPesach' => (int)$IsErevPesach,
+                    'IsErevShabbos' => (int)$IsErevShabbos,
+                    'IsErevTishaBav' => (int)$IsErevTishaBav,
+                    'IsErevYomKipper' => (int)$IsErevYomKipper,
+                    'IsErevYomTov' => (int)$IsErevYomTov,
+                    'IsFastDay' => (int)$IsFastDay,
+                    'IsRoshChodesh' => (int)$IsRoshChodesh,
+                    'IsShabbos' => (int)$IsShabbos,
+                    'IsShivaAsarBitammuz' => (int)$IsShivaAsarBitammuz,
+                    'IsTaanisEsther' => (int)$IsTaanisEsther,
+                    'IsTishaBav' => (int)$IsTishaBav,
+                    'IsTuBeshvat' => (int)$IsTuBeshvat,
+                    'IsTzomGedalia' => (int)$IsTzomGedalia,
+                    'IsYomKipper' => (int)$IsYomKipper,
+                    'IsYomTov' => (int)$IsYomTov,
+                    'teacher' => $teacher
                 )
             );
             if ($insert) {
@@ -192,7 +229,7 @@ class TimesController
             }
         }
 
-        return new WP_Error('invalid', 'Invalid body', array('status' => 404));
+        return new WP_Error('invalid', $wpdb->last_error, array('status' => 400));
     }
 
     function delete_time($request)
@@ -208,7 +245,7 @@ class TimesController
         if ($delete) {
             return rest_ensure_response("Success");
         }
-        return new WP_Error("invalid", "bad input", array("status" => 400));
+        return new WP_Error("invalid", $wpdb->last_error, array("status" => 400));
     }
 
 
@@ -226,6 +263,8 @@ class TimesController
         $minutes = $parameters["minutes"];
         $isCustom = $parameters["isCustom"];
         $notes = $parameters["notes"];
+        $teacher = $parameters["teacher"];
+
         $effectiveOn = $parameters["effectiveOn"];
         if (empty($effectiveOn) || $effectiveOn == "0000-00-00") {
             $effectiveOn = null;
@@ -234,8 +273,27 @@ class TimesController
         if (empty($expiresOn) || $expiresOn == "0000-00-00") {
             $expiresOn = null;
         }
+        $IsAsaraBiteves = $parameters['IsAsaraBiteves'];
+        $IsCholHamoed = $parameters['IsCholHamoed'];
+        $IsErevPesach = $parameters['IsErevPesach'];
+        $IsErevShabbos = $parameters['IsErevShabbos'];
+        $IsErevTishaBav = $parameters['IsErevTishaBav'];
+        $IsErevYomKipper = $parameters['IsErevYomKipper'];
+        $IsErevYomTov = $parameters['IsErevYomTov'];
+        $IsFastDay = $parameters['IsFastDay'];
+        $IsRoshChodesh = $parameters['IsRoshChodesh'];
+        $IsShabbos = $parameters['IsShabbos'];
+        $IsShivaAsarBitammuz = $parameters['IsShivaAsarBitammuz'];
+        $IsTaanisEsther = $parameters['IsTaanisEsther'];
+        $IsTishaBav = $parameters['IsTishaBav'];
+        $IsTuBeshvat = $parameters['IsTuBeshvat'];
+        $IsTzomGedalia = $parameters['IsTzomGedalia'];
+        $IsYomKipper = $parameters['IsYomKipper'];
+        $IsYomTov = $parameters['IsYomTov'];
+
+
+
         $updatePayload = array(
-            ...$parameters,
             "time" => $time,
             "nusach" => $nusach,
             "day" => $day,
@@ -246,6 +304,24 @@ class TimesController
             "expiresOn" => $expiresOn,
             "effectiveOn" => $effectiveOn,
             "notes" => $notes,
+            'IsAsaraBiteves' => (int)$IsAsaraBiteves,
+            'IsCholHamoed' => (int)$IsCholHamoed,
+            'IsErevPesach' => (int)$IsErevPesach,
+            'IsErevShabbos' => (int)$IsErevShabbos,
+            'IsErevTishaBav' => (int)$IsErevTishaBav,
+            'IsErevYomKipper' => (int)$IsErevYomKipper,
+            'IsErevYomTov' => (int)$IsErevYomTov,
+            'IsFastDay' => (int)$IsFastDay,
+            'IsRoshChodesh' => (int)$IsRoshChodesh,
+            'IsShabbos' => (int)$IsShabbos,
+            'IsShivaAsarBitammuz' => (int)$IsShivaAsarBitammuz,
+            'IsTaanisEsther' => (int)$IsTaanisEsther,
+            'IsTishaBav' => (int)$IsTishaBav,
+            'IsTuBeshvat' => (int)$IsTuBeshvat,
+            'IsTzomGedalia' => (int)$IsTzomGedalia,
+            'IsYomKipper' => (int)$IsYomKipper,
+            'IsYomTov' => (int)$IsYomTov,
+            'teacher' => $teacher
         );
         $update = $wpdb->update(
             $this->timesTableName,
@@ -259,7 +335,7 @@ class TimesController
             case 0:
                 return rest_ensure_response("No record updated");
             default:
-                return new WP_Error("invalid", "bad input", array("status" => 400, 'update' => $update));
+                return new WP_Error("invalid", $wpdb->last_error, array("status" => 400, 'update' => $update));
         }
     }
 }
