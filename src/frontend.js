@@ -6,7 +6,9 @@ import { Tab } from '@headlessui/react';
 import {
 	classNames,
 	getCityGeocode,
+	getNextSetOfDays,
 	queryClient,
+	startDate,
 	useZmanimGPSApi
 } from './utils';
 import { Helmet } from 'react-helmet';
@@ -15,6 +17,9 @@ import ZManimDisplay from './components/ZManimDisplay';
 import SponsorLogo from './components/SponsorLogo';
 import TimesCard from './components/TimesCard';
 import WeekdayFilter from './components/WeekdaysFilter';
+import DafYomiWeekdayFilter, {
+	getDafYomiSetOfDays
+} from './components/DafYomiWeekdayFilter';
 import usePrayerTimesReducer, {
 	PrayerTimesContext
 } from './utils/hooks/usePrayerTimesReducer';
@@ -26,19 +31,29 @@ if (window.elementorFrontend) {
 	window.addEventListener('elementor/frontend/init', () => {
 		elementorFrontend.hooks.addAction(
 			'frontend/element_ready/minyan-times-block.default',
-			renderApp
+			() => renderApp('mtp-plugin')
 		);
 		elementorFrontend.hooks.addAction(
 			'panel/open_editor/minyan-times-block.default',
-			renderApp
+			() => renderApp('mtp-plugin')
+		);
+	});
+	window.addEventListener('elementor/frontend/init', () => {
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/daf-yomi-times-block.default',
+			() => renderApp('mtp-plugin-daf-yomi')
+		);
+		elementorFrontend.hooks.addAction(
+			'panel/open_editor/daf-yomi-times-block.default',
+			() => renderApp('mtp-plugin-daf-yomi')
 		);
 	});
 } else {
 	document.addEventListener('DOMContentLoaded', renderApp, { once: true });
 }
 
-async function renderApp() {
-	let root = document.getElementById('mtp-plugin');
+async function renderApp(id = 'mtp-plugin') {
+	let root = document.getElementById(id);
 	if (root) {
 		const dataEl = root.querySelector('pre');
 		let data = {};
@@ -60,12 +75,15 @@ async function renderApp() {
 }
 
 function MinyanTimes(props) {
-	const { zipCode, city, googleKey } = props;
+	const { city, googleKey, isDafYomi } = props;
 
 	const [state, dispatch] = usePrayerTimesReducer({
-		zipCode,
 		city,
-		googleKey
+		googleKey,
+		date: isDafYomi ? new Date() : startDate,
+		week: isDafYomi
+			? getDafYomiSetOfDays(new Date(), 6)
+			: getNextSetOfDays(startDate, 6)
 	});
 	const geoQuery = getCityGeocode({
 		city: state.city,
@@ -90,115 +108,106 @@ function MinyanTimes(props) {
 				<meta charSet="utf-8" />
 			</Helmet>
 			<ZManimDisplay />
-			<WeekdayFilter />
-			<Tab.Group>
-				<Tab.List className="flex space-x-1 rounded-xl rounded-b-none border-b-0 bg-white p-1">
-					<Tab
-						as="span"
-						role="tab"
-						className={({ selected }) =>
-							classNames(
-								'w-full cursor-pointer rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
-								'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-								selected
-									? 'bg-lightBlue shadow'
-									: ' hover:bg-white/[0.12] hover:text-black'
-							)
-						}>
-						Minyan
-					</Tab>
-					<Tab
-						as="span"
-						role="tab"
-						className={({ selected }) =>
-							classNames(
-								'w-full cursor-pointer   rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
-								'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-								selected
-									? 'bg-lightBlue shadow'
-									: ' hover:bg-white/[0.12] hover:text-black'
-							)
-						}>
-						Daf Yomi
-					</Tab>
-				</Tab.List>
-				<Tab.Panels>
-					<Tab.Panel>
-						<div className="flex-col font-sans flex w-full">
-							<SearchFilters />
-							<div className="hidden md:flex md:justify-between my-2 items-start">
-								{PrayerTypes.map((type, i) => {
-									return (
-										<TimesCard key={type} type={type}>
-											<span className=" my-2">{type}</span>
 
-											{sponsors[type] && (
-												<SponsorLogo sponsor={sponsors[type]} />
-											)}
-										</TimesCard>
-									);
-								})}
-							</div>
-							<div className="md:hidden">
-								<Tab.Group>
-									<Tab.List className="flex space-x-1 rounded-xl rounded-b-none border-b-0 bg-lightBlue p-1">
-										{PrayerTypes.map((type, i) => {
-											return (
-												<Tab
-													as="span"
-													role="tab"
-													className={({ selected }) =>
-														classNames(
-															'w-full cursor-pointer rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
-															'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-															selected
-																? 'bg-white shadow'
-																: ' hover:bg-white/[0.12] hover:text-black'
-														)
-													}
-													key={type + i}>
-													{type}
-												</Tab>
-											);
-										})}
-									</Tab.List>
-									<Tab.Panels>
-										{PrayerTypes.map((type, i) => {
-											return (
-												<Tab.Panel
-													className={classNames(
-														'rounded-xl rounded-t-none bg-lightBlue py-2',
-														'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-													)}
-													key={type + i}>
-													<TimesCard key={type} type={type}>
-														{sponsors[type] && (
-															<SponsorLogo sponsor={sponsors[type]} />
-														)}
-													</TimesCard>
-												</Tab.Panel>
-											);
-										})}
-									</Tab.Panels>
-								</Tab.Group>
-							</div>
-						</div>
-					</Tab.Panel>
-					<Tab.Panel>
-						<div className="font-sans">
-							<DafYomiFilters />
-							<div className="mt-2 rounded-xl bg-lightBlue md:bg-white md:items-center p-2 flex justify-center">
-								<TimesCard type="Daf Yomi">
-									<span className=" my-2">Daf Yomi</span>
-									{sponsors['Daf Yomi'] && (
-										<SponsorLogo sponsor={sponsors['Daf Yomi']} />
-									)}
+			{isDafYomi ? <DafYomiWeekdayFilter /> : <WeekdayFilter />}
+			<div className="flex-col font-sans flex w-full">
+				{isDafYomi ? <DafYomiFilters /> : <SearchFilters />}
+				<div className="hidden md:flex md:justify-center my-2 items-start">
+					{isDafYomi ? (
+						<TimesCard type="Daf Yomi">
+							<span className=" my-2">Daf Yomi</span>
+
+							{sponsors['Daf Yomi'] && (
+								<SponsorLogo sponsor={sponsors['Daf Yomi']} />
+							)}
+						</TimesCard>
+					) : (
+						PrayerTypes.map((type, i) => {
+							return (
+								<TimesCard key={type} type={type}>
+									<span className=" my-2">{type}</span>
+
+									{sponsors[type] && <SponsorLogo sponsor={sponsors[type]} />}
 								</TimesCard>
-							</div>
-						</div>
-					</Tab.Panel>
-				</Tab.Panels>
-			</Tab.Group>
+							);
+						})
+					)}
+				</div>
+				<div className="md:hidden">
+					<Tab.Group>
+						<Tab.List className="flex space-x-1 rounded-xl rounded-b-none border-b-0 bg-lightBlue p-1">
+							{isDafYomi ? (
+								<Tab
+									as="span"
+									role="tab"
+									className={({ selected }) =>
+										classNames(
+											'w-full cursor-pointer rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
+											'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+											selected
+												? 'bg-white shadow'
+												: ' hover:bg-white/[0.12] hover:text-black'
+										)
+									}>
+									Daf Yomi
+								</Tab>
+							) : (
+								PrayerTypes.map((type, i) => {
+									return (
+										<Tab
+											as="span"
+											role="tab"
+											className={({ selected }) =>
+												classNames(
+													'w-full cursor-pointer rounded-lg py-2.5 text-md leading-5 font-bold text-center text-darkBlue',
+													'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+													selected
+														? 'bg-white shadow'
+														: ' hover:bg-white/[0.12] hover:text-black'
+												)
+											}
+											key={type + i}>
+											{type}
+										</Tab>
+									);
+								})
+							)}
+						</Tab.List>
+						<Tab.Panels>
+							{isDafYomi ? (
+								<Tab.Panel
+									className={classNames(
+										'rounded-xl rounded-t-none bg-lightBlue py-2',
+										'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+									)}>
+									<TimesCard type="Daf Yomi">
+										{sponsors['Daf Yomi'] && (
+											<SponsorLogo sponsor={sponsors['Daf Yomi']} />
+										)}
+									</TimesCard>
+								</Tab.Panel>
+							) : (
+								PrayerTypes.map((type, i) => {
+									return (
+										<Tab.Panel
+											className={classNames(
+												'rounded-xl rounded-t-none bg-lightBlue py-2',
+												'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+											)}
+											key={type + i}>
+											<TimesCard key={type} type={type}>
+												{sponsors[type] && (
+													<SponsorLogo sponsor={sponsors[type]} />
+												)}
+											</TimesCard>
+										</Tab.Panel>
+									);
+								})
+							)}
+						</Tab.Panels>
+					</Tab.Group>
+				</div>
+			</div>
 		</PrayerTimesContext.Provider>
 	);
 }

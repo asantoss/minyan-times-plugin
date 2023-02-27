@@ -76,13 +76,8 @@ function SettingsPage() {
 					<span className="ml-auto mt-2 text-right pr-4">
 						<Modal
 							title="Add Time"
-							button={({ setIsOpen }) => (
+							button={() => (
 								<>
-									<Button
-										onClick={() => setIsOpen(true)}
-										className="rounded-md bg-blue-700 ml-auto my-2 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-										Add Time
-									</Button>
 									{!timesQuery.isLoading && (
 										<Button
 											onClick={handleTimeExport}

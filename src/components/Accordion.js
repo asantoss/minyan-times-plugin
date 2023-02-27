@@ -20,7 +20,7 @@ export default function Accordion({ title, options = [] }) {
 		<Disclosure
 			as="div"
 			className={classNames(
-				'md:relative text-sm font-bold p-1 text-left my-1 rounded-lg border-0 bg-white '
+				'md:relative text-sm font-bold px-1 py-2 text-left my-1 rounded-lg border-0 bg-white '
 			)}>
 			{({ open }) => (
 				<>

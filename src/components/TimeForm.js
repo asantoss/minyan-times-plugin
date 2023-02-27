@@ -13,9 +13,9 @@ import {
 	PrayerTypes
 } from '../utils/enums';
 import { XMarkIcon } from '@heroicons/react/24/solid';
+
 export default function TimeForm({ time, onSuccess, postId }) {
-	const locationQuery = useLocationQuery();
-	const { mutate } = useTimeMutation(time?.id);
+	const { mutate } = useTimeMutation(time?.id, onSuccess);
 	const [timeData, setTimeData] = useState({
 		isCustom: 0,
 		post_id: postId,
@@ -36,11 +36,13 @@ export default function TimeForm({ time, onSuccess, postId }) {
 		IsTzomGedalia: 0,
 		IsYomKipper: 0,
 		IsYomTov: 0,
+		holidayFilter: 0,
 		notes: '',
 		...(time || {})
 	});
 	const handleChange = (e) => {
 		const { name, value } = e.target;
+		console.log(name, value);
 		setTimeData({
 			...timeData,
 			[name]: value
@@ -52,9 +54,12 @@ export default function TimeForm({ time, onSuccess, postId }) {
 		const body = new FormData(e.target);
 		const payload = new FormData();
 		for (const key in timeData) {
-			if (body.has(key) && timeData[key]) {
+			if (body.has(key) && timeData[key] != undefined) {
 				payload.set(key, timeData[key]);
 			}
+		}
+		for (const holiday of jewishHolidays) {
+			payload.set(holiday, timeData[holiday]);
 		}
 		if (time && time?.id) {
 			payload.set('id', time.id);
@@ -62,24 +67,15 @@ export default function TimeForm({ time, onSuccess, postId }) {
 		if (postId) {
 			payload.set('post_id', postId);
 		}
-		await mutate(payload);
-		if (onSuccess) {
-			onSuccess();
-		}
+		mutate(payload);
 	};
 
-	function handleChangeDay(value) {
-		const selectedDays = days.filter((e) => value.includes(e));
-		setTimeData({
-			...timeData,
-			day: selectedDays.join(', ')
-		});
-	}
 	function handleChangeHoliday(event) {
-		const { name, value } = event.target;
+		const { name, checked } = event.target;
+
 		setTimeData({
 			...timeData,
-			[name]: value === 'true' ? 1 : 0
+			[name]: checked ? 0 : 1
 		});
 	}
 
@@ -88,21 +84,32 @@ export default function TimeForm({ time, onSuccess, postId }) {
 		[timeData]
 	);
 
+	const dayOptions = useMemo(
+		() => (timeData.type === 'Daf Yomi' ? [...days, 'Saturday'] : days),
+		[timeData]
+	);
+
+	function handleChangeDay(value) {
+		const selectedDays = dayOptions.filter((e) => value.includes(e));
+		setTimeData({
+			...timeData,
+			day: selectedDays.join(', ')
+		});
+	}
+
 	return (
 		<div>
 			<form
 				onSubmit={handleSubmit}
 				className="grid gap-4 grid-cols-3 p-4 bg-wpBg">
-				<div className="self-end">
-					<Select
-						label="Controller"
-						value={timeData.isCustom}
-						onChange={handleChange}
-						name="isCustom">
-						<option value="0">Normal</option>
-						<option value="1">Custom</option>
-					</Select>
-				</div>
+				<Select
+					label="Controller"
+					value={timeData.isCustom}
+					onChange={handleChange}
+					name="isCustom">
+					<option value="0">Normal</option>
+					<option value="1">Custom</option>
+				</Select>
 				{isCustom ? (
 					<>
 						<Select
@@ -157,34 +164,19 @@ export default function TimeForm({ time, onSuccess, postId }) {
 						onChange={handleChange}
 						value={timeData.teacher}
 						name="teacher"
-						label="Teacher"
+						label="Maggid Shiur"
 						required
 					/>
 				)}
 				<Select
 					onChange={handleChange}
 					value={timeData.nusach}
-					required
 					name="nusach"
 					label="Nusach">
-					<option value="all">All</option>
+					<option value="">--</option>
 					{NusachOptions.map((e) => (
 						<option value={e} key={e}>
 							{e}
-						</option>
-					))}
-				</Select>
-
-				<Select
-					onChange={handleChange}
-					value={timeData.post_id}
-					required
-					disabled={!!postId}
-					name="post_id"
-					label="Location">
-					{(locationQuery.data ?? []).map((e) => (
-						<option key={e.ID} value={e.ID}>
-							{e.post_title}
 						</option>
 					))}
 				</Select>
@@ -194,7 +186,7 @@ export default function TimeForm({ time, onSuccess, postId }) {
 					name="day"
 					onChange={handleChangeDay}
 					value={timeData.day}
-					options={days.map((e) => ({ label: e, value: e }))}
+					options={dayOptions.map((e) => ({ label: e, value: e }))}
 				/>
 
 				<div className="flex items-center">
@@ -243,19 +235,37 @@ export default function TimeForm({ time, onSuccess, postId }) {
 						value={timeData.notes}
 					/>
 				</div>
-				<div className="col-span-3 grid grid-cols-3 text-center">
+				<div>
+					<Select
+						name="holidayFilter"
+						id="holidayFilter"
+						onChange={handleChange}
+						label="Holiday Filter"
+						value={timeData.holidayFilter}>
+						<option value="1">Hide</option>
+						<option value="0">Show</option>
+					</Select>
+				</div>
+				<fieldset className="col-span-3 grid grid-cols-3 text-center">
+					<legend>
+						{' '}
+						This entry will always
+						<b>{Number(timeData?.holidayFilter) === 1 ? ' hide ' : ' show '}</b>
+						on the <b>checked</b> holidays.
+					</legend>
 					{jewishHolidays.map((e) => (
 						<Input
 							type="checkbox"
 							key={e + timeData?.id}
 							label={e}
+							id={e}
 							name={e}
 							onChange={handleChangeHoliday}
 							className="my-2 justify-between items-center"
 							checked={Number(timeData[e]) !== 1}
 							value={Number(timeData[e]) !== 1}></Input>
 					))}
-				</div>
+				</fieldset>
 
 				<div className="col-span-3 flex items-end">
 					<Button type="submit" className=" mt-4 ml-auto   bg-blue-600">

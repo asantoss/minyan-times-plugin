@@ -54,7 +54,9 @@ export default function TimeSettings({ postId, columns = defaultCol }) {
 					<Modal
 						title="Edit Time"
 						button={
-							<button className="text-indigo-600 mr-2 hover:text-indigo-900 ">
+							<button
+								type="button"
+								className="text-indigo-600 mr-2 hover:text-indigo-900 ">
 								<PencilSquareIcon className="h-4 w-4" />
 								<span className="sr-only">Edit</span>
 							</button>
@@ -70,7 +72,7 @@ export default function TimeSettings({ postId, columns = defaultCol }) {
 					<Modal
 						title="Delete Confirmation"
 						button={
-							<button className="text-red-600 hover:text-red-900 ml-2">
+							<button type="button" className="text-red-600 hover:text-red-900 ml-2">
 								<TrashIcon className="h-4 w-4" />
 								<span className="sr-only">Delete</span>
 							</button>

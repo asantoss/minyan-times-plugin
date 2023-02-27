@@ -152,7 +152,9 @@ class LocationMetaBlock extends Widget_Base
             <div class="location-meta-tags">
                 <?php
                 foreach ($time_records as $time) {
-                    echo "<span>" . $time->nusach . "</span>";
+                    if ($time->nusach) {
+                        echo "<span>" . $time->nusach . "</span>";
+                    }
                 }
                 ?>
             </div>
@@ -188,8 +190,36 @@ class LocationMetaBlock extends Widget_Base
     {
         # code...
     ?>
-        <span class='mtp-time-block'>
-            <pre style="display: none;">{{{JSON.stringify(settings)}}}</pre>
+        <span class='mtp-block location-meta-widget'>
+            <div class="location-meta-tags">
+                <span>Shacharis</span>
+                <span>Mincha</span>
+                <span>Mincha/Maariv</span>
+                <span>Maariv</span>
+            </div>
+            <h2 class="font-bold" style="font-weight: bold; font-size: 1.25rem; ">
+                Location Rabbi
+            </h2>
+            <br />
+            <div>
+                <span>
+                    123 Main St
+                </span><br />
+                <span>City, State, ZipCode</span>
+            </div>
+            <div style="margin-top: 5px;">
+                <a class="location-meta-widget-link" rel="noopener" target="_blank" href="https://google.com">
+                    google.com
+                </a>
+                <br />
+                <a class="location-meta-widget-link" href="tel:555-555-5555">
+                    555-555-5555
+                </a>
+                <br />
+                <a class="location-meta-widget-link" href="mailto:help@location.com">
+                    help@location.com
+                </a>
+            </div>
         </span>
 <?php
 

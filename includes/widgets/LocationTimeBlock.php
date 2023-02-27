@@ -93,6 +93,7 @@ class LocationTimeBlock extends Widget_Base
                     'Mincha/Maariv' => esc_html__('Mincha/Maariv', 'textdomain'),
                     'Maariv' => esc_html__('Maariv', 'textdomain'),
                     'Shacharis' => esc_html__('Shacharis', 'textdomain'),
+                    'Daf Yomi' => esc_html__('Daf Yomi', 'textdomain'),
                 ],
             ]
         );
@@ -121,10 +122,10 @@ class LocationTimeBlock extends Widget_Base
             $attributes["city"] = $city;
         }
 ?>
-        <span class="mtp-time-block">
-            <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-        </span>
-    <?php
+<span class="mtp-time-block">
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+</span>
+<?php
 
         # code...
     }
@@ -132,9 +133,9 @@ class LocationTimeBlock extends Widget_Base
     {
         # code...
     ?>
-        <span class='mtp-time-block'>
-            <pre style="display: none;">{{{JSON.stringify(settings)}}}</pre>
-        </span>
+<span class='mtp-time-block'>
+    <pre style="display: none;">{{{JSON.stringify(settings)}}}</pre>
+</span>
 <?php
 
     }

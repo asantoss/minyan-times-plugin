@@ -1,5 +1,4 @@
 import { classNames } from '../utils';
-
 export default function Example({
 	variant,
 	color = 'indigo',

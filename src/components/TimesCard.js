@@ -29,7 +29,7 @@ export default function TimesCard({ type, children }) {
 	const timesQuery = useFilteredTimesQuery({
 		...state,
 		type,
-		zManTime: ZManQuery?.Time ?? null
+		zManTime: ZManQuery?.Time || null
 	});
 	const options = useMemo(() => {
 		if (
@@ -77,10 +77,21 @@ export default function TimesCard({ type, children }) {
 			} else {
 				currentTime = convertTime(timeElement.time);
 			}
-			const menuLabel =
+
+			let menuLabel =
 				state.sortBy === ViewTypes.TIME ? currentTime : timeElement.location;
-			const optionLabel =
+			let optionLabel =
 				state.sortBy === ViewTypes.TIME ? timeElement.location : currentTime;
+			if (type === 'Daf Yomi' && timeElement.teacher) {
+				menuLabel =
+					state.sortBy === ViewTypes.TIME
+						? currentTime
+						: `${timeElement.location} (${timeElement.teacher})`;
+				optionLabel =
+					state.sortBy === ViewTypes.TIME
+						? `${timeElement.location} (${timeElement.teacher})`
+						: currentTime;
+			}
 			if (acc[menuLabel]) {
 				acc[menuLabel] = [
 					...acc[menuLabel],
@@ -109,7 +120,7 @@ export default function TimesCard({ type, children }) {
 	return (
 		<div
 			className={classNames(
-				'w-full md:w-1/4',
+				'w-full ',
 				'md:relative mb-2  md:min-h-full flex font-extrabold  text-darkBlue flex-col text-center  md:mx-2 md:rounded-xl bg-lightBlue p-2'
 			)}>
 			<div>
@@ -119,16 +130,33 @@ export default function TimesCard({ type, children }) {
 					timesQuery.data &&
 					Object.keys(options).map((j) => {
 						let title = j;
-						const isCalculated = options[j].every((e) => e?.isCustom === '1');
-						if (isCalculated) {
-							title = (
-								<span className="inline-flex  justify-between w-full">
-									{title}{' '}
-									<span class="bg-yellow-100 self-center text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
-										Approximate
-									</span>
-								</span>
+						if (state.sortBy === ViewTypes.TIME) {
+							const isEveryCalculated = options[j].every(
+								(e) => e?.isCustom === '1'
 							);
+							if (isEveryCalculated) {
+								title = (
+									<span className="inline-flex  justify-between w-full">
+										{title}{' '}
+										<span class="bg-yellow-100 self-center text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+											Approximate
+										</span>
+									</span>
+								);
+							}
+						} else {
+							options[j].forEach((option) => {
+								if (option.isCustom === '1') {
+									option.label = (
+										<span className="inline-flex items-center  justify-between w-full">
+											{option.label}{' '}
+											<span class="bg-yellow-100 self-center text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+												Approximate
+											</span>
+										</span>
+									);
+								}
+							});
 						}
 						return <Accordion title={title} options={options[j]} />;
 					})}

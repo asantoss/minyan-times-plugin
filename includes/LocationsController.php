@@ -31,6 +31,29 @@ class LocationsController
         );
         register_rest_route(
             "minyan-times/v1",
+            "shuls",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_shuls'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
+            "rabbis",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_rabbis'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+
+        register_rest_route(
+            "minyan-times/v1",
             "migrate",
             array(
                 'methods' => WP_REST_Server::CREATABLE,
@@ -46,6 +69,8 @@ class LocationsController
         global $wpdb;
 
         $locationSql = "SELECT Id, name, address, city, zipCode, state FROM wp_locations";
+
+
         $results = $wpdb->get_results($locationSql);
 
 
@@ -89,16 +114,56 @@ class LocationsController
         }, $results);
         return $cities;
     }
+
+    public function get_rabbis($request)
+    {
+        global $wpdb;
+        $city = $request->get_param("city");
+
+        $sql = $wpdb->prepare('SELECT DISTINCT  pm.meta_value as rabbi FROM wp_posts l
+        INNER JOIN wp_postmeta  pm on l.ID = pm.post_id AND pm.meta_key = %s
+        INNER JOIN wp_postmeta  cpm on l.ID = cpm.post_id AND cpm.meta_key = %s
+        WHERE  l.post_type = %s AND NULLIF(pm.meta_value, \'\') IS NOT NULL ', ['rabbi', 'city', 'mtp_location']);
+        if ($city) {
+            $search_text = "%" . $city . "%";
+            $sql = $wpdb->prepare($sql . " AND LOWER( cpm.meta_value ) LIKE  LOWER (%s)", $search_text);
+        }
+        $results = $wpdb->get_results($sql);
+
+        $rabbis = array_map(function ($record) {
+            return $record->rabbi;
+        }, $results);
+
+        return $rabbis;
+    }
+
+    public function get_shuls($request)
+    {
+        global $wpdb;
+        $city = $request->get_param("city");
+
+        $sql = $wpdb->prepare('SELECT DISTINCT post_title FROM wp_posts l
+        INNER JOIN wp_postmeta  cpm on l.ID = cpm.post_id AND cpm.meta_key = %s
+        WHERE  l.post_type= %s AND cpm.meta_key IS NOT NULL ', ['city', 'mtp_location']);
+        if ($city) {
+            $search_text = "%" . $city . "%";
+            $sql = $wpdb->prepare($sql . " AND LOWER( cpm.meta_value ) LIKE  LOWER (%s)", $search_text);
+        }
+        $results = $wpdb->get_results($sql);
+
+        $shuls = array_map(function ($record) {
+            return $record->post_title;
+        }, $results);
+
+        return $shuls;
+    }
     function get_location_posts()
     {
-
         global $wpdb;
         $sql = $wpdb->prepare('SELECT ID, post_title FROM wp_posts WHERE post_type = %s', 'mtp_location');
 
 
         $posts = $wpdb->get_results($sql);
-
-
         foreach ($posts as $post) {
             $post->address = get_post_meta($post->ID, 'address', true);
             $post->rabbi = get_post_meta($post->ID, 'rabbi', true);
@@ -108,9 +173,9 @@ class LocationsController
             $post->geometry = get_post_meta($post->ID, 'geometry', true);
             # code...
         }
-
         return wp_send_json($posts);
     }
+
 
 
     function perm_callback()

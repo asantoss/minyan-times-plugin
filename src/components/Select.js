@@ -17,17 +17,12 @@ import { classNames } from '../utils';
 export default function Select({ label, children, className, ...props }) {
 	return (
 		<div className={className}>
-			<label
-				htmlFor={props.id || props.name}
-				className="block text-sm font-medium text-gray-700">
+			<label htmlFor={props.id || props.name} className="font-bold block">
 				{label}
 			</label>
 			<select
 				{...props}
-				className={classNames(
-					'mt-1 block w-full border-2 p-2 rounded-md border-gray-300  pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-				)}>
-				<option>---</option>
+				className="w-full mt-1 border-2 py-2 rounded-md border-gray-300 px-3 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
 				{children}
 			</select>
 		</div>

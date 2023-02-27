@@ -27,6 +27,17 @@ class TimesController
         );
         register_rest_route(
             "minyan-times/v1",
+            "teachers",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_teachers'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
             "times/(?P<id>\d+)",
             array(
                 array(
@@ -59,7 +70,24 @@ class TimesController
     {
         return current_user_can('manage_options');
     }
+    public function get_teachers($request)
+    {
+        global $wpdb;
+        $city = $request->get_param("city");
 
+
+        $tableName = $this->timesTableName;
+        $sql = "SELECT  teacher FROM  $tableName t INNER JOIN wp_posts l ON t.post_id = l.ID INNER JOIN wp_postmeta cpm on t.post_id = cpm.post_id AND cpm.meta_key = 'city' WHERE 1=1 AND NULLIF(teacher, '') IS NOT NULL";
+        if ($city) {
+            $search_text = "%" . $city . "%";
+            $sql = $wpdb->prepare($sql . " AND LOWER( cpm.meta_value ) LIKE  LOWER (%s)", $search_text);
+        }
+        $results = $wpdb->get_results($sql);
+        $teachers = array_map(function ($record) {
+            return $record->teacher;
+        }, $results);
+        return $teachers;
+    }
     function get_times($request)
     {
         global $wpdb;
@@ -76,8 +104,10 @@ class TimesController
 
         //Only filter the active ones by checking their effective date and expire date.
         $tableName = $this->timesTableName;
-        $sql = "SELECT t.id, t.post_id , post_title as location,IsAsaraBiteves,IsCholHamoed ,IsErevPesach ,IsErevShabbos ,      IsErevTishaBav ,IsErevYomKipper ,IsErevYomTov ,IsFastDay ,IsShabbos ,IsShivaAsarBitammuz ,IsTaanisEsther ,
-        IsTishaBav ,IsTuBeshvat ,IsTzomGedalia ,IsYomKipper ,IsYomTov,  
+        $sql = "SELECT t.id, t.post_id, holidayFilter, teacher,notes, post_title as location,
+        IsAsaraBiteves, IsCholHamoed ,IsErevPesach ,IsErevShabbos , IsErevTishaBav ,
+        IsErevYomKipper ,IsErevYomTov ,IsFastDay ,IsShabbos ,IsShivaAsarBitammuz ,IsTaanisEsther ,
+        IsTishaBav ,IsTuBeshvat ,IsTzomGedalia ,IsYomKipper ,IsYomTov, IsRoshChodesh,
         locationId, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day 
          FROM " . $tableName .
             " t LEFT JOIN wp_posts l ON t.post_id = l.ID
@@ -121,11 +151,7 @@ class TimesController
             $sql = $wpdb->prepare($sql . " AND  (expiresOn > %s OR expiresOn IS NULL)", $date);
         }
 
-        if ($holidays != null) {
-            foreach ($holidays as $holiday) {
-                $sql = $wpdb->prepare($sql . " AND ($holiday = 0 OR $holiday IS NULL) ");
-            }
-        }
+
 
 
 
@@ -140,7 +166,7 @@ class TimesController
 
         $results = $wpdb->get_results($sql);
 
-
+        $return_items = [];
 
         foreach ($results as $item) {
             $item->address = get_post_meta($item->post_id, 'address', true);
@@ -150,12 +176,30 @@ class TimesController
             $item->zipCode = get_post_meta($item->post_id, 'zipCode', true);
             $item->geometry = get_post_meta($item->post_id, 'geometry', true);
             $item->locationSlug = basename(get_permalink($item->post_id));
+            $holidayFilter = $item->holidayFilter;
+            $isHidden = $holidayFilter == "1";
+            foreach ($holidays as $holiday => $val) {
+                $itemVal = $item->$holiday;
+                if ($holidayFilter === "1") {
+                    if ($itemVal === "0" && $val === "true") {
+                        $isHidden = false;
+                    }
+                } else {
+                    if ($itemVal === "1" && $val === "true") {
+                        $isHidden = true;
+                    }
+                }
+            }
+            if (!$isHidden) {
+
+                array_push($return_items, $item);
+            }
             # code...
         }
 
 
 
-        return $results;
+        return $return_items;
     }
 
     function create_time($request)
@@ -171,6 +215,7 @@ class TimesController
         $minutes = $parameters["minutes"];
         $teacher = $parameters["teacher"];
         $notes = $parameters["notes"];
+        $holidayFilter = $parameters["holidayFilter"];
         $effectiveOn = $parameters["effectiveOn"];
         if (empty($effectiveOn)) {
             $effectiveOn = null;
@@ -231,6 +276,7 @@ class TimesController
                     'IsTzomGedalia' => (int)$IsTzomGedalia,
                     'IsYomKipper' => (int)$IsYomKipper,
                     'IsYomTov' => (int)$IsYomTov,
+                    'holidayFilter' => (int)$holidayFilter,
                     'teacher' => $teacher
                 )
             );
@@ -283,6 +329,7 @@ class TimesController
         if (empty($expiresOn) || $expiresOn == "0000-00-00") {
             $expiresOn = null;
         }
+        $holidayFilter = $parameters['holidayFilter'];
         $IsAsaraBiteves = $parameters['IsAsaraBiteves'];
         $IsCholHamoed = $parameters['IsCholHamoed'];
         $IsErevPesach = $parameters['IsErevPesach'];
@@ -331,6 +378,7 @@ class TimesController
             'IsTzomGedalia' => (int)$IsTzomGedalia,
             'IsYomKipper' => (int)$IsYomKipper,
             'IsYomTov' => (int)$IsYomTov,
+            'holidayFilter' => (int)$holidayFilter,
             'teacher' => $teacher
         );
         $update = $wpdb->update(

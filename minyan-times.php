@@ -6,13 +6,15 @@
 /*
 Plugin Name: Minyan Times
 Description: A component that organizes prayer times by location or time block...
-Version: 0.1.34
+Version: 0.1.60
 Author: Alexander Santos
+
+A 
 
 * Elementor tested up to: 3.5.0
 * Elementor Pro tested up to: 3.5.0
 */
-$JS_VERSION = '0.1.34';
+$JS_VERSION = '0.1.60';
 
 if (!defined('ABSPATH')) {
   exit;
@@ -58,6 +60,7 @@ class Minyantimes
     require_once(__DIR__ . "/includes/widgets/MinyanTimesBlock.php");
     require_once(__DIR__ . "/includes/widgets/LocationTimeBlock.php");
     require_once(__DIR__ . "/includes/widgets/MinyanTimesPostBlock.php");
+    require_once(__DIR__ . "/includes/widgets/DafYomiTimesBlock.php");
     require_once(__DIR__ . "/includes/widgets/LocationMetaBlock.php");
     $widgets_manager->register(new \MTP\LocationMetaBlock());
 
@@ -67,6 +70,7 @@ class Minyantimes
       'root' => esc_url_raw(rest_url()),
     ));
     $widgets_manager->register(new \MTP\MinyanTimesBlock());
+    $widgets_manager->register(new \MTP\DafTimesBlock());
 
     wp_register_script('post-block-script', plugin_dir_url(__FILE__) . 'build/PostBlock.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'new-relic-telemetry'], $JS_VERSION, true);
     wp_localize_script('post-block-script', 'wpApiSettings', array(
@@ -207,7 +211,7 @@ class MinyanTimesApi
 
   function render_location_js()
   {
-
+    global $JS_VERSION;
     add_meta_box(
       "location_metadata", // div id containing rendered fields
       "Address Information", //section Heading
@@ -220,10 +224,10 @@ class MinyanTimesApi
       'sidebar-data',
       plugins_url('/build/Sidebar.js', __FILE__),
       ['wp-element', 'wp-blocks', 'wp-components', 'wp-editor'],
-      '0.1.0',
+      $JS_VERSION,
       true
     );
-    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css');
+    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css', $JS_VERSION);
   }
 
   function render_location_meta($post)
@@ -252,9 +256,10 @@ class MinyanTimesApi
       teacher TEXT,
       notes TEXT,
       language TEXT,
-      nusach varchar(255),
+      nusach varchar(255) NULL,
       type varchar(255),
-      locationId bigint(20) unsigned NULL DEFAULT NULL,
+      holidayFilter boolean DEFAULT false,
+      locationId bigint(20) unsigned NULL,
       post_id bigint(20) unsigned NULL,
       effectiveOn date,
       expiresOn date,

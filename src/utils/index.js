@@ -7,10 +7,10 @@ import {
 	ViewTypes,
 	formulaLabels,
 	FormulaTypes,
-	SKIP_DAYS
+	SKIP_DAYS,
+	jewishHolidays
 } from './enums';
-
-import { Client } from '@googlemaps/google-maps-services-js';
+import Geocode from './Geocode';
 import { useQueries } from '@tanstack/react-query';
 
 dayjs.extend(isSameOrAfter);
@@ -52,22 +52,58 @@ export function useLocationQuery(props) {
 	);
 }
 export function useCitiesQuery(props) {
-	return useQuery(
-		{
-			queryKey: ['cities'],
-			queryFn: async () => {
-				try {
-					const response = await axiosClient.get('/cities');
-					return response.data;
-				} catch (error) {
-					throw new Error('Network response was not ok');
-				}
+	return useQuery({
+		queryKey: ['cities'],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/cities');
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
 			}
-		},
-		{
-			...props
 		}
-	);
+	});
+}
+export function useShulQuery({ city }) {
+	return useQuery({
+		queryKey: ['shuls', city],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/shuls', { params: { city } });
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
+			}
+		}
+	});
+}
+export function useRabbiQuery({ city }) {
+	return useQuery({
+		queryKey: ['rabbis', city],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/rabbis', { params: { city } });
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
+			}
+		}
+	});
+}
+export function useTeachersQuery({ city }) {
+	return useQuery({
+		queryKey: ['teachers', city],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/teachers', {
+					params: { city }
+				});
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
+			}
+		}
+	});
 }
 
 export function useDeleteTime(props) {
@@ -135,7 +171,8 @@ export function useFilteredTimesQuery({
 	date,
 	postId,
 	type,
-	teacher
+	teacher,
+	zManTime = null
 }) {
 	return useQuery(
 		{
@@ -150,7 +187,8 @@ export function useFilteredTimesQuery({
 				date,
 				postId,
 				type,
-				teacher
+				teacher,
+				zManTime
 			],
 			queryFn: async ({ queryKey }) => {
 				try {
@@ -166,7 +204,8 @@ export function useFilteredTimesQuery({
 						date,
 						postId,
 						type,
-						teacher
+						teacher,
+						zManTime
 					] = queryKey;
 					let params = {
 						city,
@@ -189,6 +228,13 @@ export function useFilteredTimesQuery({
 							type
 						};
 					}
+					if (zManTime != null) {
+						const holidays = {};
+						for (const key of jewishHolidays) {
+							holidays[key] = zManTime[key];
+						}
+						params.holidays = holidays;
+					}
 					const response = await axiosClient.get(url, { params });
 					return response.data;
 				} catch (error) {
@@ -197,7 +243,9 @@ export function useFilteredTimesQuery({
 			}
 		},
 		{
-			cacheTime: 0
+			cacheTime: 0,
+			refetchOnWindowFocus: true,
+			enabled: zManTime != null
 		}
 	);
 }
@@ -205,7 +253,7 @@ export function useTimeQueryData(key) {
 	return queryClient.getQueriesData(key);
 }
 
-export function useTimeMutation(id) {
+export function useTimeMutation(id, onSuccess) {
 	return useMutation({
 		mutationFn: async (body) => {
 			try {
@@ -222,6 +270,13 @@ export function useTimeMutation(id) {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: 'times' });
+			onSuccess();
+		},
+		onError: () => {
+			debugger;
+			window.alert(
+				'An error occurred with your submission. Please contact support.'
+			);
 		}
 	});
 }
@@ -587,8 +642,6 @@ export function capitalize(str) {
 	return str.charAt(0).toUpperCase() + lower.slice(1);
 }
 
-let client = new Client({});
-
 export function useCityGeocodeData(city) {
 	return queryClient.getQueryData(['gMap', city]);
 }
@@ -598,14 +651,12 @@ export function getCityGeocode({ googleKey, city, enabled }) {
 		async ({ queryKey }) => {
 			const [_, city] = queryKey;
 			if (city.trim()) {
-				const response = await client.geocode({
-					params: {
-						key: googleKey,
-						components: { country: 'us', locality: city }
-					}
-				});
-				if (response.status === 200) {
-					const { results } = response.data;
+				Geocode.setApiKey(googleKey);
+				Geocode.setLocationType('ROOFTOP');
+
+				const response = await Geocode.fromCity(city);
+				if (response.status === 'OK') {
+					const { results } = response;
 					if (results?.length > 0) {
 						return results[0]?.geometry?.location;
 					}
@@ -630,14 +681,11 @@ export function useGeocodeApi({ googleKey, location, enabled }) {
 		async ({ queryKey }) => {
 			const [_, address] = queryKey;
 			if (address.trim()) {
-				const response = await client.geocode({
-					params: {
-						address: address.trim(),
-						key: googleKey,
-						components: { country: 'us' }
-					}
-				});
-				return response.data;
+				Geocode.setApiKey(googleKey);
+				Geocode.setLocationType('ROOFTOP');
+
+				const response = await Geocode.fromAddress(address.trim());
+				return response;
 			}
 			return {};
 		},

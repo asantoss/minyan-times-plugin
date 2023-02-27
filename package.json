@@ -20,8 +20,8 @@
     "plugin-zip": "wp-scripts plugin-zip"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Alexander Santos",
+  "license": "MIT",
   "devDependencies": {
     "@prettier/plugin-php": "^0.19.2",
     "@wordpress/scripts": "^23.3.0",
