@@ -27,7 +27,8 @@ export default function TimeElement({ day, type, list = false }) {
 	const { data, isLoading } = useFilteredTimesQuery({
 		day,
 		postId: state.postId,
-		type
+		type,
+		zManTime: ZmanimQuery?.Time || null
 	});
 	const timeSlots = useMemo(() => {
 		return (data ?? [])
