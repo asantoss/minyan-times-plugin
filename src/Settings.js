@@ -85,11 +85,11 @@ function SettingsPage() {
 											Export To CSV
 										</Button>
 									)}
-									<Button
+									{/* <Button
 										onClick={handleMigration}
 										className="rounded-md bg-blue-700 my-2 ml-4 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
 										Migrate
-									</Button>
+									</Button> */}
 								</>
 							)}>
 							{({ setIsOpen }) => (
