@@ -247,23 +247,27 @@ export default function TimeForm({ time, onSuccess, postId }) {
 					</Select>
 				</div>
 				<fieldset className="col-span-3 grid grid-cols-3 text-center">
-					<legend>
-						{' '}
-						This entry will always
-						<b>{Number(timeData?.holidayFilter) === 1 ? ' hide ' : ' show '}</b>
-						on the <b>checked</b> holidays.
+					<legend className="text-xl">
+						This event will
+						<b>
+							{Number(timeData?.holidayFilter) === 1
+								? ' hide every day except '
+								: ' show every day including '}
+						</b>
+						<b>checked</b> holidays.
 					</legend>
 					{jewishHolidays.map((e) => (
 						<Input
 							type="checkbox"
 							key={e + timeData?.id}
-							label={e}
+							label={unCamel(e)}
 							id={e}
 							name={e}
 							onChange={handleChangeHoliday}
 							className="my-2 justify-between items-center"
 							checked={Number(timeData[e]) !== 1}
-							value={Number(timeData[e]) !== 1}></Input>
+							value={Number(timeData[e]) !== 1}
+						/>
 					))}
 				</fieldset>
 
@@ -275,4 +279,9 @@ export default function TimeForm({ time, onSuccess, postId }) {
 			</form>
 		</div>
 	);
+}
+
+function unCamel(string) {
+	string = string.replace('Is', 'On');
+	return string.replace(/[A-Z]/g, ' $&');
 }

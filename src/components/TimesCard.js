@@ -1,5 +1,4 @@
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import {
 	addMinutes,
 	classNames,
