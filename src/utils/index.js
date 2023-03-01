@@ -145,13 +145,13 @@ export function useTimesQuery(postId) {
 	return useQuery(
 		{
 			queryKey: ['times', postId],
-			queryFn: async () => {
+			queryFn: async ({ queryKey }) => {
 				try {
-					let url = '/times';
+					const [_, postId] = queryKey;
 					const params = {
 						postId
 					};
-					const response = await axiosClient.get(url, { params });
+					const response = await axiosClient.get('/location-times', { params });
 					return response.data;
 				} catch (error) {
 					throw new Error('Network response was not ok');
@@ -273,7 +273,6 @@ export function useTimeMutation(id, onSuccess) {
 			onSuccess();
 		},
 		onError: () => {
-			debugger;
 			window.alert(
 				'An error occurred with your submission. Please contact support.'
 			);

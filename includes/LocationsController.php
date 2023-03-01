@@ -20,6 +20,17 @@ class LocationsController
         );
         register_rest_route(
             "minyan-times/v1",
+            "location-times",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_location_times'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
             "cities",
             array(
                 'methods' => WP_REST_Server::READABLE,
@@ -174,6 +185,26 @@ class LocationsController
             # code...
         }
         return wp_send_json($posts);
+    }
+    function get_location_times($request)
+    {
+        global $wpdb;
+        $post_id = $request->get_param("postId");
+        $sql = "SELECT t.id, t.post_id, holidayFilter, teacher,notes, post_title as location,
+        IsAsaraBiteves, IsCholHamoed ,IsErevPesach ,IsErevShabbos , IsErevTishaBav ,
+        IsErevYomKipper ,IsErevYomTov ,IsFastDay ,IsShabbos ,IsShivaAsarBitammuz ,IsTaanisEsther ,
+        IsTishaBav ,IsTuBeshvat ,IsTzomGedalia ,IsYomKipper ,IsYomTov, IsRoshChodesh,
+        locationId, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day 
+         FROM " . $this->timesTableName .
+            " t LEFT JOIN wp_posts l ON t.post_id = l.ID
+                LEFT JOIN wp_postmeta cpm on t.post_id = cpm.post_id AND cpm.meta_key = 'city'
+                LEFT JOIN wp_postmeta rpm on t.post_id = rpm.post_id AND rpm.meta_key = 'rabbi'
+                WHERE 1=1
+                ";
+        if ($post_id) {
+            $sql = $wpdb->prepare($sql . " AND t.post_id =  %s ", $post_id);
+        }
+        return $wpdb->get_results($sql);
     }
 
 

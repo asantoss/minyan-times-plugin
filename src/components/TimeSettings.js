@@ -39,7 +39,7 @@ const defaultCol = [
 ];
 export default function TimeSettings({ postId, columns = defaultCol }) {
 	const { mutate: deleteItem } = useDeleteTime();
-	const { isLoading, isError, data, error } = useTimesQuery({ postId });
+	const { isLoading, isError, data, error } = useTimesQuery(postId);
 	if (isLoading) {
 		return <div>Loading...</div>;
 	}
@@ -72,7 +72,9 @@ export default function TimeSettings({ postId, columns = defaultCol }) {
 					<Modal
 						title="Delete Confirmation"
 						button={
-							<button type="button" className="text-red-600 hover:text-red-900 ml-2">
+							<button
+								type="button"
+								className="text-red-600 hover:text-red-900 ml-2">
 								<TrashIcon className="h-4 w-4" />
 								<span className="sr-only">Delete</span>
 							</button>
