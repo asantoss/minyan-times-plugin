@@ -56,7 +56,6 @@ export default function LocationMetadata({ googleKey }) {
 							}
 						}
 					}
-					debugger;
 					editPost({
 						meta: {
 							...addressData,

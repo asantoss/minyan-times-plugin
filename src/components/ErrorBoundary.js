@@ -6,7 +6,6 @@ export default class ErrorBoundary extends Component {
 	componentDidCatch(error) {
 		// report the error to your favorite Error Tracking tool (ex: Sentry, Bugsnag)
 		console.error(error);
-		debugger;
 		if (window.newrelic) {
 			window.newrelic.noticeError(error);
 		}
