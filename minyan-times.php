@@ -6,7 +6,7 @@
 /*
 Plugin Name: Minyan Times
 Description: A component that organizes prayer times by location or time block...
-Version: 0.1.65
+Version: 0.1.66
 Author: Alexander Santos
 
 A 
@@ -14,7 +14,7 @@ A
 * Elementor tested up to: 3.5.0
 * Elementor Pro tested up to: 3.5.0
 */
-$JS_VERSION = '0.1.65';
+$JS_VERSION = '0.1.66';
 
 if (!defined('ABSPATH')) {
   exit;
