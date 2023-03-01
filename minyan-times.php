@@ -6,7 +6,7 @@
 /*
 Plugin Name: Minyan Times
 Description: A component that organizes prayer times by location or time block...
-Version: 0.1.60
+Version: 0.1.65
 Author: Alexander Santos
 
 A 
@@ -14,7 +14,7 @@ A
 * Elementor tested up to: 3.5.0
 * Elementor Pro tested up to: 3.5.0
 */
-$JS_VERSION = '0.1.60';
+$JS_VERSION = '0.1.65';
 
 if (!defined('ABSPATH')) {
   exit;
@@ -94,10 +94,10 @@ class Minyantimes
     $attributes["postId"] = $post->ID;
 
     ob_start(); ?>
-    <div id="mtp-plugin">
-      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-    </div>
-  <?php return ob_get_clean();
+<div id="mtp-plugin">
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+</div>
+<?php return ob_get_clean();
   }
 
   function ourMenu()
@@ -123,41 +123,42 @@ class Minyantimes
   {
   ?>
 
-    <input type="text" value="<?php echo get_option("mtp_api_key") ?>" name="mtp_api_key" id="mtp_api_key" />
-  <?php
+<input type="text" value="<?php echo get_option("mtp_api_key") ?>" name="mtp_api_key" id="mtp_api_key" />
+<?php
   }
   function apiUserHtml()
   {
   ?>
 
-    <input value="<?php echo get_option("mtp_api_user") ?>" type="text" name="mtp_api_user" id="mtp_api_user" />
-  <?php
+<input value="<?php echo get_option("mtp_api_user") ?>" type="text" name="mtp_api_user" id="mtp_api_user" />
+<?php
   }
   function googleApiKey()
   {
   ?>
 
-    <input value="<?php echo get_option("mtp_google_api_key") ?>" type="text" name="mtp_google_api_key" id="mtp_google_api_key" />
-  <?php
+<input value="<?php echo get_option("mtp_google_api_key") ?>" type="text" name="mtp_google_api_key"
+    id="mtp_google_api_key" />
+<?php
   }
 
 
   function settings_page()
   {
   ?>
-    <div class="wrap">
-      <h1 class="settings_header">Minyan API Credentials</h1>
-      <form action="options.php" method="POST">
+<div class="wrap">
+    <h1 class="settings_header">Minyan API Credentials</h1>
+    <form action="options.php" method="POST">
         <?php
         settings_fields("minyantimesplugin");
         do_settings_sections("minyan-times-settings");
         submit_button();
 
         ?>
-      </form>
-    </div>
+    </form>
+</div>
 
-  <?php
+<?php
   }
 
 
@@ -182,9 +183,9 @@ class Minyantimes
     $attributes = array();
     $attributes["googleKey"] = get_option("mtp_google_api_key");
   ?><div id="mtp-plugin" class="mtp-plugin-wrapper">
-      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-    </div>
-  <?php
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+</div>
+<?php
   }
 }
 
@@ -235,9 +236,9 @@ class MinyanTimesApi
     $attributes["googleKey"] = get_option("mtp_google_api_key");
     $attributes["id"] = $post->ID;
   ?>
-    <div id="mtp-plugin-sidebar">
-      <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
-    </div>
+<div id="mtp-plugin-sidebar">
+    <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
+</div>
 <?php
   }
 
