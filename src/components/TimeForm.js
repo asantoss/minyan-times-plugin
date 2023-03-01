@@ -1,21 +1,48 @@
 import React, { useState, useMemo } from 'react';
 import { useLocationQuery, useTimeMutation } from '../utils';
+import { TextareaControl } from '@wordpress/components';
 import Input from './Input';
 import Button from './Button';
 import Select from './Select';
-import Switch from './Switch';
 import Checkboxes from './Checkboxes';
-import { days, FormulaTypes, NusachOptions, PrayerTypes } from '../utils/enums';
-export default function TimeForm({ time, onSuccess }) {
-	const locationQuery = useLocationQuery();
-	const { mutate } = useTimeMutation(time?.id);
+import {
+	days,
+	FormulaTypes,
+	jewishHolidays,
+	NusachOptions,
+	PrayerTypes
+} from '../utils/enums';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+
+export default function TimeForm({ time, onSuccess, postId }) {
+	const { mutate } = useTimeMutation(time?.id, onSuccess);
 	const [timeData, setTimeData] = useState({
-		...(time || {
-			isCustom: 0
-		})
+		isCustom: 0,
+		post_id: postId,
+		IsAsaraBiteves: 0,
+		IsCholHamoed: 0,
+		IsErevPesach: 0,
+		IsErevShabbos: 0,
+		IsErevTishaBav: 0,
+		IsErevYomKipper: 0,
+		IsErevYomTov: 0,
+		IsFastDay: 0,
+		IsRoshChodesh: 0,
+		IsShabbos: 0,
+		IsShivaAsarBitammuz: 0,
+		IsTaanisEsther: 0,
+		IsTishaBav: 0,
+		IsTuBeshvat: 0,
+		IsTzomGedalia: 0,
+		IsYomKipper: 0,
+		IsYomTov: 0,
+		holidayFilter: 0,
+		notes: '',
+		...(time || {})
 	});
 	const handleChange = (e) => {
 		const { name, value } = e.target;
+		console.log(name, value);
 		setTimeData({
 			...timeData,
 			[name]: value
@@ -24,21 +51,31 @@ export default function TimeForm({ time, onSuccess }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const body = new FormData();
+		const body = new FormData(e.target);
+		const payload = new FormData();
 		for (const key in timeData) {
-			body.append(key, timeData[key]);
+			if (body.has(key) && timeData[key] != undefined) {
+				payload.set(key, timeData[key]);
+			}
 		}
-		await mutate(body);
-		if (onSuccess) {
-			onSuccess();
+		for (const holiday of jewishHolidays) {
+			payload.set(holiday, timeData[holiday]);
 		}
+		if (time && time?.id) {
+			payload.set('id', time.id);
+		}
+		if (postId) {
+			payload.set('post_id', postId);
+		}
+		mutate(payload);
 	};
 
-	function handleChangeDay(value) {
-		const selectedDays = days.filter((e) => value.includes(e));
+	function handleChangeHoliday(event) {
+		const { name, checked } = event.target;
+
 		setTimeData({
 			...timeData,
-			day: selectedDays.join(', ')
+			[name]: checked ? 0 : 1
 		});
 	}
 
@@ -46,25 +83,45 @@ export default function TimeForm({ time, onSuccess }) {
 		() => (timeData.isCustom ? Number(timeData.isCustom) : false),
 		[timeData]
 	);
+
+	const dayOptions = useMemo(
+		() => (timeData.type === 'Daf Yomi' ? [...days, 'Saturday'] : days),
+		[timeData]
+	);
+
+	function handleChangeDay(value) {
+		const selectedDays = dayOptions.filter((e) => value.includes(e));
+		setTimeData({
+			...timeData,
+			day: selectedDays.join(', ')
+		});
+	}
+
 	return (
 		<div>
 			<form
 				onSubmit={handleSubmit}
 				className="grid gap-4 grid-cols-3 p-4 bg-wpBg">
-				<div className="self-end">
-					<Switch
-						value={isCustom}
-						onChange={(val) => {
-							setTimeData({ ...timeData, isCustom: val ? 1 : 0 });
-						}}
-						name="isCustom"
-						offText="Normal"
-						onText="Custom"
-						zIndex="z-1"
-					/>
-				</div>
+				<Select
+					label="Controller"
+					value={timeData.isCustom}
+					onChange={handleChange}
+					name="isCustom">
+					<option value="0">Normal</option>
+					<option value="1">Custom</option>
+				</Select>
 				{isCustom ? (
 					<>
+						<Select
+							onChange={handleChange}
+							value={timeData.formula}
+							required
+							name="formula"
+							label="Formula">
+							{Object.keys(FormulaTypes).map((e) => (
+								<option value={FormulaTypes[e]}>{e}</option>
+							))}
+						</Select>
 						<Input
 							onChange={handleChange}
 							value={timeData.minutes}
@@ -77,16 +134,6 @@ export default function TimeForm({ time, onSuccess }) {
 								Number(timeData.formula) === FormulaTypes.Midday
 							}
 						/>
-						<Select
-							onChange={handleChange}
-							value={timeData.formula}
-							required
-							name="formula"
-							label="Formula">
-							{Object.keys(FormulaTypes).map((e) => (
-								<option value={FormulaTypes[e]}>{e}</option>
-							))}
-						</Select>
 					</>
 				) : (
 					<Input
@@ -110,39 +157,119 @@ export default function TimeForm({ time, onSuccess }) {
 							{e}
 						</option>
 					))}
+					<option value="Daf Yomi">Daf Yomi</option>
 				</Select>
-
+				{!!timeData.type && timeData.type === 'Daf Yomi' && (
+					<Input
+						onChange={handleChange}
+						value={timeData.teacher}
+						name="teacher"
+						label="Maggid Shiur"
+						required
+					/>
+				)}
 				<Select
 					onChange={handleChange}
 					value={timeData.nusach}
-					required
 					name="nusach"
 					label="Nusach">
-					{nusachOptions.map((e) => (
+					<option value="">--</option>
+					{NusachOptions.map((e) => (
 						<option value={e} key={e}>
 							{e}
 						</option>
 					))}
 				</Select>
-				<Select
-					onChange={handleChange}
-					value={timeData.post_id}
-					required
-					name="post_id"
-					label="Location">
-					{(locationQuery.data ?? []).map((e) => (
-						<option key={e.id} value={e.id}>
-							{e.name}
-						</option>
-					))}
-				</Select>
 				<Checkboxes
-					className="row-span-2 row-start-2 col-start-3"
+					className="col-span-3"
 					label="Day"
+					name="day"
 					onChange={handleChangeDay}
 					value={timeData.day}
-					options={days.map((e) => ({ label: e, value: e }))}
+					options={dayOptions.map((e) => ({ label: e, value: e }))}
 				/>
+
+				<div className="flex items-center">
+					<Input
+						name="effectiveOn"
+						type="date"
+						label="Effective On"
+						onChange={handleChange}
+						value={timeData.effectiveOn}
+					/>
+					<button
+						type="button"
+						className="p-2 mt-6"
+						onClick={() =>
+							handleChange({ target: { name: 'effectiveOn', value: '' } })
+						}>
+						<XMarkIcon className="h-6 w-6" />
+					</button>
+				</div>
+				<div className="flex items-center">
+					<Input
+						name="expiresOn"
+						type="date"
+						label="Expires On"
+						onChange={handleChange}
+						value={timeData.expiresOn}
+					/>
+					<button
+						type="button"
+						className=" p-2 mt-6"
+						onClick={() =>
+							handleChange({ target: { name: 'expiresOn', value: '' } })
+						}>
+						<XMarkIcon className="h-6 w-6 font-bold" />
+					</button>
+				</div>
+				<div className="col-span-3">
+					<TextareaControl
+						type="textarea"
+						rows="5"
+						name="notes"
+						label="Notes"
+						onChange={(value) =>
+							handleChange({ target: { value, name: 'notes' } })
+						}
+						value={timeData.notes}
+					/>
+				</div>
+				<div>
+					<Select
+						name="holidayFilter"
+						id="holidayFilter"
+						onChange={handleChange}
+						label="Holiday Filter"
+						value={timeData.holidayFilter}>
+						<option value="1">Hide</option>
+						<option value="0">Show</option>
+					</Select>
+				</div>
+				<fieldset className="col-span-3 grid grid-cols-3 text-center">
+					<legend className="text-xl">
+						This event will
+						<b>
+							{Number(timeData?.holidayFilter) === 1
+								? ' hide every day except '
+								: ' show every day including '}
+						</b>
+						<b>checked</b> holidays.
+					</legend>
+					{jewishHolidays.map((e) => (
+						<Input
+							type="checkbox"
+							key={e + timeData?.id}
+							label={unCamel(e)}
+							id={e}
+							name={e}
+							onChange={handleChangeHoliday}
+							className="my-2 justify-between items-center"
+							checked={Number(timeData[e]) !== 1}
+							value={Number(timeData[e]) !== 1}
+						/>
+					))}
+				</fieldset>
 
 				<div className="col-span-3 flex items-end">
 					<Button type="submit" className=" mt-4 ml-auto   bg-blue-600">
@@ -152,4 +279,9 @@ export default function TimeForm({ time, onSuccess }) {
 			</form>
 		</div>
 	);
+}
+
+function unCamel(string) {
+	string = string.replace('Is', 'On');
+	return string.replace(/[A-Z]/g, ' $&');
 }

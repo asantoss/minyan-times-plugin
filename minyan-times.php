@@ -1,26 +1,30 @@
 <?php
 
-/*
-  Plugin Name: Minyan Times
-  Description: A component that organizes prayer times by location or time block...
-  Version: 0.0.14
-  Author: Alexander Santos
 
-  * Elementor tested up to: 3.5.0
-  * Elementor Pro tested up to: 3.5.0
+
+
+/*
+Plugin Name: Minyan Times
+Description: A component that organizes prayer times by location or time block...
+Version: 0.1.66
+Author: Alexander Santos
+
+A 
+
+* Elementor tested up to: 3.5.0
+* Elementor Pro tested up to: 3.5.0
 */
+$JS_VERSION = '0.1.66';
 
 if (!defined('ABSPATH')) {
   exit;
 }
 
 
-
-/**
- * Register scripts and styles for Elementor test widgets.
- */
-
-
+require_once(__DIR__ . "/includes/zManimService.php");
+require_once(__DIR__ . "/includes/TimesController.php");
+require_once(__DIR__ . "/includes/LocationsController.php");
+require_once(__DIR__ . "/includes/Schema/Location.php");
 
 
 
@@ -44,28 +48,50 @@ class Minyantimes
     wp_localize_script('llc-minyan-times-view-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
     ));
+    wp_register_script('new-relic-telemetry', plugin_dir_url(__FILE__) . 'build/newrelic.js', null);
+
 
     add_action('elementor/widgets/register', [$this, 'register_new_widgets']);
   }
 
   function register_new_widgets($widgets_manager)
   {
-
+    global $JS_VERSION;
     require_once(__DIR__ . "/includes/widgets/MinyanTimesBlock.php");
-    wp_register_style('frontend-style', plugin_dir_url(__FILE__) . 'build/styles.css');
-    wp_register_script('frontend-script', plugin_dir_url(__FILE__) . '/build/frontend.js', ['elementor-frontend', 'wp-element'], '1.0.0', true);
+    require_once(__DIR__ . "/includes/widgets/LocationTimeBlock.php");
+    require_once(__DIR__ . "/includes/widgets/MinyanTimesPostBlock.php");
+    require_once(__DIR__ . "/includes/widgets/DafYomiTimesBlock.php");
+    require_once(__DIR__ . "/includes/widgets/LocationMetaBlock.php");
+    $widgets_manager->register(new \MTP\LocationMetaBlock());
+
+    wp_register_style('frontend-style', plugin_dir_url(__FILE__) . 'build/styles.css', null, $JS_VERSION);
+    wp_register_script('frontend-script', plugin_dir_url(__FILE__) . 'build/frontend.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'new-relic-telemetry'], $JS_VERSION, true);
     wp_localize_script('frontend-script', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
     ));
     $widgets_manager->register(new \MTP\MinyanTimesBlock());
+    $widgets_manager->register(new \MTP\DafTimesBlock());
+
+    wp_register_script('post-block-script', plugin_dir_url(__FILE__) . 'build/PostBlock.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'new-relic-telemetry'], $JS_VERSION, true);
+    wp_localize_script('post-block-script', 'wpApiSettings', array(
+      'root' => esc_url_raw(rest_url()),
+    ));
+
+    $widgets_manager->register(new \MTP\LocationTimeBlock());
+    wp_register_script('time-block-script', plugin_dir_url(__FILE__) . 'build/TimeBlock.js', ['elementor-frontend', 'wp-element', 'wp-blocks', 'wp-components', 'new-relic-telemetry'], $JS_VERSION, true);
+    wp_localize_script('time-block-script', 'wpApiSettings', array(
+      'root' => esc_url_raw(rest_url()),
+    ));
+    $widgets_manager->register(new \MTP\MinyanTimesPostBlock());
   }
 
 
   function renderCallback($attributes)
   {
-
+    global $post;
 
     $attributes["googleKey"] = get_option("mtp_google_api_key");
+    $attributes["postId"] = $post->ID;
 
     ob_start(); ?>
 <div id="mtp-plugin">
@@ -139,10 +165,12 @@ class Minyantimes
 
   function settingsScripts()
   {
+
+    global $JS_VERSION;
     wp_next_scheduled('mtp_cron_hook');
 
-    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css');
-    wp_enqueue_script('minyan-setting-scripts', plugin_dir_url(__FILE__) . 'build/Settings.js', array('wp-element', 'wp-i18n', 'wp-components'));
+    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css', null, $JS_VERSION);
+    wp_enqueue_script('minyan-setting-scripts', plugin_dir_url(__FILE__) . 'build/Settings.js', array('wp-element', 'wp-i18n', 'wp-components'), $JS_VERSION);
     wp_localize_script('minyan-setting-scripts', 'wpApiSettings', array(
       'root' => esc_url_raw(rest_url()),
       'nonce' => wp_create_nonce('wp_rest')
@@ -162,6 +190,7 @@ class Minyantimes
 }
 
 
+
 class MinyanTimesApi
 {
   private $locationsTableName;
@@ -176,65 +205,31 @@ class MinyanTimesApi
     $this->locationsTableName = $wpdb->prefix . "locations";
     register_activation_hook(__FILE__, array($this, 'onActivate'));
     add_action("rest_api_init", array($this, "initRest"));
-    add_action('init', [$this, 'create_location_posts']);
-    add_action('add_meta_boxes', [$this, 'create_location_meta_boxes']);
-    add_action('enqueue_block_editor_assets', function () {
-      wp_enqueue_script(
-        'sidebar-data',
-        plugin_dir_url(__FILE__) . 'build/Sidebar.js',
-        ['wp-element', 'wp-blocks', 'wp-components', 'wp-editor'],
-        '0.1.0',
-        true
-      );
-      wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css');
-    });
+    add_action('enqueue_block_editor_assets', [$this, 'render_location_js']);
+    LocationPost::getInstance();
   }
 
-  function create_location_posts()
-  {
-    register_post_type(
-      'mtp_location',
-      [
-        'labels' => [
-          'name' => __('Locations', 'textdomain'),
-          'singular_name' => __('Location', 'textdomain')
-        ],
-        'public' => true,
-        'has_archive' => true,
-        'publicly_queryable' => true,
-        "show_ui" => true,
-        "show_in_menu" => true,
-        "show_in_rest" => true,
-        "supports" => ['title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'revisions'],
-        "can_export" => true,
-      ]
-    );
-    $metafields = ['address', "city", "state", "zipCode", "placeId", "geometry", "rabbi"];
 
-    foreach ($metafields as $metafield) {
-      // Pass an empty string to register the meta key only on the mtp_location posts.
-      register_post_meta('mtp_location', $metafield, array(
-        'show_in_rest' => true,
-        'type' => 'string',
-        'single' => true,
-        'prepare_callback' => function ($value) {
-          return is_object($value) ? $value : json_decode($value);
-        },
-      ));
-    }
-  }
-  function create_location_meta_boxes()
+  function render_location_js()
   {
+    global $JS_VERSION;
     add_meta_box(
       "location_metadata", // div id containing rendered fields
-      "Location Info", //section Heading
+      "Address Information", //section Heading
       [$this, "render_location_meta"], //callback func to render fields
       "mtp_location", //post type name
       "normal", //Screen location
       'high' // placement
     );
+    wp_enqueue_script(
+      'sidebar-data',
+      plugins_url('/build/Sidebar.js', __FILE__),
+      ['wp-element', 'wp-blocks', 'wp-components', 'wp-editor'],
+      $JS_VERSION,
+      true
+    );
+    wp_enqueue_style('minyan-setting-styles', plugin_dir_url(__FILE__) . 'build/styles.css', $JS_VERSION);
   }
-
 
   function render_location_meta($post)
   {
@@ -252,39 +247,43 @@ class MinyanTimesApi
   function onActivate()
   {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    $locationSql = "CREATE TABLE $this->locationsTableName (
-id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-name varchar(255) NOT NULL DEFAULT '',
-address varchar(255) NOT NULL DEFAULT '',
-city varchar(255) NOT NULL DEFAULT '',
-zipCode varchar(255) NOT NULL DEFAULT '',
-state varchar(255) NOT NULL DEFAULT '',
-lat varchar(255) NOT NULL DEFAULT '',
-lng varchar(255) NOT NULL DEFAULT '',
-place_id text NOT NULL DEFAULT '',
-PRIMARY KEY (id)
-) $this->charset;";
-
-
     $timesSql = "CREATE TABLE $this->timesTableName (
-id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-time varchar(50),
-formula bigint(20),
-minutes bigint(20),
-isCustom boolean,
-day TEXT,
-nusach varchar(255) NOT NULL DEFAULT '',
-type varchar(255),
-locationId bigint(20) unsigned NULL DEFAULT NULL,
-post_id bigint(20) unsigned NULL,
-effectiveOn date,
-expiresOn date,
-isActive boolean,
-PRIMARY KEY (id),
-FOREIGN KEY (locationId) REFERENCES $this->locationsTableName(id),
-FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
-) $this->charset;";
-    dbDelta($locationSql);
+      id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+      time varchar(50),
+      formula bigint(20),
+      minutes bigint(20),
+      isCustom boolean,
+      day TEXT,
+      teacher TEXT,
+      notes TEXT,
+      language TEXT,
+      nusach varchar(255) NULL,
+      type varchar(255),
+      holidayFilter boolean DEFAULT false,
+      locationId bigint(20) unsigned NULL,
+      post_id bigint(20) unsigned NULL,
+      effectiveOn date,
+      expiresOn date,
+      IsAsaraBiteves boolean,
+      IsCholHamoed boolean,
+      IsErevPesach boolean,
+      IsErevShabbos boolean,
+      IsErevTishaBav boolean,
+      IsErevYomKipper boolean,
+      IsErevYomTov boolean,
+      IsFastDay boolean,
+      IsShabbos boolean,
+      IsShivaAsarBitammuz boolean,
+      IsTaanisEsther boolean,
+      IsTishaBav boolean,
+      IsTuBeshvat boolean,
+      IsTzomGedalia boolean,
+      IsYomKipper boolean,
+      IsYomTov boolean,
+      IsRoshChodesh boolean,
+      PRIMARY KEY (id),
+      FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
+      ) $this->charset;";
     dbDelta($timesSql);
   }
 
@@ -297,9 +296,7 @@ FOREIGN KEY (post_id) REFERENCES wp_posts(ID)
   function initRest()
   {
     wp_create_nonce('wp_rest');
-    require_once(__DIR__ . "/includes/zManimService.php");
-    require_once(__DIR__ . "/includes/TimesController.php");
-    require_once(__DIR__ . "/includes/LocationsController.php");
+
     new TimesController();
     new LocationsController();
     new zManimService(get_option("mtp_api_user"), get_option("mtp_api_key"));

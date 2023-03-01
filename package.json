@@ -10,17 +10,18 @@
     "buildwp": "wp-scripts build src/*.js",
     "wpstart": "wp-scripts start src/*.js",
     "start": "npm-run-all --parallel wpstart tailwindwatch",
-    "tailwindbuild": "tailwindcss -i ./src/styles.css -o ./build/styles.css --postcss --minify",
-    "tailwindwatch": "tailwindcss -i ./src/styles.css -o ./build/styles.css --watch --postcss ",
+    "tailwindbuild": "tailwindcss -i ./src/styles.scss -o ./build/styles.css --postcss --minify",
+    "tailwindwatch": "tailwindcss -i ./src/styles.scss -o ./build/styles.css --watch --postcss ",
+    "newrelic": "cp newrelic.js build/ ",
     "packages-update": "wp-scripts packages-update",
     "test": "echo \"0Error: no test specified\" && exit 1",
     "package-release": "mkdir -p wp-minyan-times/build/ && cp build/* wp-minyan-times/build/ && cp -r services index.php block.json wp-minyan-times/",
-    "release": "npm-run-all --sequential buildwp tailwindbuild plugin-zip",
+    "release": "npm-run-all --sequential buildwp tailwindbuild newrelic plugin-zip",
     "plugin-zip": "wp-scripts plugin-zip"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Alexander Santos",
+  "license": "MIT",
   "devDependencies": {
     "@prettier/plugin-php": "^0.19.2",
     "@wordpress/scripts": "^23.3.0",
@@ -39,10 +40,13 @@
     "@tanstack/react-query-devtools": "^4.22.0",
     "axios": "^1.2.2",
     "dayjs": "^1.11.7",
+    "eslint-plugin-jsdoc": "^40.0.0",
     "google-map-react": "^2.2.0",
     "load-script": "^2.0.0",
     "lodash": "^4.17.21",
     "react": "17.0.0",
-    "react-google-autocomplete": "^2.7.2"
+    "react-google-autocomplete": "^2.7.2",
+    "react-helmet": "^6.1.0",
+    "underscore": "^1.13.6"
   }
 }

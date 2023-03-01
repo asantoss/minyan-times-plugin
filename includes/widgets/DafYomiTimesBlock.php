@@ -8,11 +8,11 @@ use Elementor\Widget_Base;
 if (!defined('ABSPATH'))
     exit;
 
-class MinyanTimesBlock extends Widget_Base
+class DafTimesBlock extends Widget_Base
 {
     public function get_name()
     {
-        return 'minyan-times-block';
+        return 'daf-yomi-times-block';
         # code...
     }
 
@@ -35,7 +35,7 @@ class MinyanTimesBlock extends Widget_Base
 
     public function get_title()
     {
-        return 'Minyan Times Block';
+        return 'Daf Times Block';
         # code...
     }
     public function get_icon()
@@ -50,7 +50,7 @@ class MinyanTimesBlock extends Widget_Base
     {
 
 
-        $prayerTypes =   ['Shacharis', 'Mincha', 'Mincha/Maariv', 'Maariv'];
+        $prayerTypes =   ['Daf Yomi'];
         $repeater = new \Elementor\REPEATER();
         $repeater->add_control(
             'url',
@@ -102,10 +102,12 @@ class MinyanTimesBlock extends Widget_Base
         global $post;
         $attributes = $this->get_settings_for_display();
         $attributes["googleKey"] = get_option("mtp_google_api_key");
-        $attributes["city"] = 'Baltimore';
+        $attributes["postId"] = $post->ID;
+        $attributes["isDafYomi"] = true;
+        $attributes['city'] = "Baltimore";
 
 ?>
-<div id="mtp-plugin">
+<div id="mtp-plugin-daf-yomi">
     <pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre>
 </div>
 <?php

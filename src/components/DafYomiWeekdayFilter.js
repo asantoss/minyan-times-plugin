@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import {
 	classNames,
 	firstDayOfWeek,
 	getDateAsString,
-	getNextSetOfDays,
 	startDate
 } from '../utils';
 import { PrayerTimesContext } from '../utils/hooks/usePrayerTimesReducer';
@@ -16,26 +15,25 @@ const dtFormat = new Intl.DateTimeFormat('en-US', {
 	day: '2-digit',
 	weekday: 'short'
 });
-export default function WeekdayFilter() {
+export function getDafYomiSetOfDays(startDate, daysToAdd) {
+	const outputDates = [startDate];
+	const start = dayjs(startDate);
+	for (let i = 1; i <= daysToAdd; i++) {
+		const target = start.add(i, 'days');
+		outputDates.push(target.toDate());
+	}
+	return outputDates;
+}
+export default function DafYomiWeekdayFilter() {
 	const [state, dispatch] = useContext(PrayerTimesContext);
 	const formEl = useRef();
 	function handleChangeDate(e) {
 		const { value } = e.target;
 		const date = dayjs(value).toDate();
-		var day = date.getUTCDay();
-		if ([6].includes(day)) {
-			e.target.setCustomValidity('Saturdays are not available.');
-			if (formEl.current) {
-				formEl.current.reportValidity();
-			}
-			return;
-		} else {
-			e.target.setCustomValidity('');
-		}
 		const newStartOfWeek = firstDayOfWeek(date);
 		const currentStartOfWeek = firstDayOfWeek(state.date);
 		if (!dayjs(currentStartOfWeek).isSame(dayjs(newStartOfWeek))) {
-			const newWeek = getNextSetOfDays(newStartOfWeek, 6);
+			const newWeek = getDafYomiSetOfDays(newStartOfWeek, 6);
 			dispatch({ type: 'SET_WEEK', payload: newWeek });
 		}
 		dispatch({ type: 'SET_DATE', payload: date });

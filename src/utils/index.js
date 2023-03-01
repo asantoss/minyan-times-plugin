@@ -7,10 +7,10 @@ import {
 	ViewTypes,
 	formulaLabels,
 	FormulaTypes,
-	SKIP_DAYS
+	SKIP_DAYS,
+	jewishHolidays
 } from './enums';
-
-import { Client } from '@googlemaps/google-maps-services-js';
+import Geocode from './Geocode';
 import { useQueries } from '@tanstack/react-query';
 
 dayjs.extend(isSameOrAfter);
@@ -51,6 +51,60 @@ export function useLocationQuery(props) {
 		}
 	);
 }
+export function useCitiesQuery(props) {
+	return useQuery({
+		queryKey: ['cities'],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/cities');
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
+			}
+		}
+	});
+}
+export function useShulQuery({ city }) {
+	return useQuery({
+		queryKey: ['shuls', city],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/shuls', { params: { city } });
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
+			}
+		}
+	});
+}
+export function useRabbiQuery({ city }) {
+	return useQuery({
+		queryKey: ['rabbis', city],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/rabbis', { params: { city } });
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
+			}
+		}
+	});
+}
+export function useTeachersQuery({ city }) {
+	return useQuery({
+		queryKey: ['teachers', city],
+		queryFn: async () => {
+			try {
+				const response = await axiosClient.get('/teachers', {
+					params: { city }
+				});
+				return response.data;
+			} catch (error) {
+				throw new Error('Network response was not ok');
+			}
+		}
+	});
+}
 
 export function useDeleteTime(props) {
 	return useMutation(
@@ -87,14 +141,17 @@ export function useDeleteLocation() {
 	});
 }
 
-export function useTimesQuery(props) {
+export function useTimesQuery(postId) {
 	return useQuery(
 		{
-			queryKey: ['times'],
-			queryFn: async () => {
+			queryKey: ['times', postId],
+			queryFn: async ({ queryKey }) => {
 				try {
-					let url = '/times';
-					const response = await axiosClient.get(url);
+					const [_, postId] = queryKey;
+					const params = {
+						postId
+					};
+					const response = await axiosClient.get('/location-times', { params });
 					return response.data;
 				} catch (error) {
 					throw new Error('Network response was not ok');
@@ -110,7 +167,12 @@ export function useFilteredTimesQuery({
 	nusach,
 	sortBy,
 	rabbi,
-	shul
+	shul,
+	date,
+	postId,
+	type,
+	teacher,
+	zManTime = null
 }) {
 	return useQuery(
 		{
@@ -121,20 +183,58 @@ export function useFilteredTimesQuery({
 				nusach,
 				sortBy === ViewTypes.TIME ? 'time' : 'location',
 				rabbi,
-				shul
+				shul,
+				date,
+				postId,
+				type,
+				teacher,
+				zManTime
 			],
 			queryFn: async ({ queryKey }) => {
 				try {
 					let url = '/times';
-					const [_, city, day, nusach, sortBy, rabbi] = queryKey;
-					const params = {
+					const [
+						_,
 						city,
 						day,
 						nusach,
 						sortBy,
 						rabbi,
-						shul
+						shul,
+						date,
+						postId,
+						type,
+						teacher,
+						zManTime
+					] = queryKey;
+					let params = {
+						city,
+						day,
+						nusach,
+						sortBy,
+						rabbi,
+						shul,
+						date: dayjs(date).format('YYYY/MM/DD'),
+						type,
+						teacher
 					};
+					if (postId) {
+						params = {
+							day,
+							nusach,
+							sortBy,
+							date: dayjs(date).format('YYYY/MM/DD'),
+							postId,
+							type
+						};
+					}
+					if (zManTime != null) {
+						const holidays = {};
+						for (const key of jewishHolidays) {
+							holidays[key] = zManTime[key];
+						}
+						params.holidays = holidays;
+					}
 					const response = await axiosClient.get(url, { params });
 					return response.data;
 				} catch (error) {
@@ -143,12 +243,17 @@ export function useFilteredTimesQuery({
 			}
 		},
 		{
-			cacheTime: 0
+			cacheTime: 0,
+			refetchOnWindowFocus: true,
+			enabled: zManTime != null
 		}
 	);
 }
+export function useTimeQueryData(key) {
+	return queryClient.getQueriesData(key);
+}
 
-export function useTimeMutation(id) {
+export function useTimeMutation(id, onSuccess) {
 	return useMutation({
 		mutationFn: async (body) => {
 			try {
@@ -165,6 +270,12 @@ export function useTimeMutation(id) {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: 'times' });
+			onSuccess();
+		},
+		onError: () => {
+			window.alert(
+				'An error occurred with your submission. Please contact support.'
+			);
 		}
 	});
 }
@@ -189,7 +300,35 @@ export function useLocationMutation(id) {
 	});
 }
 
-export function useZmanimApi({ dates, postalCode }) {
+export function useZmanimGPSApi({ dates, lat, lng, enabled }) {
+	const results = useQueries({
+		queries: dates.map((date) => ({
+			queryKey: ['zManim', getDateAsString(date), lat, lng],
+			queryFn: () => fetchDate({ date: getDateAsString(date), lat, lng }),
+			staleTime: Infinity,
+			cacheTime: Infinity,
+			enabled
+		}))
+	});
+	async function fetchDate({ date, lat, lng }) {
+		if ((lat, lng)) {
+			const response = await axiosClient.get('/zManim/gps', {
+				params: { date, lat, lng }
+			});
+			return response.data;
+		} else {
+			throw new Error('Postal code is required');
+		}
+	}
+	return results;
+}
+export function useZmanimGPSData(date, lat, lng) {
+	const key = ['zManim', getDateAsString(date), lat, lng];
+	const data = queryClient.getQueryData(key);
+	return data;
+}
+
+export function useZmanimPostalCodeApi({ dates, postalCode }) {
 	const results = useQueries({
 		queries: dates.map((date) => ({
 			queryKey: ['zManim', getDateAsString(date), postalCode],
@@ -211,27 +350,39 @@ export function useZmanimApi({ dates, postalCode }) {
 	}
 	return results;
 }
-function getDateAsString(date) {
-	return `${date.getFullYear()}-${(date.getMonth() + 1)
-		.toString()
-		.padStart(2, '0')}-${date.getDate()}`;
-}
-function firstDayOfWeek(date) {
-	const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-	return new Date(date.setDate(diff));
-}
 
+export function useZmanimData(date, postalCode) {
+	const key = ['zManim', getDateAsString(date), postalCode];
+	const data = queryClient.getQueryData(key);
+	return data;
+}
+export function getDateAsString(date) {
+	return dayjs(date).format('YYYY-MM-DD');
+}
+export function firstDayOfWeek(dateObject, firstDayOfWeekIndex = 0) {
+	const dayOfWeek = dateObject.getDay(),
+		firstDayOfWeek = new Date(dateObject),
+		diff =
+			dayOfWeek >= firstDayOfWeekIndex
+				? dayOfWeek - firstDayOfWeekIndex
+				: 6 - dayOfWeek;
+
+	firstDayOfWeek.setDate(dateObject.getDate() - diff);
+	firstDayOfWeek.setHours(0, 0, 0, 0);
+
+	return firstDayOfWeek;
+}
 export function getNextSetOfDays(startDate, daysToAdd) {
 	const outputDates = [startDate];
+	const start = dayjs(startDate);
 	for (let i = 1; i <= daysToAdd; i++) {
-		const target = new Date();
-		target.setDate(startDate.getDate() + i);
+		const target = start.add(i, 'days');
 		//Will always skip saturdays
-		const day = target.getDay();
+		const day = target.day();
 		if (SKIP_DAYS.includes(day)) {
 			continue;
 		}
-		outputDates.push(target);
+		outputDates.push(target.toDate());
 	}
 	return outputDates;
 }
@@ -490,8 +641,34 @@ export function capitalize(str) {
 	return str.charAt(0).toUpperCase() + lower.slice(1);
 }
 
-let client = new Client({});
+export function useCityGeocodeData(city) {
+	return queryClient.getQueryData(['gMap', city]);
+}
+export function getCityGeocode({ googleKey, city, enabled }) {
+	return useQuery(
+		['gMap', city],
+		async ({ queryKey }) => {
+			const [_, city] = queryKey;
+			if (city.trim()) {
+				Geocode.setApiKey(googleKey);
+				Geocode.setLocationType('ROOFTOP');
 
+				const response = await Geocode.fromCity(city);
+				if (response.status === 'OK') {
+					const { results } = response;
+					if (results?.length > 0) {
+						return results[0]?.geometry?.location;
+					}
+				}
+				return response.data;
+			}
+			return {};
+		},
+		{
+			enabled
+		}
+	);
+}
 export function useGeocodeApi({ googleKey, location, enabled }) {
 	const address = location
 		? `${location.address || ''} ${location.city || ''} ${
@@ -503,14 +680,11 @@ export function useGeocodeApi({ googleKey, location, enabled }) {
 		async ({ queryKey }) => {
 			const [_, address] = queryKey;
 			if (address.trim()) {
-				const response = await client.geocode({
-					params: {
-						address: address.trim(),
-						key: googleKey,
-						components: { country: 'us' }
-					}
-				});
-				return response.data;
+				Geocode.setApiKey(googleKey);
+				Geocode.setLocationType('ROOFTOP');
+
+				const response = await Geocode.fromAddress(address.trim());
+				return response;
 			}
 			return {};
 		},
@@ -535,4 +709,10 @@ export function getDateFromTimeString(time) {
 	const day = dayjs(dateString, 'MM/DD/YYYY hh mm a');
 
 	return day;
+}
+
+export const startDate = new Date();
+if (startDate.getDay() === 6) {
+	startDate.setDate(startDate.getDate() + 1);
+	//Skip a date on Saturdays
 }

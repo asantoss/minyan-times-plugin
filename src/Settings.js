@@ -1,19 +1,17 @@
 import React from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Tab } from '@headlessui/react';
 import Modal from './components/Modal';
 import Button from './components/Button';
-import LocationsSettings from './components/LocationsSettings';
 import TimeSettings from './components/TimeSettings';
 import TimeForm from './components/TimeForm';
 import {
-	classNames,
+	axiosClient,
 	exportToCsv,
 	formatTime,
 	queryClient,
 	useTimesQuery
 } from './utils';
-import LocationForm from './components/LocationForm';
+import ErrorBoundary from './components/ErrorBoundary';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const root = document.getElementById('mtp-plugin');
@@ -23,9 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			const data = JSON.parse(root.querySelector('pre').innerText);
 			ReactDOM.render(
 				<div className="mtp-block">
-					<QueryClientProvider client={queryClient}>
-						<SettingsPage {...data} />
-					</QueryClientProvider>
+					<ErrorBoundary>
+						<QueryClientProvider client={queryClient}>
+							<SettingsPage {...data} />
+						</QueryClientProvider>
+					</ErrorBoundary>
 				</div>,
 				root
 			);
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-function SettingsPage({ googleKey }) {
+function SettingsPage() {
 	const timesQuery = useTimesQuery();
 	function handleTimeExport() {
 		const today = new Date();
@@ -51,6 +51,9 @@ function SettingsPage({ googleKey }) {
 			};
 		});
 		exportToCsv(fileName, data);
+	}
+	function handleMigration() {
+		axiosClient.post('/migrate');
 	}
 
 	return (
@@ -73,20 +76,20 @@ function SettingsPage({ googleKey }) {
 					<span className="ml-auto mt-2 text-right pr-4">
 						<Modal
 							title="Add Time"
-							button={({ setIsOpen }) => (
+							button={() => (
 								<>
-									<Button
-										onClick={() => setIsOpen(true)}
-										className="rounded-md bg-blue-700 ml-auto my-2 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-										Add Time
-									</Button>
-									{!timesQuery.isLoadn && (
+									{!timesQuery.isLoading && (
 										<Button
 											onClick={handleTimeExport}
 											className="rounded-md bg-blue-700 my-2 ml-4 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
 											Export To CSV
 										</Button>
 									)}
+									{/* <Button
+										onClick={handleMigration}
+										className="rounded-md bg-blue-700 my-2 ml-4 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+										Migrate
+									</Button> */}
 								</>
 							)}>
 							{({ setIsOpen }) => (

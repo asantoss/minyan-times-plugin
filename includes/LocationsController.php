@@ -18,71 +18,195 @@ class LocationsController
                 }
             )
         );
+        register_rest_route(
+            "minyan-times/v1",
+            "location-times",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_location_times'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
+            "cities",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_cities'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
+            "shuls",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_shuls'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+        register_rest_route(
+            "minyan-times/v1",
+            "rabbis",
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_rabbis'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
+
+        register_rest_route(
+            "minyan-times/v1",
+            "migrate",
+            array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'callback' => array($this, 'migrate_to_post'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            )
+        );
     }
-    function add_query_meta($wp_query = "")
+    function migrate_to_post()
     {
+        global $wpdb;
 
-        //return In case if wp_query is empty or postmeta already exist
-        if ((empty($wp_query)) || (!empty($wp_query) && !empty($wp_query->posts) && isset($wp_query->posts[0]->postmeta))) {
-            return $wp_query;
-        }
+        $locationSql = "SELECT Id, name, address, city, zipCode, state FROM wp_locations";
 
-        $sql = $postmeta = '';
-        $post_ids = array();
-        $post_ids = wp_list_pluck($wp_query->posts, 'ID');
-        if (!empty($post_ids)) {
-            global $wpdb;
-            $post_ids = implode(',', $post_ids);
-            $sql = "SELECT meta_key, meta_value, post_id FROM $wpdb->postmeta WHERE post_id IN ($post_ids)";
-            $postmeta = $wpdb->get_results($sql, OBJECT);
-            if (!empty($postmeta)) {
-                foreach ($wp_query->posts as $pKey => $pVal) {
-                    $wp_query->posts[$pKey]->postmeta = new StdClass();
-                    foreach ($postmeta as $mKey => $mVal) {
-                        if ($postmeta[$mKey]->post_id == $wp_query->posts[$pKey]->ID) {
-                            $newmeta[$mKey] = new stdClass();
-                            $newmeta[$mKey]->meta_key = $postmeta[$mKey]->meta_key;
-                            $newmeta[$mKey]->meta_value = maybe_unserialize($postmeta[$mKey]->meta_value);
-                            $wp_query->posts[$pKey]->postmeta = (object) array_merge((array) $wp_query->posts[$pKey]->postmeta, (array) $newmeta);
-                            unset($newmeta);
-                        }
+
+        $results = $wpdb->get_results($locationSql);
+
+
+        foreach ($results as $location) {
+            $post_id = wp_insert_post(array(
+                'post_type' => 'mtp_location',
+                'post_title' => $location->name,
+                'post_status' => 'publish'
+            ));
+            if ($post_id) {
+                // insert post meta
+                add_post_meta($post_id, 'address', $location->address);
+                add_post_meta($post_id, 'city', $location->city);
+                add_post_meta($post_id, 'zipCode', $location->zipCode);
+                $time_records = $wpdb->get_results($wpdb->prepare("SELECT Id FROM " . $this->timesTableName . " WHERE locationId = %s", $location->Id));
+                if (count($time_records) > 0) {
+                    foreach ($time_records as $record) {
+                        $wpdb->update(
+                            $this->timesTableName,
+                            array(
+                                "post_id" => (int)$post_id
+                            ),
+                            array("id" => $record->Id),
+
+                        );
                     }
                 }
             }
-            unset($post_ids);
-            unset($sql);
-            unset($postmeta);
         }
-        return $wp_query;
+    }
+
+    public function get_cities()
+    {
+        global $wpdb;
+        $sql = $wpdb->prepare('SELECT DISTINCT cpm.meta_value as city FROM wp_posts l
+        INNER JOIN wp_postmeta  cpm on l.ID = cpm.post_id AND cpm.meta_key = %s
+        WHERE  l.post_type= %s AND cpm.meta_key IS NOT NULL ', ['city', 'mtp_location']);
+        $results = $wpdb->get_results($sql);
+        $cities = array_map(function ($record) {
+            return $record->city;
+        }, $results);
+        return $cities;
+    }
+
+    public function get_rabbis($request)
+    {
+        global $wpdb;
+        $city = $request->get_param("city");
+
+        $sql = $wpdb->prepare('SELECT DISTINCT  pm.meta_value as rabbi FROM wp_posts l
+        INNER JOIN wp_postmeta  pm on l.ID = pm.post_id AND pm.meta_key = %s
+        INNER JOIN wp_postmeta  cpm on l.ID = cpm.post_id AND cpm.meta_key = %s
+        WHERE  l.post_type = %s AND NULLIF(pm.meta_value, \'\') IS NOT NULL ', ['rabbi', 'city', 'mtp_location']);
+        if ($city) {
+            $search_text = "%" . $city . "%";
+            $sql = $wpdb->prepare($sql . " AND LOWER( cpm.meta_value ) LIKE  LOWER (%s)", $search_text);
+        }
+        $results = $wpdb->get_results($sql);
+
+        $rabbis = array_map(function ($record) {
+            return $record->rabbi;
+        }, $results);
+
+        return $rabbis;
+    }
+
+    public function get_shuls($request)
+    {
+        global $wpdb;
+        $city = $request->get_param("city");
+
+        $sql = $wpdb->prepare('SELECT DISTINCT post_title FROM wp_posts l
+        INNER JOIN wp_postmeta  cpm on l.ID = cpm.post_id AND cpm.meta_key = %s
+        WHERE  l.post_type= %s AND cpm.meta_key IS NOT NULL ', ['city', 'mtp_location']);
+        if ($city) {
+            $search_text = "%" . $city . "%";
+            $sql = $wpdb->prepare($sql . " AND LOWER( cpm.meta_value ) LIKE  LOWER (%s)", $search_text);
+        }
+        $results = $wpdb->get_results($sql);
+
+        $shuls = array_map(function ($record) {
+            return $record->post_title;
+        }, $results);
+
+        return $shuls;
     }
     function get_location_posts()
     {
-
-        $wp_query = new WP_Query([
-            'post_type' => 'mtp_location'
-        ]);
-
-        $posts = $wp_query->get_posts();
-        $response = [];
+        global $wpdb;
+        $sql = $wpdb->prepare('SELECT ID, post_title FROM wp_posts WHERE post_type = %s', 'mtp_location');
 
 
+        $posts = $wpdb->get_results($sql);
         foreach ($posts as $post) {
-            $location = [
-                "id" => $post->ID,
-                "name" => $post->post_title,
-                "address" => get_post_meta($post->ID, 'address', true),
-                "rabbi" => get_post_meta($post->ID, 'rabbi', true),
-                "city" => get_post_meta($post->ID, 'city', true),
-                "state" => get_post_meta($post->ID, 'state', true),
-                "zipCode" => get_post_meta($post->ID, 'zipCode', true),
-                "geometry" => get_post_meta($post->ID, 'geometry', true),
-            ];
-            array_push($response, $location);
+            $post->address = get_post_meta($post->ID, 'address', true);
+            $post->rabbi = get_post_meta($post->ID, 'rabbi', true);
+            $post->city = get_post_meta($post->ID, 'city', true);
+            $post->state = get_post_meta($post->ID, 'state', true);
+            $post->zipCode = get_post_meta($post->ID, 'zipCode', true);
+            $post->geometry = get_post_meta($post->ID, 'geometry', true);
             # code...
         }
-
-        return wp_send_json($response);
+        return wp_send_json($posts);
     }
+    function get_location_times($request)
+    {
+        global $wpdb;
+        $post_id = $request->get_param("postId");
+        $sql = "SELECT t.id, t.post_id, holidayFilter, teacher,notes, post_title as location,
+        IsAsaraBiteves, IsCholHamoed ,IsErevPesach ,IsErevShabbos , IsErevTishaBav ,
+        IsErevYomKipper ,IsErevYomTov ,IsFastDay ,IsShabbos ,IsShivaAsarBitammuz ,IsTaanisEsther ,
+        IsTishaBav ,IsTuBeshvat ,IsTzomGedalia ,IsYomKipper ,IsYomTov, IsRoshChodesh,
+        locationId, effectiveOn, expiresOn, cpm.meta_value as city, time,  isCustom, formula, minutes, type, nusach, day 
+         FROM " . $this->timesTableName .
+            " t LEFT JOIN wp_posts l ON t.post_id = l.ID
+                LEFT JOIN wp_postmeta cpm on t.post_id = cpm.post_id AND cpm.meta_key = 'city'
+                LEFT JOIN wp_postmeta rpm on t.post_id = rpm.post_id AND rpm.meta_key = 'rabbi'
+                WHERE 1=1
+                ";
+        if ($post_id) {
+            $sql = $wpdb->prepare($sql . " AND t.post_id =  %s ", $post_id);
+        }
+        return $wpdb->get_results($sql);
+    }
+
 
 
     function perm_callback()
